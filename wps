@@ -1,0 +1,37 @@
+&share
+ wrf_core = 'ARW',
+ max_dom = 4,
+ start_date = '2009-12-12_00:00:00', '2009-12-12_00:00:00', '2009-12-
+12_00:00:00', '2009-12-12_00:00:00',
+ end_date = '2009-12-16_00:00:00', '2009-12-16_00:00:00', '2009-12-
+16_00:00:00', '2009-12-16_00:00:00',
+ interval_seconds = 21600
+ io_form_geogrid = 2,
+/
+&geogrid
+ parent_id = 1, 1, 2, 3,
+ parent_grid_ratio = 1, 3, 3, 3,
+ i_parent_start = 1, 92, 30, 140,
+ j_parent_start = 1, 31, 20, 90,
+ e_we = 160, 199, 274, 259,
+ e_sn = 130, 199, 265, 259,
+ geog_data_res = '10m', '5m', '2m', '30s'
+ dx = 27000,
+ dy = 27000,
+ map_proj = 'lambert',
+ map_proj = 'lambert',
+ ref_lat = -41.365,
+ ref_lon = 157.922,
+ truelat1 = -41.365,
+ truelat2 = -41.365,
+ stand_lon = 158.0,
+geog_data_path = '/usr/local/pkg/WPS/geog/'
+/
+&ungrib
+ out_format = 'WPS',
+ prefix = 'FILE',
+/
+&metgrid
+ fg_name = 'FILE'
+ io_form_metgrid = 2,
+/
