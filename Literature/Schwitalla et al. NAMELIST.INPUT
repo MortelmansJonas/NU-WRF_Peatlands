@@ -1,0 +1,212 @@
+ &time_control
+ run_days                            = 0,
+ run_hours                           = 0,
+ run_minutes                         = 0,
+ run_seconds                         = 0
+ start_year                          = 2015, 2012, 2012, 2012,
+ start_month                         = 02, 08, 08, 08,
+ start_day                           = 01, 19, 19, 19,
+ start_hour                          = 00, 12, 12, 12,
+ start_minute                        = 00, 00, 00, 00,
+ start_second                        = 00, 00, 00, 00,
+ end_year                            = 2015, 2012, 2012, 2012,
+ end_month                           = 07, 08, 08, 08,
+ end_day                             = 01, 19, 19, 19,
+ end_hour                            = 06, 18, 18, 18,
+ end_minute                          = 00, 00, 00, 00,
+ end_second                          = 00, 00, 00, 00,
+ interval_seconds                    = 21600,
+ input_from_file                     = .true., .true., .true., .true.,
+ history_interval                    = 30, 60, 15, 60,
+! history_interval_s                  = 10
+ frames_per_outfile                  = 1,1000,24,1000,
+ restart                             = .false.,
+ restart_interval                    = 1440,
+ io_form_history                     = 11,
+ io_form_restart                     = 11,
+ io_form_input                       = 11,
+ io_form_boundary                    = 11,
+ io_form_auxinput1                   = 102, ! must be 102 for multiple met_em, only for real.exe, for wrf.exe should be 11 or 2?!!?
+ debug_level                         = 0,
+ cycling                             = .false.,
+ use_netcdf_classic = .true.
+ diag_print=2,
+ auxhist2_outname='afwa_d<domain>_<date>'
+ io_form_auxhist2 = 11,
+ auxhist2_interval =30 ,
+ frames_per_auxhist2 = 1,
+ auxhist23_outname='wrfpress_d<domain>_<date>'
+ io_form_auxhist23 = 11
+ auxhist23_interval = 30
+ frames_per_auxhist23 = 1
+ nwp_diagnostics = 1
+ nocolons= .true.
+ io_form_auxinput4                   = 11
+ auxinput4_inname                    = "wrflowinp_d<domain>"
+ auxinput4_interval                  = 360
+ /
+
+&diags
+p_lev_diags                         = 1
+ num_press_levels                    = 8
+ press_levels                        = 92500, 85000, 70000, 50000, 30000, 20000, 10000,5000
+ use_tot_or_hyd_p                    = 2
+/
+
+
+ &domains
+ time_step                           = 10,
+ time_step_fract_num                 = 0,
+ time_step_fract_den                 = 1,
+ max_dom                             = 1,
+ e_we                                = 12000, 250, 367, 160,
+ e_sn                                = 4060, 271, 271, 160,
+ num_metgrid_levels                  = 138,
+p_top_requested                      = 1000.
+!eta_levels   = 1.000, 0.9975, 0.995, 0.9926, 0.9901, 
+!                0.9876, 0.9852, 0.9827, 0.9802, 0.9778, 
+!                0.9751, 0.9721, 0.9689, 0.9652, 0.9612, 
+!                0.9566, 0.9516, 0.9459, 0.9395, 0.9324, 
+!                0.9244, 0.9154, 0.9054, 0.8942, 0.8817, 
+!                0.8678, 0.8523, 0.8353, 0.8166, 0.7962, 
+!                0.774, 0.7501, 0.7244, 0.697, 0.6682, 
+!                0.6379, 0.6065, 0.574, 0.5409, 0.5074, 
+!                0.4736, 0.44, 0.4068, 0.3742, 0.3425, 
+!                0.3118, 0.2823, 0.2541, 0.2274, 0.2022, 
+!                0.1761, 0.1541, 0.134, 0.1157, 0.099, 
+!                0.0839, 0.0703, 0.0579, 0.0468, 0.0368, 
+!                0.0278, 0.0196, 0.0124, 0.0058, 0.000
+! e_vert                              = 65
+ eta_levels = 1.000,0.997,0.993,0.989,0.983,0.972,0.962,0.952,0.942,0.932,0.917,0.903,0.889,0.875,0.852,0.826,0.799,0.771,0.748,0.725,0.7,0.678,0.653,0.628,0.590,0.557,0.515,0.480,0.445,0.410,0.375,0.340,0.305,0.280,0.25,0.219,0.191,0.174,0.157,0.142,0.128,0.114,0.102,0.091,0.080,0.070,0.061,0.052,0.044,0.037,0.030,0.024,0.018,0.013,0.008,0.003,0.000,
+ e_vert                              = 57, 37, 37, 50, 
+ dx                                  = 3335.324,, 3000, 1000, 333.333,
+ dy                                  = 3335.324,, 3000, 1000, 333.333,
+ grid_id                             = 1, 2, 3, 4,
+ parent_id                           = 1, 1, 2, 3,
+ i_parent_start                      = 1, 135, 41, 172 ,
+ j_parent_start                      = 1, 82, 141, 132,
+ parent_grid_ratio                   = 1,  3,  3,  3,
+ parent_time_step_ratio              = 1, 3, 3, 3,
+ feedback                            = 0,
+ smooth_option                       = 0,
+ use_surface                         = .false.,
+ /
+
+&physics
+ sst_update                          = 1, ! is necessary for version 3.3
+ mp_physics                          = 10, 10, 10, 10,
+! mp_physics_ad                       = 99
+ ra_lw_physics                       = 4, 1, 1, 1,
+ ra_sw_physics                       = 4, 1, 1, 1,
+ radt                                = 3, 5, 5, 9,
+ sf_sfclay_physics                   = 1, 1, 1, 1,
+ sf_surface_physics                  = 4, 2, 2, 2,
+ bl_pbl_physics                      = 1, 1, 1, 1,
+ YSU_TOPDOWN_PBLMIX      =           1,
+ bldt                                = 0, 0, 0, 0,
+ topo_wind                           = 2,1,1,1,
+ cu_physics                          = 0, 0, 0, 0,
+ cudt                                = 5, 0, 0, 0,
+ isfflx                              = 1,
+ ifsnow                              = 1,
+ icloud                              = 1,
+ surface_input_source                = 1,
+ num_soil_layers                     = 4,
+ mp_zero_out                         = 0,
+ sf_urban_physics                    = 0,
+ maxiens                             = 1,
+ maxens                              = 3,
+ maxens2                             = 3,
+ maxens3                             = 16,
+ ensdim                              = 144,
+ slope_rad                           = 1,
+ topo_shading                        = 1,
+ num_land_cat                        = 22,
+ iz0tlnd                             = 1,
+ shcu_physics                        = 3,3,3,3
+ do_radar_ref = 0
+ sf_lake_physics = 0
+ o3input         = 2
+ aer_opt= 2
+ usemonalb = .true.
+ rdlai2d = .true.
+ hail_opt = 1
+ seaice_threshold = 271.
+ seaice_thickness_default = 1.
+ /
+
+ &noah_mp
+ dveg=3
+ opt_crs=1
+ opt_sfc=1
+ opt_btr=2
+ opt_run=3
+ opt_frz=1
+ opt_inf=2
+ opt_rad=3
+ opt_alb=1
+ opt_snf=1
+ opt_tbot=2
+ opt_stc=1 
+/
+&afwa
+afwa_diag_opt=0
+afwa_ptype_opt=1
+afwa_vil_opt=1
+afwa_radar_opt=1
+afwa_severe_opt=1
+afwa_icing_opt=1
+afwa_vis_opt=1
+afwa_cloud_opt=1
+afwa_therm_opt=1
+afwa_turb_opt=1
+afwa_buoy_opt=1
+afwa_hailcast_opt=0
+!afwa_bad_data_check=0
+/
+
+
+ &fdda
+  grid_fdda                           = 0,     0,     0,
+ /
+
+ &dynamics
+ w_damping                           = 1,
+ gwd_opt                             = 0,
+ diff_opt                            = 2,
+ km_opt                              = 4,
+ diff_6th_opt                        = 2,      0,      0,
+ diff_6th_factor                     = 0.12,   0.12,   0.12,
+ base_temp                           = 290.
+ damp_opt                            = 3,
+ zdamp                               = 5000.,  5000.,  5000.,
+ dampcoef                            = 0.2,    0.2,    0.2
+ khdif                               = 0,      0,      0,
+ kvdif                               = 0,      0,      0,
+ non_hydrostatic                     = .true., .true., .true.,
+ moist_adv_opt                       = 1,      1,      1,
+ scalar_adv_opt                      = 1,      1,      1,
+ use_input_w                         = .true.
+! time_step_sound = 4
+ epssm = 0.5
+ base_lapse_strat                    = -11.
+/
+
+
+ &bdy_control
+ spec_bdy_width                      = 5,
+ spec_zone                           = 1,
+ relax_zone                          = 4,
+ !spec_exp = 0.33
+ specified                           = .true., .false.,.false., .false.,
+ nested                              = .false., .true., .true., .true.,
+ periodic_x                          = .true. ! for channel simulations set to true!!!!
+ /
+
+ &grib2
+ /
+
+&namelist_quilt
+ nio_tasks_per_group = 0,
+ nio_groups = 1,
+ /
