@@ -1,3 +1,7 @@
+# WARNING
+These files are regularly updated to fit my MSC thesis. The following information is from the original example. 
+Underneath you can find the changes in these files compared to the original.
+
 NOAHMP-3.6 MERRA2 Forcing Testcase
 
 This is a test case that uses:
@@ -11,3 +15,19 @@ This is a test case that uses:
   (f) Use MERRA2 MET data, daily average air temperature for small water
       bodies and SST for oceans and great lakes.
 
+ADAPTATIONS
+- in all files: the start and end date of the experiment (currently set to 1 july 2005 - 2 july 2005, but needs further adjustment)
+- merra2wrf.reg
+ 
+  MERRA_DATA=('ls staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07')
+ 
+ - lis.config.wrf & lis.config.coldstart
+  
+  MERRA2 forcing directory: staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07
+  
+  - namelist.input.wrf & namelist.input.real
+  
+    mp_physics = 56 (to fit the Goddard microphysics scheme including 4ICE)
+    bl_pbl_physics = 2 (to fit the MYJ scheme)
+    cu_physics = 3 (to fit the GD cumulus ensemble)
+    
