@@ -26,15 +26,15 @@ Output model restart files:                1
 Output data format:                        netcdf
 Output naming style:                       "3 level hierarchy"
 Start mode:                                coldstart
-Starting year:                             2007 
-Starting month:                            1
-Starting day:                              16
+Starting year:                             2005 
+Starting month:                            7
+Starting day:                              01
 Starting hour:                             12
 Starting minute:                           0
 Starting second:                           0
-Ending year:                               2007
-Ending month:                              1
-Ending day:                                20 
+Ending year:                               2005
+Ending month:                              7
+Ending day:                                01 
 Ending hour:                               12
 Ending minute:                             0
 Ending second:                             0
@@ -224,9 +224,9 @@ Irrigation scheme: none none none
 # Model output configuration
 #------------------------------------------------------------------------------
 
-Output start year:     2007
-Output start month:    01
-Output start day:      18
+Output start year:     2005
+Output start month:    07
+Output start day:      01
 Output start hour:     12
 Output start minutes:   0
 Output start seconds:   0
