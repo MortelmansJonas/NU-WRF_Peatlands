@@ -26,15 +26,15 @@ Output model restart files:                1
 Output data format:                        netcdf
 Output naming style:                       "3 level hierarchy"
 Start mode:                                restart
-Starting year:                             2007
-Starting month:                            1
-Starting day:                              19
+Starting year:                             2005
+Starting month:                            7
+Starting day:                              01
 Starting hour:                             12
 Starting minute:                           0
 Starting second:                           0
-Ending year:                               2007
-Ending month:                              1
-Ending day:                                20
+Ending year:                               2005
+Ending month:                              7
+Ending day:                                02
 Ending hour:                               12
 Ending minute:                             0
 Ending second:                             0
