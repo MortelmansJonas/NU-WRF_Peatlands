@@ -9,7 +9,7 @@ cd $RUNDIR || exit 1
 
 if [ -z ${SBATCH_JOB_ID+x} ]; then
    echo 'Using pre-staged data'
-   MERRA_DATA=(`ls staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07`)
+   MERRA_DATA=(`ls /staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07`)
    for file in "${MERRA_DATA[@]}"; do
       ln -sf $file
    done
