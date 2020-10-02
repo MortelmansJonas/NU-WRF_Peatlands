@@ -19,11 +19,11 @@ ADAPTATIONS
 - in all files: the start and end date of the experiment (currently set to 1 july 2005 - 2 july 2005, but needs further adjustment)
 - merra2wrf.reg
  
-  MERRA_DATA=('ls staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07')
+  MERRA_DATA=('ls /staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07')
  
  - lis.config.wrf & lis.config.coldstart
   
-  MERRA2 forcing directory: staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07
+  MERRA2 forcing directory: /staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07
   
   - namelist.input.wrf & namelist.input.real
   
