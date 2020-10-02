@@ -21,9 +21,9 @@ ADAPTATIONS
  
   MERRA_DATA=('ls /staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07')
  
- - namelist.input.wrf & namelist.input.real
+- namelist.input.wrf & namelist.input.real
   
-    mp_physics = 56 (to fit the Goddard microphysics scheme including 4ICE)
-    bl_pbl_physics = 2 (to fit the MYJ scheme)
-    cu_physics = 3 (to fit the GD cumulus ensemble)
+   mp_physics = 56 (to fit the Goddard microphysics scheme including 4ICE)
+   bl_pbl_physics = 2 (to fit the MYJ scheme)
+   cu_physics = 3 (to fit the GD cumulus ensemble)
    
