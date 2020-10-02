@@ -44,12 +44,12 @@ Buffer count in x-direction:           50         # Add pixel buffer to target p
 Buffer count in y-direction:           25         #  5 - is set internally as the default value
 
 Map projection of the LIS domain:     lambert
-Run domain lower left lat:    33.89408   37.90714   41.93164
-Run domain lower left lon:   -97.88470  -88.88519  -83.63098
+Run domain lower left lat:    58.79665   58.79665   58.79665
+Run domain lower left lon:   -123.036  -123.036  -123.036
 Run domain true lat1:    60.00000   60.00000   60.00000
 Run domain true lat2:    30.00000   30.00000   30.00000
-Run domain standard lon:   -83.00000  -83.00000  -83.00000
-Run domain resolution:     9.00000    3.00000    1.00000
+Run domain standard lon:   -116.2495  -116.2495  -116.2495
+Run domain resolution:     1.00000    1.00000    1.00000
 Run domain x-dimension size:    300   429   456
 Run domain y-dimension size:    240   411   456
 
