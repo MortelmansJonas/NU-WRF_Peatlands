@@ -38,3 +38,7 @@ ADAPTATIONS
   run domain lower left lon: -123.036 -123.036 -123.036 
   run domain standaard lon: -116.2495 -116.2495 -116.2495
   run domain resolution: 1.00000 1.00000 1.00000
+  
+- namelist.wps
+
+  stand_lon = -116.2495
