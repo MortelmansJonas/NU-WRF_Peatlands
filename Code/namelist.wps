@@ -25,7 +25,7 @@
  ref_lon   =  -83.0,
  truelat1  =   60.0,
  truelat2  =   30.0,
- stand_lon =  -83.0,
+ stand_lon =  -116.2495,
  geog_data_path = '/discover/nobackup/projects/nu-wrf/cases/geog'
 /
 
