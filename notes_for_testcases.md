@@ -1,7 +1,7 @@
 #Notes on running testcases of nu-wrf on HPC of KU Leuven\
 
 #Src code of nu-wrf-dev-noelec (group has read access):\
-ls /data/leuven/317/vsc31786/src_code/nu-wrf-dev-noelec\
+ls /data/leuven/317/vsc31786/src_code/nu-wrf-dev-noelec
 
 #Path to nu-wrf input, mix of things from staging (linked),\
 #files from Isis (linked), and newly added files (e.g. topo_30s).\ 
