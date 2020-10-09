@@ -39,7 +39,7 @@ ncl $NUWRFDIR/WPS/util/plotgrids_new.ncl
 #the input files are stored in two folders, LS_PARAMETERS (for LIS) and geog (needed for geogrid)\
 #While the error message is clear, it's not fully clear to me a priori which files are needed.\
 #It is somehow contained in this file geogrid/GEOGRID.TBL\
-#Don't know yet this format...\
+#Consider to download all files (29GB only because static input) via the link "Download Highest Resolution of each Mandatory Field"
 vsc31786@tier2-p-login-3:/scratch/leuven/317/vsc31786/nu-wrf-dev-noelec/testcases/wrflis/noahmp36_modis_merra2$ ./geogrid.reg\ 
 ERROR: Could not open /staging/leuven/stg_00024/OUTPUT/michelb/l_data/model_param/nu-wrf/geog/modis_landuse_21class_30s/index
 
