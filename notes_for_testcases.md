@@ -1,6 +1,7 @@
 Some notes on running testcases of nu-wrf
 
 #Src code of nu-wrf-dev-noelec (group has read access):
+
 ls /data/leuven/317/vsc31786/src_code/nu-wrf-dev-noelec
 
 # Path to nu-wrf input, mix of things from staging (linked), 
