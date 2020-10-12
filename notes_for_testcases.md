@@ -7,7 +7,7 @@ ls /data/leuven/317/vsc31786/src_code/nu-wrf-dev-noelec
 #files from Isis (linked), and newly added files (e.g. topo_30s).\ 
 #Use this path to add new data (group with read/write access)\
 #download files from ucar wrf page (e.g. done for topo_30s):\
-#https://www2.mmm.ucar.edu/wrf/users/download/get_sources_wps_geog.html\
+#https://www2.mmm.ucar.edu/wrf/users/download/get_sources_wps_geog.html   
 ls /staging/leuven/stg_00024/OUTPUT/michelb/l_data/model_param/nu-wrf
 
 #Project folder (read access only, copy to your data to work on testcases)\
