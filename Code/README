@@ -41,5 +41,7 @@ ADAPTATIONS
   
 - namelist.wps
 
+  ref_lat = 61.972795
+  ref_lon = -116.2495
   stand_lon = -116.2495
   
