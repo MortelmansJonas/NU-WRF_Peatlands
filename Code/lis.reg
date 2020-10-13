@@ -49,7 +49,7 @@ fi
 $MPIRUN ./LIS  || exit 1
 
 # Need LIS files for ldt_postlis and WRF-LIS run
-cp OUTPUT/SURFACEMODEL/200701/LIS_* .
+cp OUTPUT/SURFACEMODEL/200501/LIS_* .
 
 # Clean up
 if [ -e $RUNDIR/lis_logs ] ; then

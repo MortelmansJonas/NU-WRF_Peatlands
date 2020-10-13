@@ -228,7 +228,7 @@ Bottom temperature resolution (dy):      0.010
 # NUWRF preprocessing for real options
 #------------------------------------------------------------------------------
 
-LIS history file for land state initialization: LIS_HIST_200701191200.d01.nc
+LIS history file for land state initialization: LIS_HIST_200507010000.d01.nc
 Processed NUWRF file for input to real: lis4real_input.d01.nc lis4real_input.d02.nc lis4real_input.d03.nc
 
 Noah-MP PBL Height Value:               900.

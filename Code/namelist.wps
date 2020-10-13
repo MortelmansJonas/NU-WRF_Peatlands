@@ -1,8 +1,8 @@
 &share
  wrf_core = 'ARW',
  max_dom = 1,
- start_date = '2005-07-01_12:00:00','2005-07-01_12:00:00',
- end_date   = '2005-07-02_12:00:00','2005-07-02_12:00:00',
+ start_date = '2005-07-01_00:00:00','2005-07-01_00:00:00',
+ end_date   = '2005-07-02_00:00:00','2005-07-02_00:00:00',
  interval_seconds = 21600,
  io_form_geogrid = 2,
  debug_level = 0,
@@ -26,7 +26,7 @@
  truelat1  =   60.0,
  truelat2  =   30.0,
  stand_lon =  -116.2495,
- geog_data_path = '/discover/nobackup/projects/nu-wrf/cases/geog'
+ geog_data_path = '/staging/leuven/stg_00024/OUTPUT/michelb/l_data/model_param/nu-wrf/geog'
 /
 
 &metgrid
