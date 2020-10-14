@@ -31,6 +31,7 @@ ADAPTATIONS
   k_zfac_uv = all set to the same (currently 10)
   k_zfac_t = all set to the same (currently 10)
   k_zfac_q = all set to the same (currently 10)
+  wdamping = 1
 
 - ldt.config.prelis & ldt.config.postlis
 
