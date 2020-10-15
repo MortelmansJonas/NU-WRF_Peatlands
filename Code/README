@@ -16,7 +16,7 @@ This is a test case that uses:
       bodies and SST for oceans and great lakes.
 
 ADAPTATIONS
-- in all files: the start and end date of the experiment (currently set to 1 july 2005 - 2 july 2005 from 00h until 00h, but needs further adjustment)
+- in all files: the start and end date of the experiment (currently set to 1 july 2005 (12h) - 2 july 2005 (12h), but needs further adjustment)
 - merra2wrf.reg
  
   MERRA_DATA=('ls /staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07')
@@ -66,7 +66,5 @@ ADAPTATIONS
   Output start year: 2005
   Output start month: 07
   Output start day: 01
-  Output start hour: 00
   Specific output writing time (month): 7
   Specific output writing time (day):    01
-  Specific output writing time (hour):   00
