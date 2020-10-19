@@ -15,16 +15,16 @@ unset LD_LIBRARY_PATH
 #export LD_LIBRARY_PATH=$LIBDIR_TAG/eccodes/lib:$LD_LIBRARY_PATH
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
 #export PATH=$LIBDIR_TAG/netcdf4/bin:$PATH
-source /data/leuven/317/vsc31786/src_code/nu-wrf-dev-noelec/scripts/other/KUL_NU-WRF_modules
+source /data/leuven/317/vsc31786/src_code/nu-wrf-dev/scripts/other/KUL_NU-WRF_modules
 module load NCL/6.5.0-intel-2018a
 module load ncview
 
 # *** Please make sure these settings are correct ***
 # NUWRFDIR specifies the location of the NU-WRF source code
-export NUWRFDIR=/data/leuven/317/vsc31786/src_code/nu-wrf-dev-noelec
+export NUWRFDIR=/data/leuven/317/vsc31786/src_code/nu-wrf-dev
 # RUNDIR specifies the location of the temporary run directory
 export RUNDIR=$VSC_SCRATCH/nu-wrf-dev-noelec/testcases/wrflis/noahmp36_modis_merra2
-export EXEDIR=/data/leuven/317/vsc31786/src_code/nu-wrf-dev-noelec
+export EXEDIR=/data/leuven/317/vsc31786/src_code/nu-wrf-dev
 export MPIRUN=mpirun
 export LISDIR=/staging/leuven/stg_00024/OUTPUT/michelb/l_data/model_param/nu-wrf
 
