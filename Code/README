@@ -31,6 +31,7 @@ ADAPTATIONS
   cu_physics = 3 (to fit the GD cumulus ensemble)
   ra_lw_physics = all set to the same (currently 57)
   ra_sw_physics = all set to the same (currently 57)
+  su_surface_physics = 2 (NOAH LSM)
   ifsnow = 0
   wdamping = 1
 
