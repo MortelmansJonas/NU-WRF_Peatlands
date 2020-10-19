@@ -46,7 +46,6 @@ ADAPTATIONS
   LIS history file for land state initialization: LIS_HIST_200507010000.d01.nc
 - namelist.wps
 
-  max_dom = 3
   ref_lat = 61.972795
   ref_lon = -116.2495
   truelat1 = 61.972795
