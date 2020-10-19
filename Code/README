@@ -23,6 +23,7 @@ ADAPTATIONS
   
 - namelist.input.wrf & namelist.input.real
   
+  max_dom = 3
   num_metgrid_soil_levels = 4
   feedback = 1
   mp_physics = 56 (to fit the Goddard microphysics scheme including 4ICE)
