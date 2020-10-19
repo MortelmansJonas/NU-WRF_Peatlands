@@ -47,6 +47,8 @@ ADAPTATIONS
 
   ref_lat = 61.972795
   ref_lon = -116.2495
+  truelat1 = 61.972795
+  truelat2 = 61.972795
   stand_lon = -116.2495
   
 - sst2wrf.reg
