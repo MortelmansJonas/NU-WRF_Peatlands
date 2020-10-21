@@ -34,13 +34,20 @@ ADAPTATIONS
   su_surface_physics = 2 (NOAH LSM)
   ifsnow = 0
   wdamping = 1
+  dx = 3000, 1000, 1000
+  dy = 3000, 1000, 1000
+  e_we = 350, 841, 841,
+  e_sn = 320, 751, 751,
   parent_id = 0, 0, 0,
-  parent_grid_ratio = 1, 1, 1,
-  parent_time_step_ratio = 1, 1, 1,
-  i_parent_start = 1, 1, 1,
-  j_parent_start = 1, 1, 1,
+  parent_grid_ratio = 1, 3, 3,
+  parent_time_step_ratio = 1, 3, 3,
+  i_parent_start = 1, 40, 40,
+  j_parent_start = 1, 35, 35,
   gfdda_end_h = 0, 0, 0,
   gfdda_interval_m = 0, 0, 0,
+  k_zfac_uv = 10, 1, 1,
+  k_zfac_t = 10, 1, 1,
+  k_zfac_q = 10, 1, 1,
 
 - ldt.config.prelis & ldt.config.postlis
 
@@ -55,10 +62,14 @@ ADAPTATIONS
   
 - namelist.wps
 
-  parent_id = 0, 0, 0,
-  parent_grid_ratio = 1, 1, 1,
-  i_parent_start = 1, 1, 1,
-  j_parent_start = 1, 1, 1,
+  parent_id = 1, 1, 1,
+  parent_grid_ratio = 1, 3, 3,
+  i_parent_start = 1, 40, 40,
+  j_parent_start = 1, 35, 35,
+  e_we = 350, 841, 841,
+  e_sn = 320, 751, 751,
+  dx = 3000
+  dy = 3000
   ref_lat = 61.972795
   ref_lon = -116.2495
   truelat1 = 61.972795
@@ -84,3 +95,12 @@ ADAPTATIONS
   Output start day: 01
   Specific output writing time (month): 7
   Specific output writing time (day):    01
+
+- merra2wrf.py
+  
+  merra_server = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag'
+  merra_server_2 = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_400'         ##This one is added since the file containing the constant data is in another folder.
+  
+  file_name1 = 'MERRA2_400.const_2d_asm_Nx.00000000.nc4'
+  get_file(merra_server_2, 'diag', file_name1, outdir)
+  
