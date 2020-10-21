@@ -23,7 +23,7 @@ module load ncview
 # NUWRFDIR specifies the location of the NU-WRF source code
 export NUWRFDIR=/data/leuven/317/vsc31786/src_code/nu-wrf-dev
 # RUNDIR specifies the location of the temporary run directory
-export RUNDIR=$VSC_SCRATCH/nu-wrf-dev-noelec/testcases/wrflis/noahmp36_modis_merra2
+export RUNDIR=$VSC_SCRATCH/nu-wrf-dev/testcases/wrflis/noahmp36_modis_merra2
 export EXEDIR=/data/leuven/317/vsc31786/src_code/nu-wrf-dev
 export MPIRUN=mpirun
 export LISDIR=/staging/leuven/stg_00024/OUTPUT/michelb/l_data/model_param/nu-wrf

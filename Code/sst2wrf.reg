@@ -7,7 +7,7 @@ cd $RUNDIR || exit 1
 
 if [ -z ${SBATCH_JOB_ID+x} ]; then
    echo 'Using pre-staged data'
-   SST_DATA=(`ls $DATADIR/SSTRSS_2005/SSTRSS\:2005*`)
+   SST_DATA=(`ls $VSC_DATA/projects/SST`)
    for file in "${SST_DATA[@]}"; do
       ln -sf $file
    done

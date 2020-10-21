@@ -22,7 +22,7 @@ rm -f ldt.config
 ln -s ldt.config.prelis ldt.config || exit 1
 
 # Run LDT
-ln -fs $EXEDIR/LISF/ldt/LDT LDT || exit 1
+ln -fs $NUWRFDIR/LISF/ldt/LDT LDT || exit 1
 if [ ! -e LDT ] ; then 
     echo "$THIS ERROR: LDT does not exist!"
     exit 1
