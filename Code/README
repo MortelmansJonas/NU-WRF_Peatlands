@@ -98,9 +98,12 @@ ADAPTATIONS
 
 - merra2wrf.py
   
-  merra_server = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag'
+  merra_server = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/'
   merra_server_2 = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_400'         ##This one is added since the file containing the constant data is in another folder.
   
   file_name1 = 'MERRA2_400.const_2d_asm_Nx.00000000.nc4'
   get_file(merra_server_2, 'diag', file_name1, outdir)
+  
+  file_name2 and following:
+  get_file(merra_server, stage_prefix+'/diag/Y'+year+'/M'+month, file_name2, outdir)
   
