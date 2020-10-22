@@ -98,7 +98,7 @@ def main():
     print("nuwrf_dir:  "+nuwrf_dir)
 
     # Initialize directories
-    merra_server = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag'
+    merra_server = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/'
     merra_server_2 = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_400'
 
     work_dir = out_dir
@@ -150,27 +150,27 @@ def main():
 
         file_name2 = stage_prefix+'.inst6_3d_ana_Nv.'+year+month+day+'.nc4'
         get_file(merra_server,
-                 stage_prefix+'/Y'+year+'/M'+month,
+                 stage_prefix+'/diag/Y'+year+'/M'+month,
                  file_name2, outdir)
 
         file_name3 = stage_prefix+'.inst6_3d_ana_Np.'+year+month+day+'.nc4'
         get_file(merra_server,
-                 stage_prefix+'/Y'+year+'/M'+month,
+                 stage_prefix+'/diag/Y'+year+'/M'+month,
                  file_name3, outdir)
 
         file_name4 = stage_prefix+'.tavg1_2d_slv_Nx.'+year+month+day+'.nc4'
         get_file(merra_server,
-                 stage_prefix+'/Y'+year+'/M'+month,
+                 stage_prefix+'/diag/Y'+year+'/M'+month,
                  file_name4, outdir)
 
         file_name5 = stage_prefix+'.tavg1_2d_ocn_Nx.'+year+month+day+'.nc4'
         get_file(merra_server,
-                 stage_prefix+'/Y'+year+'/M'+month,
+                 stage_prefix+'/diag/Y'+year+'/M'+month,
                  file_name5, outdir)
 
         file_name6 = stage_prefix+'.tavg1_2d_lnd_Nx.'+year+month+day+'.nc4'
         get_file(merra_server,
-                 stage_prefix+'/Y'+year+'/M'+month,
+                 stage_prefix+'/diag/Y'+year+'/M'+month,
                  file_name6, outdir)
 
         merradate = year+'-'+month+'-'+day
