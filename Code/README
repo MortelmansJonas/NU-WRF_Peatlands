@@ -47,6 +47,11 @@ ADAPTATIONS
   k_zfac_uv = 10, 1, 1,
   k_zfac_t = 10, 1, 1,
   k_zfac_q = 10, 1, 1,
+  
+- ldt.config
+  
+  number of processors along x = 2
+  number of processors along y = 1
 
 - ldt.config.prelis & ldt.config.postlis
 
