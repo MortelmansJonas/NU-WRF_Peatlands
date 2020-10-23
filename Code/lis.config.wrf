@@ -2,7 +2,7 @@
 # Overall driver options
 #------------------------------------------------------------------------------
 Running mode: 		         "WRF coupling"
-Number of nests:   1
+Number of nests:    3
 Number of surface model types:    1
 Surface model types:            LSM
 Surface model output interval:  3hr 3hr 3hr
@@ -29,13 +29,13 @@ Start mode:                                restart
 Starting year:                             2005
 Starting month:                            7
 Starting day:                              01
-Starting hour:                             00
+Starting hour:                             12
 Starting minute:                           0
 Starting second:                           0
 Ending year:                               2005
 Ending month:                              7
 Ending day:                                02
-Ending hour:                               00
+Ending hour:                               12
 Ending minute:                             0
 Ending second:                             0
 Undefined value:                          -9999

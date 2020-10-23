@@ -2,7 +2,7 @@
 # Overall driver options
 #------------------------------------------------------------------------------
 Running mode: 		         "retrospective"
-Number of nests:   1
+Number of nests:    3
 Number of surface model types:    1
 Surface model types:            LSM
 Surface model output interval:  12hr 12hr 12hr
@@ -29,13 +29,13 @@ Start mode:                                coldstart
 Starting year:                             2005 
 Starting month:                            7
 Starting day:                              01
-Starting hour:                             00
+Starting hour:                             12
 Starting minute:                           0
 Starting second:                           0
 Ending year:                               2005
 Ending month:                              7
 Ending day:                                02 
-Ending hour:                               00
+Ending hour:                               12
 Ending minute:                             0
 Ending second:                             0
 Undefined value:                          -9999
@@ -227,13 +227,13 @@ Irrigation scheme: none none none
 Output start year:     2005
 Output start month:    07
 Output start day:      01
-Output start hour:     00
+Output start hour:     12
 Output start minutes:   0
 Output start seconds:   0
 Output at specific time only: 1
 Specific output writing time (month):   7
 Specific output writing time (day):    01
-Specific output writing time (hour):   00
+Specific output writing time (hour):   12
 Specific output writing time (minute):  0
 Specific output writing time (second):  0
 Model output attributes file:   './NOAHMP36_OUTPUT_LIST_SPINUP.TBL'
