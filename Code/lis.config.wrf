@@ -139,7 +139,7 @@ TBOT skin temperature lag days: 0
 # Forcings
 #------------------------------------------------------------------------------
 
-MERRA2 forcing directory:        ./MET_FORCING/MERRA2 ./MET_FORCING/MERRA2 ./MET_FORCING/MERRA2
+MERRA2 forcing directory:        ./LS_PARAMETERS/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07 ./LS_PARAMETERS/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07 ./LS_PARAMETERS/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07
 MERRA2 use lowest model level forcing:    1 1 1
 MERRA2 use corrected total precipitation: 1 1 1
 

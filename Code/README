@@ -110,7 +110,7 @@ ADAPTATIONS
   
   file_name2 and following:
   get_file(merra_server, stage_prefix+'/diag/Y'+year+'/M'+month, file_name2, outdir)
-  
+
 - lis.config.coldstart & lis.config.wrf
   
   MERRA2 forcing directory: ./LS_PARAMETERS/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07 ./LS_PARAMETERS/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07 ./LS_PARAMETERS/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07
@@ -118,8 +118,7 @@ ADAPTATIONS
 - lis.reg
 
   # ln -sf $LISDIR/LS_PARAMETERS/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07 $RUNDIR || exit 1
-  # if [ ! -e $RUNDIR/M07 ] ; then
-  #     echo "ERROR, $RUNDIR/MET_FORCING does not exist!"
-  #     exit 1
-  # fi
-
+  #   # if [ ! -e $RUNDIR/M07 ] ; then
+  #     #     echo "ERROR, $RUNDIR/MET_FORCING does not exist!"
+  #       #     exit 1
+  #         # fi

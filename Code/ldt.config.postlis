@@ -32,8 +32,8 @@ Undefined value:                    -9999.0
 Number of ensembles per tile:         1
 
 # Must set processor numbers to 1 until LDT parallelization added
-Number of processors along x:         1
-Number of processors along y:         1
+Number of processors along x:         6
+Number of processors along y:         6
 
 #------------------------------------------------------------------------------
 # Domain specification

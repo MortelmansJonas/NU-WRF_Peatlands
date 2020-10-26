@@ -27,6 +27,6 @@ if [ ! -e LDT ] ; then
     echo "$THIS ERROR: LDT does not exist!"
     exit 1
 fi
-$MPIRUN ./LDT ldt.config || exit 1
+./LDT ldt.config || exit 1
 
 

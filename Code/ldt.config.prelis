@@ -32,8 +32,8 @@ Undefined value:                    -9999.0
 Number of ensembles per tile:         1
 
 # Must set processor numbers to 1 until LDT parallelization added
-Number of processors along x:         2
-Number of processors along y:         1
+Number of processors along x:         6
+Number of processors along y:         6
 
 #------------------------------------------------------------------------------
 # Domain specification
@@ -91,21 +91,21 @@ Irrigation fraction data source: none none none
 Soil fraction data source:       none none none
 Soils spatial transform:         none none none
 Soils fill option:               none
-Soils map projection:            latlon
+Soils map projection:            latlon 
 
-Soil texture data source: STATSGOFAO_LIS STATSGOFAO_LIS STATSGOFAO_LIS
-Soil texture map:       /staging/leuven/stg_00024/OUTPUT/michelb/l_data/model_param/nu-wrf/LS_PARAMETERS/UMD/1KM/soiltexture_STATSGO-FAO.1gd4r /staging/leuven/stg_00024/OUTPUT/michelb/l_data/model_param/nu-wrf/LS_PARAMETERS/UMD/1KM/soiltexture_STATSGO-FAO.1gd4r /staging/leuven/stg_00024/OUTPUT/michelb/l_data/model_param/nu-wrf/LS_PARAMETERS/UMD/1KM/soiltexture_STATSGO-FAO.1gd4r
-Soil texture spatial transform:   tile tile tile
-Soil texture fill option:         neighbor
-Soil texture fill value:          5
-Soil texture fill radius:         5
+Soil texture data source: STATSGOFAO_Native STATSGOFAO_Native STATSGOFAO_Native
+Soil texture map:       ./LS_PARAMETERS/noah_2dparms/topsoil30snew ./LS_PARAMETERS/noah_2dparms/topsoil30snew ./LS_PARAMETERS/noah_2dparms/topsoil30snew
+Soil texture spatial transform:   mode mode mode
+Soil texture fill option:         neighbor neighbor neighbor
+Soil texture fill value:          4 
+Soil texture fill radius:         5 
 Soil texture map projection:     latlon
-Soil texture lower left lat:    -59.9950
-Soil texture lower left lon:   -179.9950
-Soil texture upper right lat:    89.9950
-Soil texture upper right lon:   179.9950
-Soil texture resolution (dx):     0.01
-Soil texture resolution (dy):     0.01
+Soil texture lower left lat:    -59.9950 
+Soil texture lower left lon:   -179.9950 
+Soil texture upper right lat:    89.9950 
+Soil texture upper right lon:   179.9950 
+Soil texture resolution (dx):     0.01 
+Soil texture resolution (dy):     0.01 
 
 #------------------------------------------------------------------------------
 # Topography Parameters
@@ -113,21 +113,21 @@ Soil texture resolution (dy):     0.01
 
 Elevation data source:        SRTM_Native SRTM_Native SRTM_Native
 Elevation number of bands:        1 1 1
-Elevation map:       ./LS_PARAMETERS/topo_parms/SRTM/SRTM30/raw ./LS_PARAMETERS/topo_parms/SRTM/SRTM30/raw ./LS_PARAMETERS/topo_parms/SRTM/SRTM30/raw
+Elevation map:       ./LS_PARAMETERS/topo_parms2/SRTM ./LS_PARAMETERS/topo_parms2/SRTM ./LS_PARAMETERS/topo_parms2/SRTM
 Elevation fill option:            none # Preserves elevation for water bodies
 Elevation fill value:             100
 Elevation fill radius:            5
 
 Slope data source:        SRTM_Native SRTM_Native SRTM_Native
 Slope number of bands:        1 1 1
-Slope map:       ./LS_PARAMETERS/topo_parms/SRTM/SRTM30/raw ./LS_PARAMETERS/topo_parms/SRTM/SRTM30/raw ./LS_PARAMETERS/topo_parms/SRTM/SRTM30/raw
+Slope map:       ./LS_PARAMETERS/topo_parms2/SRTM ./LS_PARAMETERS/topo_parms2/SRTM ./LS_PARAMETERS/topo_parms2/SRTM
 Slope fill option:            none # Preserves slope for water bodies
 Slope fill value:             0.1
 Slope fill radius:            5.
 
 Aspect data source:        SRTM_Native SRTM_Native SRTM_Native
 Aspect number of bands:        1 1 1
-Aspect map:       ./LS_PARAMETERS/topo_parms/SRTM/SRTM30/raw ./LS_PARAMETERS/topo_parms/SRTM/SRTM30/raw ./LS_PARAMETERS/topo_parms/SRTM/SRTM30/raw
+Aspect map:       ./LS_PARAMETERS/topo_parms2/SRTM ./LS_PARAMETERS/topo_parms2/SRTM ./LS_PARAMETERS/topo_parms2/SRTM
 Aspect fill option:            none # Preserves slope for water bodies
 Aspect fill value:             2.0
 Aspect fill radius:            5.
@@ -210,7 +210,7 @@ Slope type resolution (dx):     0.0100
 Slope type resolution (dy):     0.0100
 
 Bottom temperature data source: ISLSCP1 ISLSCP1 ISLSCP1
-Bottom temperature map:          ./LS_PARAMETERS/noah_2dparms/SOILTEMP.60 ./LS_PARAMETERS/noah_2dparms/SOILTEMP.60 ./LS_PARAMETERS/noah_2dparms/SOILTEMP.60
+Bottom temperature map:          ./LS_PARAMETERS/UMD/1KM/tbot_NCEP.1gd4r ./LS_PARAMETERS/UMD/1KM/tbot_NCEP.1gd4r ./LS_PARAMETERS/UMD/1KM/tbot_NCEP.1gd4r
 Bottom temperature spatial transform:    budget-bilinear budget-bilinear budget-bilinear
 Bottom temperature fill option:      average      
 Bottom temperature fill value:       287.0       
@@ -227,5 +227,5 @@ Bottom temperature resolution (dy):      0.010
 #------------------------------------------------------------------------------
 # Forcing Parameters
 #------------------------------------------------------------------------------
-
-Noah-MP PBL Height Value:               900.
+# Noah-MP Specific Parameters:
+ Noah-MP PBL Height Value:   900. 900. 900.     # Planetary Boundary layer height (in meters)

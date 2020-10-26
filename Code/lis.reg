@@ -22,11 +22,11 @@ if [ ! -e $RUNDIR/LS_PARAMETERS ] ; then
     echo "ERROR, $RUNDIR/LS_PARAMETERS does not exist!"
     exit 1
 fi
-ln -sf $LISDIR/MET_FORCING $RUNDIR || exit 1
-if [ ! -e $RUNDIR/MET_FORCING ] ; then
-    echo "ERROR, $RUNDIR/MET_FORCING does not exist!"
-    exit 1
-fi
+#ln -sf $LISDIR/LS_PARAMETERS/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07 $RUNDIR || exit 1
+#if [ ! -e $RUNDIR/M07 ] ; then
+#    echo "ERROR, $RUNDIR/MET_FORCING does not exist!"
+#    exit 1
+#fi
 ln -sf $LISDIR/LS_PARAMETERS/noah3X_parms noah3X_parms || exit 1
 if [ ! -e $RUNDIR/noah3X_parms ] ; then
     echo "ERROR, $RUNDIR/noah3X_parms does not exist!"
