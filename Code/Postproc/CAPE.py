@@ -1,3 +1,4 @@
+## source: https://skewtplus.readthedocs.io/en/latest/userReference/wrfOutputCAPE.html
 from mpl_toolkits.basemap import Basemap
 from netCDF4 import Dataset
 import numpy
