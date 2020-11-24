@@ -220,8 +220,7 @@ def main():
         os.remove(outdir+'/'+file_name4)
         os.remove(outdir+'/'+file_name5)
         os.remove(outdir+'/'+file_name6)
-
-    os.remove(outdir+'/'+file_name1)
+        os.remove(outdir+'/'+file_name1)
 
     end_time = time.time() - start_time
     print("Time taken = %f" % end_time)

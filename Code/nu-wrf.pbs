@@ -1,0 +1,16 @@
+#!/bin/bash
+#PBS -l walltime=72:00:00
+#PBS -l nodes=2:ppn=36
+#PBS -l pmem=5gb
+#PBS -A lp_ees_swm_ls_001
+#PBS -m abe
+#PBS -M jonas.mortelmans@kuleuven.be
+#PBS -o /scratch/leuven/336/vsc33651/nu-wrf-dev/testcases/wrflis/noahmp36_modis_merra2/nuwrf_log.txt
+#PBS -e /scratch/leuven/336/vsc33651/nu-wrf-dev/testcases/wrflis/noahmp36_modis_merra2/nuwrf_err.txt
+
+cd $PBS_O_WORKDIR
+ulimit -s unlimited
+source common.reg
+./wrf.reg
+
+

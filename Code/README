@@ -1,124 +1,104 @@
-# WARNING
-These files are regularly updated to fit my MSC thesis. The following information is from the original example. 
-Underneath you can find the changes in these files compared to the original.
 
-NOAHMP-3.6 MERRA2 Forcing Testcase
+VERSION 4 OF RIP PROGRAM
+(updated April 1, 2003)
 
-This is a test case that uses:
-  (a) CONUS NE quadrant domain (98W-68W, 34N-53N) with 1 nest (9km)
-      Lambert projection
-  (b) Simulation time period from 12Z 11 Jul 2015 to 12Z 12 Jul 2015
-  (c) MODIS geographical data
-  (d) Noah-3.6 LSM with MERRA2 forcing and budget-bilinear Interpolation
-      with 4-day LIS spinup
-  (e) Goddard MP (3ice) and Goddard 2014 radiation
-  (f) Use MERRA2 MET data, daily average air temperature for small water
-      bodies and SST for oceans and great lakes.
+-----------------------------------------------------
+Update: December, 2006
+Add changes so that all data from WPS can be processed
+	Only file affected is src/ripdp_wrf.f
+Add some typhoon tracking capabilities
+-----------------------------------------------------
 
-ADAPTATIONS
-- in all files: the start and end date of the experiment (currently set to 1 july 2005 (12h) - 2 july 2005 (12h), but needs further adjustment)
-- merra2wrf.reg
- 
-  MERRA_DATA=('ls /staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07')
-  
-- namelist.input.wrf & namelist.input.real
-  
-  history_interval = 60, 60, 60,
-  num_metgrid_soil_levels = 4
-  feedback = 1
-  mp_physics = 56 (to fit the Goddard microphysics scheme including 4ICE)
-  bl_pbl_physics = 2 (to fit the MYJ scheme)
-  cu_physics = 3 (to fit the GD cumulus ensemble)
-  ra_lw_physics = all set to the same (currently 57)
-  ra_sw_physics = all set to the same (currently 57)
-  ifsnow = 0
-  wdamping = 1
-  dx = 3000, 1000, 1000
-  dy = 3000, 1000, 1000
-  e_we = 350, 841, 841,
-  e_sn = 320, 751, 751,
-  parent_id = 0, 0, 0,
-  parent_grid_ratio = 1, 3, 3,
-  parent_time_step_ratio = 1, 3, 3,
-  i_parent_start = 1, 40, 40,
-  j_parent_start = 1, 35, 35,
-  gfdda_end_h = 0, 0, 0,
-  gfdda_interval_m = 0, 0, 0,
-  k_zfac_uv = 10, 1, 1,
-  k_zfac_t = 10, 1, 1,
-  k_zfac_q = 10, 1, 1,
-  
-- ldt.config
-  
-  number of processors along x = 2
-  number of processors along y = 1
+This is the main directory of RIP program for visualizing mesoscale model
+output.  Everything a user needs to run the RIP program, except for NCAR
+Graphics and NetCDF libraries, is contained in this directory.
 
-- ldt.config.prelis & ldt.config.postlis
+RIP requires NCAR Graphics to run. NCAR Graphics is free and part of the
+NCAR Command Language (NCL).  For information on NCAR Graphics, please visit
 
-  run domain lower left lat: 58.79665 58.79665 58.79665
-  run domain lower left lon: -123.036 -123.036 -123.036 
-  run domain standaard lon: -116.2495 -116.2495 -116.2495
-  run domain resolution: 1.00000 1.00000 1.00000
+    http://ngwww.ucar.edu
 
-- ldt.config.postlis
-  
-  LIS history file for land state initialization: LIS_HIST_200507010000.d01.nc
-  
-- namelist.wps
+Part of RIP (the WRF-model version of the preprocessing program RIPDP) requires
+NetCDF libraries to run.  NetCDF is free software available from
 
-  parent_id = 1, 1, 1,
-  parent_grid_ratio = 1, 3, 3,
-  i_parent_start = 1, 40, 40,
-  j_parent_start = 1, 35, 35,
-  e_we = 350, 841, 841,
-  e_sn = 320, 751, 751,
-  dx = 3000
-  dy = 3000
-  ref_lat = 61.972795
-  ref_lon = -116.2495
-  truelat1 = 61.972795
-  truelat2 = 61.972795
-  stand_lon = -116.2495
-  
-- sst2wrf.reg
-  
-  SST_DATA=('ls $DATADIR/SSTRSS_2005/SSTRSS\:2005*')
-  
-- lis.reg
-  
-  cp OUTPUT/SURFACEMODEL/200501/LIS_*
+   http://www.unidata.ucar.edu/packages/netcdf
 
-- lis.config.wrf
+This version of RIP may be run on Cray, unix workstations, and PC
+running Linux.
 
-  Noah-MP.3.6 restart file: LIS_RST_NOAHMP36_200507010000.d01.nc
-  
-- lis.config.coldstart
+All fortran source code is located in directory src/.
 
-  Output start year: 2005
-  Output start month: 07
-  Output start day: 01
-  Specific output writing time (month): 7
-  Specific output writing time (day):    01
+For bug fixes, please read file CHANGES.  For actual diff files,
+please see directory Diff.
 
-- merra2wrf.py
-  
-  merra_server = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/'
-  merra_server_2 = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_400'         ##This one is added since the file containing the constant data is in another folder.
-  
-  file_name1 = 'MERRA2_400.const_2d_asm_Nx.00000000.nc4'
-  get_file(merra_server_2, 'diag', file_name1, outdir)
-  
-  file_name2 and following:
-  get_file(merra_server, stage_prefix+'/diag/Y'+year+'/M'+month, file_name2, outdir)
+For questions, please send emails to wrfhelp@ucar.edu
 
-- lis.config.coldstart & lis.config.wrf
-  
-  MERRA2 forcing directory: ./LS_PARAMETERS/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07 ./LS_PARAMETERS/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07 ./LS_PARAMETERS/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07
-  
-- lis.reg
+-----------------------------------------------------
 
-  # ln -sf $LISDIR/LS_PARAMETERS/MERRA2_land_forcing/MERRA2_300/diag/Y2005/M07 $RUNDIR || exit 1
-  #   # if [ ! -e $RUNDIR/M07 ] ; then
-  #     #     echo "ERROR, $RUNDIR/MET_FORCING does not exist!"
-  #       #     exit 1
-  #         # fi
+What is in V4 RIP?
+
+RIP is plotting program developed by Dr. Mark Stoelinga at University of
+Washington. It is currently configured to plot MM5 Version 3 pressure-level
+data; MM4 Version 8 and MM5 Version 1/2/3 sigma level data; and WRF
+mass-coordinate model output.  However, the plotting program itself is general
+enough that it would be quite feasible to plot output from any mesoscale model,
+if a version of the preprocessing program RIPDP was created to translate that
+model output into RIP data files.
+
+RIP4 removed all references to MM5-specific vertical coordinate, such
+as sigma and p-star and so on. All calculations are based solely upon the
+knowledge of height and pressure on the 3D grid and height and pressure
+of the ground (i.e. terrain height and surface pressure).
+
+-----------------------------------------------------
+
+RIP documentation:
+
+The document "A Users' Guide to RIP Version 4", by Mark
+Stoelinga, is a comprenesive guide to all aspects of RIP Version
+4, including set-up (compilation, etc.), data pre-processing with
+the program RIPDP, and the use of RIP itself.  The User's Guide
+is written maintained as a Microsoft Word document, and is also made available
+as an HTML document.  Both can be found in the RIP tar file
+in Doc/ripug.html.  The html document can also be accessed on the web from the
+MM5 Web Site, http://www.mmm.ucar.edu/mm5/documents/ripug_V4.html.
+
+-----------------------------------------------------
+
+NCAR Graphics option: 
+
+If you have NCAR Graphics version 4.3 or newer and wish to use the 
+new RANGS/GSHHS outline data sets, uncomment the relevant code in hmapdraw.f
+(search for RANGS/GSHHS).
+
+-----------------------------------------------------
+IBM operation note:
+
+When running on an IBM SP2, if the namelist in rip.in
+is in the default format of beginning and ending 
+with a "&", then an environment variable must be
+set to recognize this.  The command is:
+
+        setenv XLFRTEOPTS "namelist=old"
+
+.  If one desires to run on the IBM without setting 
+this variable, the namelist delimiters must be modified 
+to begin with "&" and end with "/".
+
+-----------------------------------------------------
+
+Files/directories in this directory:
+
+CHANGES:     will contain changes made to this tar file
+
+Diff/:       directory that contains files with actual differences
+                (generated with "diff") between versions
+Doc/:	     RIP documentation directory
+Makefile:    top-level makefile
+README:	     basic information on RIP
+color.tbl:   color table for RIP
+psadilookup.dat: lookup table for obtaining T from p and theta-e
+x.in:        input files for RIP programs
+tserstn.dat  sample list of stations for time series print out
+src/:        directory that holds all source code for RIP
+stationlist: observation location file 
