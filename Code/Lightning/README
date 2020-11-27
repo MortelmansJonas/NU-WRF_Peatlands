@@ -1,0 +1,3 @@
+The Lightning_data.py file contains the code to create 1 netcdf file of all lightning flashes, regardless of the type
+
+The csv2nc.py file creates 2 netcdf files: 1 for each type (CC and CG).
