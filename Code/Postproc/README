@@ -1,0 +1,3 @@
+The CAPE.py file contains code to calculate the CAPE from the wrf output files.
+
+The Read_WRF.py file contains code to visualize the wrf output variables such as sea level pressure, terrain, temperature, wind speeds, wind direction,...
