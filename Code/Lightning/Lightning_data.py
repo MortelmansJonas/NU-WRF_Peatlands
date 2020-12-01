@@ -97,6 +97,7 @@ for var in ds.variables.values():
     print(var)
 
 ## Flashdensity_CC
+print('Flashdensity_CC')
 for i in range(0,len(Time_array)): # Loop through all the times
      for j in range(0,len(CCPL)): # Loop through all the CCPL records
          if Time_array[i] == CCPL['Date'][j]: # if the time in both arrays is the same, go to the following loop
@@ -107,6 +108,7 @@ for i in range(0,len(Time_array)): # Loop through all the times
                              Flashdensity_CC[i,k,m] = CCPL['Count'][j]
 
 ## Flashdensity_CG
+print('Flashdensity_CG')
 for i in range(0,len(Time_array)): # Loop through all the times
      for j in range(0,len(CGPL)): # Loop through all the CGPL records
          if Time_array[i] == CGPL['Date'][j]: # if the time in both arrays is the same, go to the following loop
@@ -117,6 +119,7 @@ for i in range(0,len(Time_array)): # Loop through all the times
                              Flashdensity_CG[i,k,m] = CGPL['Count'][j]
 
 ## EPC_CC
+print('EPC_CC')
 for i in range(0,len(Time_array)): # Loop through all the times
      for j in range(0,len(CCPL)): # Loop through all the CCPL records
          if Time_array[i] == CCPL['Date'][j]: # if the time in both arrays is the same, go to the following loop
@@ -124,9 +127,10 @@ for i in range(0,len(Time_array)): # Loop through all the times
                  if lats[k] == CCPL['Latitude'][j]: # If the latitudes match, go to the next loop
                      for m in range(0,len(lons)): # Loop through all longitudes
                          if lons[m] == CCPL['Longitude'][j]: # If the longitudes match, put the CCPL record in EPC_CG
-                             Flashdensity_CG[i,k,m] = CCPL['avg_EPC'][j]
+                             EPC_CC[i,k,m] = CCPL['avg_EPC'][j]
 
 ## EPC_CG
+print('EPC_CG')
 for i in range(0,len(Time_array)): # Loop through all the times
      for j in range(0,len(CGPL)): # Loop through all the CGPL records
          if Time_array[i] == CGPL['Date'][j]: # if the time in both arrays is the same, go to the following loop
@@ -134,7 +138,7 @@ for i in range(0,len(Time_array)): # Loop through all the times
                  if lats[k] == CGPL['Latitude'][j]: # If the latitudes match, go to the next loop
                      for m in range(0,len(lons)): # Loop through all longitudes
                          if lons[m] == CGPL['Longitude'][j]: # If the longitudes match, put the CCPL record in Flashdensity_CC
-                             Flashdensity_CG[i,k,m] = CGPL['avg_EPC'][j]
+                             EPC_CG[i,k,m] = CGPL['avg_EPC'][j]
 
 # For ease: convert times back to easy readable format
 TA = np.unique(pd.to_datetime(flashes['Date']))
