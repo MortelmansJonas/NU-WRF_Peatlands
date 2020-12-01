@@ -5,5 +5,3 @@ The Lightning_data.py file does multiple things:
   - It plots the amount of flashes per day, per type and per location (latitudes and longitudes are rounded to 2 decimal places.)
   - Create a netCDF file with, for each type separately (CC and CG), the flashdensity and the average Estimated Peak Current (avg_EPC). 
     To see the points more clearly, the background is best set to black and an extra overlay of the lakes is set. This way, the location relative to the lake can be better seen.
-    With the avg_EPC there is still a problem as this only contains NaN.
- 
