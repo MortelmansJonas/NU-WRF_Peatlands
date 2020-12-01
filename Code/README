@@ -1,0 +1,7 @@
+This folder contains the code used for the testcases. The domain is set to fit the domain of interest (Great Slave Lake).
+The time period is set from 1-7-2005 12:00:00 to 2-7-2005 12:00:00.
+
+The subfolder Lightning contains the script to create a netCDF file from the Lightning data provided by the CLDN (Canadian Lightning Detection Network). 
+This file can be visualized with panoply.
+
+The subfolder postproc contains scripts to visualize the output of the wrf run.
