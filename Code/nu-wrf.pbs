@@ -1,6 +1,6 @@
 #!/bin/bash
-#PBS -l walltime=72:00:00
-#PBS -l nodes=2:ppn=36
+#PBS -l walltime=24:00:00
+#PBS -l nodes=1:ppn=36
 #PBS -l pmem=5gb
 #PBS -A lp_ees_swm_ls_001
 #PBS -m abe
