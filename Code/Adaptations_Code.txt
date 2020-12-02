@@ -273,11 +273,11 @@ Adaptations:
 	gfdda_end_h                         = 0,     0,     0,
  	gfdda_interval_m                    = 0,     0,     0,
 
-	if_zfac_uv                          = 0,     0,     0,
+	if_zfac_uv                          =  0,    0,     0,
   	 k_zfac_uv                          = 10,    1,     1,
- 	if_zfac_t                           = 0,     0,     0,
+ 	if_zfac_t                           =  0,    0,     0,
  	 k_zfac_t                           = 10,    1,     1,
- 	if_zfac_q                           = 0,     0,     0,
+ 	if_zfac_q                           =  0,    0,     0,
  	 k_zfac_q                           = 10,    1,     1,
 
 	w_damping                           = 1,
