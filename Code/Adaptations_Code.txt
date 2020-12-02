@@ -282,7 +282,7 @@ Adaptations:
 
 	w_damping                           = 1,
 
-- namelist.input.wrf
+- namelist.input.wrf -> is it possible to add lightning in here?
 	start_year                          = 2005,  2005,  2005,
  	start_month                         =   07,    07,    07,
  	start_day                           =   01,    01,    01,
