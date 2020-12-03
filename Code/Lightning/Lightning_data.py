@@ -14,7 +14,7 @@ print(data.head(5))
 print(data.columns)
 print(data.dtypes)
 
-data['Date'] = pd.to_datetime(data['Date']).astype(int)
+data['Date'] = pd.to_datetime(data['Date']).astype(int) # Set as integer to later on be able to compare to the CCPL data. If it's not done, there are some issues
 data['Time'] = pd.to_datetime(data['Time'])
 data['Type'] = data['Type'].astype('category')
 data['Latitude'] = round(data['Latitude'],2)
