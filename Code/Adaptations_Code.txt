@@ -269,6 +269,8 @@ Adaptations:
  	cudt                                = 0,     0,     0,
 
 	ifsnow                              = 0,
+	
+	num_land_cat			    = 21, # spaces are important!
 
 	gfdda_end_h                         = 0,     0,     0,
  	gfdda_interval_m                    = 0,     0,     0,
