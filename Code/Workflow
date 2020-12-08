@@ -14,6 +14,9 @@ This file contains the workflow as provided by the NASA, but with certain adapta
   ./geogrid.reg
 
   After finishing check the geogrid.log.0000 file for *** Succesful completion of program geogrid.exe ***
+
+- Get the variable TAVGSFC
+  ./avg_tsfc.reg
   
 - Get MERRA2 and SSTRSS data:
 ./merra2wrf.py BEGINDATE ENDDATE
