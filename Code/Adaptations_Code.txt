@@ -258,7 +258,8 @@ Adaptations:
  	j_parent_start                      =    1,     35,    35,
  	parent_grid_ratio                   =    1,     3,     3,
  	parent_time_step_ratio              =    1,     3,     3,
-
+	feedback			    =	 1,
+	
 	ra_lw_physics                       = 4,     4,     4,
  	ra_sw_physics                       = 4,     4,     4,
 	sf_sfclay_physics                   = 2,     2,     2,
@@ -311,6 +312,7 @@ Adaptations:
  	dy                                  =   3000,  1000,  1000,
  	grid_id                             =      1,     2,     3,
  	parent_id                           =      1,     1,     1,
+	feedback			    = 	   1,
 
 	ra_lw_physics                       =  4,     4,     4,
  	ra_sw_physics                       =  4,     4,     4,
