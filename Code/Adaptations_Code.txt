@@ -81,19 +81,19 @@ Adaptations:
 	Noah-MP.3.6 lower boundary of soil temperature option:  2 2 2  # 1=zero-flux; 2=Noah
 	Noah-MP.3.6 snow and soil temperature time scheme:      1 1 1  # 1=semi-implicit; 2=fully implicit
 
-	Output start year:     2005
-	Output start month:    07
-	Output start day:      01
-	Output start hour:     12
-	Output start minutes:   0
-	Output start seconds:   0
-	Output at specific time only: 0
-	Specific output writing time (month):   7
-	Specific output writing time (day):    01
-	Specific output writing time (hour):   12
-	Specific output writing time (minute):  0
-	Specific output writing time (second):  0
-	Model output attributes file:   './NOAHMP36_OUTPUT_LIST_SPINUP.TBL'
+	Output start year:     2005 2005 2005
+	Output start month:    07 07 07
+	Output start day:      01 01 01
+	Output start hour:     12 12 12 
+	Output start minutes:   0 0 0
+	Output start seconds:   0 0 0
+	Output at specific time only: 0 0 0
+	Specific output writing time (month):   7 7 7
+	Specific output writing time (day):    01 01 01
+	Specific output writing time (hour):   12 12 12
+	Specific output writing time (minute):  0 0 0
+	Specific output writing time (second):  0 0 0
+	Model output attributes file:   './NOAHMP36_OUTPUT_LIST_SPINUP.TBL' './NOAHMP36_OUTPUT_LIST_SPINUP.TBL' './NOAHMP36_OUTPUT_LIST_SPINUP.TBL'
 
 - lis.config.wrf
 	Number of nests:	3
@@ -267,7 +267,7 @@ Adaptations:
 	sf_urban_physics                    = 0,     0,     0,
  	bl_pbl_physics                      = 2,     2,     2,
  	bldt                                = 0,     0,     0,
- 	cu_physics                          = 3,     3,     3,
+ 	cu_physics                          = 3,     0,     0,
  	cudt                                = 0,     0,     0,
 
 	ifsnow                              = 0,
@@ -320,7 +320,7 @@ Adaptations:
 	radt				    =  9,     3,     1,
 	bl_pbl_physics                      =  2,     2,     2,
  	bldt                                =  0,     0,     0,
- 	cu_physics                          =  3,     3,     3,
+ 	cu_physics                          =  3,     0,     0,
 
 	gfdda_end_h                         =  0,     0,     0,
  	gfdda_interval_m                    =  0,     0,     0,
