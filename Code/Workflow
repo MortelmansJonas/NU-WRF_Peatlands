@@ -38,7 +38,7 @@ This file contains the workflow as provided by the NASA, but with certain adapta
    When done, check for *** Successful completion of program metgrid.exe *** in metgrid.log.0000
  
 - Run liswrfdomain
-  INPUT: lis.config, ldt.config and geo_em* files
+  INPUT: lis.config.coldstart, lis.config.wrf, ldt.config.prelis, ldt.config.postlis and geo_em* files
   OUTPUT -: lis.config, ldt.config
   
   ./liswrf_domain.reg
