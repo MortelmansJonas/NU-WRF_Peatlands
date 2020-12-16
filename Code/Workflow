@@ -39,7 +39,7 @@ This file contains the workflow as provided by the NASA, but with certain adapta
  
 - Run liswrfdomain
   INPUT: lis.config.coldstart, lis.config.wrf, ldt.config.prelis, ldt.config.postlis and geo_em* files
-  OUTPUT -: lis.config, ldt.config
+  OUTPUT -: lis.config.coldstart.new, lis.config.wrf.new, ldt.config.prelis.new, ldt.config.postlis.new (unless there were no changes needed)
   
   ./liswrf_domain.reg
   
