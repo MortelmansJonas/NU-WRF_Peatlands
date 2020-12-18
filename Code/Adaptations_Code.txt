@@ -203,6 +203,18 @@ Adaptations:
 	
 - Get sst2wrf.py from src_code -> ./sst2wrf.py BEGINDATE ENDDATE
 	e.g.: ./sst2wrf.py 20050701 20050703
+	
+	somewhere around line 160, change to the following to get more up to date files:
+	
+	year = syear
+    	prefix = inst_type+'.fusion.'
+   	ftpname = data_server+'/daily/'+inst_type+'/v05.0/bmaps/'+year+'/'
+
+   	 if inst_type == 'mw':
+        	ver = 'rt'
+   	 else:  # mw_ir
+       	 	ver = 'v05.0'
+    	suffix = '.'+ver+'.gz'
 
 - namelist.wps
 	max_dom = 3,
