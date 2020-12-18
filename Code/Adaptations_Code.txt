@@ -208,12 +208,12 @@ Adaptations:
 	
 	year = syear
     	prefix = inst_type+'.fusion.'
-   	ftpname = data_server+'/daily/'+inst_type+'/v05.0/bmaps/'+year+'/'
+   	ftpname = data_server+'/daily/'+inst_type+'/v05.0/bmaps/'+year+'/' # v05.0/bmaps/ instead of '/'
 
    	 if inst_type == 'mw':
         	ver = 'rt'
    	 else:  # mw_ir
-       	 	ver = 'v05.0'
+       	 	ver = 'v05.0' # Instead of v04.0
     	suffix = '.'+ver+'.gz'
 
 - namelist.wps
