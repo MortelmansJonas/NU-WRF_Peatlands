@@ -61,7 +61,7 @@ Adaptations:
 
 	MERRA2 forcing directory:        ./LS_PARAMETERS/MERRA2_land_forcing ./LS_PARAMETERS/MERRA2_land_forcing ./LS_PARAMETERS/MERRA2_land_forcing
 
-	Noah-MP.3.6 model timestep:      15mn 15mn 15mn
+	Noah-MP.3.6 model timestep:      30mn 15mn 1mn
 	Noah-MP.3.6 restart file format:          netcdf netcdf netcdf
 	Noah-MP.3.6 landuse parameter table:      ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL
 	Noah-MP.3.6 soil parameter table:         ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL
@@ -115,7 +115,7 @@ Adaptations:
 
 	MERRA2 forcing directory:        ./LS_PARAMETERS/MERRA2_land_forcing ./LS_PARAMETERS/MERRA2_land_forcing ./LS_PARAMETERS/MERRA2_land_forcing
 
-	Noah-MP.3.6 model timestep:      12ss 12ss 12ss
+	Noah-MP.3.6 model timestep:      36ss 12ss 4ss
 	Noah-MP.3.6 restart file: 	LIS_RST_NOAHMP36_200507011200.d01.nc LIS_RST_NOAHMP36_200507011200.d02.nc LIS_RST_NOAHMP36_200507011200.d03.nc	
 	Noah-MP.3.6 restart file format:          netcdf netcdf netcdf
 	Noah-MP.3.6 landuse parameter table:      ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL
@@ -272,8 +272,8 @@ Adaptations:
  	parent_time_step_ratio              =    1,     3,     3,
 	feedback			    =	 1,
 	
-	ra_lw_physics                       = 4,     4,     4,
- 	ra_sw_physics                       = 4,     4,     4,
+	ra_lw_physics                       = 57,    57,    57,
+ 	ra_sw_physics                       = 57,    57,    57,
 	radt				    = 9,     3,     1,
 	sf_sfclay_physics                   = 2,     2,     2,
 	sf_urban_physics                    = 0,     0,     0,
@@ -327,8 +327,8 @@ Adaptations:
  	parent_id                           =      1,     1,     1,
 	feedback			    = 	   1,
 
-	ra_lw_physics                       =  4,     4,     4,
- 	ra_sw_physics                       =  4,     4,     4,
+	ra_lw_physics                       =  57,    57,    57,
+ 	ra_sw_physics                       =  57,    57,    57,
 	radt				    =  9,     3,     1,
 	bl_pbl_physics                      =  2,     2,     2,
  	bldt                                =  0,     0,     0,
