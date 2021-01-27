@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 ## Open the GRIB file
-file = '/scratch/leuven/336/vsc33651/nu-wrf-dev/Great_Slave_Lake/noahmp36_modis_merra2/postprd/WRFPRS_d02.05'
+file = '/scratch/leuven/336/vsc33651/nu-wrf-dev/Great_Slave_Lake/noahmp36_modis_merra2/postprd/WRFPRS_d02.01'
 gr=pygrib.open(file)
 for g in gr:
     print(g.typeOfLevel, g.level, g.name)
@@ -41,3 +41,4 @@ Flashes[:,0] = lats
 Flashes[:,1] = lons
 F_DF = pd.DataFrame(Flashes, columns=['Latitude', 'Longitude', 'Flashes_per_hour'])
 print(F_DF)
+print(np.amax(F_per_hour))
