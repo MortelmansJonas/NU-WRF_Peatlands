@@ -157,15 +157,28 @@ CG_ratio_d03 = np.where(np.isnan(CG_ratio_d03), 0, CG_ratio_d03)
 # plt.ylabel("CG/(CC+CG)")
 # plt.show()
 
+switch_interactive = 0
 ## Map Flashdensity in domain
+f = plt.figure(num=None, dpi=600, facecolor='w', edgecolor='k')
 m = Basemap(projection= 'lcc', lat_0 = ((min_lat_d02 + max_lat_d02)/2), lon_0 = ((min_lon_d02 + max_lon_d02)/2),
-            llcrnrlon=min_lon_d02, llcrnrlat=min_lat_d02, urcrnrlon=max_lon_d02,urcrnrlat = max_lat_d02,
-            resolution = 'h')
+            llcrnrlon=min_lon_d02, llcrnrlat=min_lat_d02,
+            urcrnrlon=max_lon_d02,urcrnrlat = max_lat_d02,
+            resolution = 'f')
+#m.drawcoastlines(linewidth=0.1)
+m.drawcountries()
 # m.fillcontinents(color='coral', lake_color='aqua')
 # m.drawmapboundary(fill_color='aqua')
 m.drawparallels(np.arange(-50,70,5))
 m.drawmeridians(np.arange(-127,-100,5))
 x,y = np.meshgrid(lons[lon_inds_d02],lats[lat_inds_d02])
-m.pcolormesh(x,y,FD_CC_D02[1,:,:])
+m.pcolormesh(x,y,FD_CC_D02[1,:,:],latlon=True)
+#m.pcolormesh(x,y,FD_CC_D02[1,:,:])
 
-plt.show() #doesn't show any results
+if switch_interactive=="1":
+    plt.show()
+else:
+    outpath = "/staging/leuven/stg_00024/OUTPUT/michelb/FIG_tmp/nu-wrf/"
+    fname = "FD_CC_D02"
+    fname_long = os.path.join(outpath, fname+'.png')
+    plt.savefig(fname_long, dpi=f.dpi)
+    plt.close()
