@@ -17,8 +17,8 @@ output_filename = os.path.join('/scratch/leuven/317/vsc31786/',filename_root+dom
 ndays = (pd.to_datetime(date_to) - pd.to_datetime(date_from)).days
 nhours = ndays * 24
 hours = np.linspace(1,nhours,nhours)
-# with leading zeros
-length_counter = len(str(nhours))
+# always with only one leading zero
+length_counter = 2
 cstr = "%0"+str(length_counter)+"d"
 timestep = cstr % 1
 filename = os.path.join(path,filename_root+domain+'.'+timestep)
