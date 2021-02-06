@@ -67,19 +67,21 @@ for h in range(1,nhours+1):
     print('processing '+filename)
     ds_in = Dataset(filename, mode='r')
     ## Get LTG threat 1 and 2 from the WRF files
-    qgraup = ds_in.variables['QGRAUP'][:]
-    qsnow = ds_in.variables['QSNOW'][:]
-    qice = ds_in.variables['QICE'][:]
-    ltg1_max = ds_in.variables['LTG1_MAX'][:]
-    ltg2_max = ds_in.variables['LTG2_MAX'][:]
-    weight_ltg1 = np.multiply(ltg1_max, 0.95)
-    weight_ltg2 = np.multiply(ltg2_max, 0.05)
-    ltg3_max = np.add(ltg1_max, ltg2_max)
+    # MB: no need to write these variables into the memory first
+    # directly dump it on the disk into the nc file
+    #qgraup = ds_in.variables['QGRAUP'][:]
+    #qsnow = ds_in.variables['QSNOW'][:]
+    #qice = ds_in.variables['QICE'][:]
+    #ltg1_max = ds_in.variables['LTG1_MAX'][:]
+    #ltg2_max = ds_in.variables['LTG2_MAX'][:]
+    #weight_ltg1 = np.multiply(ltg1_max, 0.95)
+    #weight_ltg2 = np.multiply(ltg2_max, 0.05)
+    #ltg3_max = np.add(ltg1_max, ltg2_max)
 
-    ds.variables['QGRAUP'][h-1,:,:,:] = qgraup
-    ds.variables['QICE'][h-1,:,:,:] = qice
-    ds.variables['QSNOW'][h-1,:,:,:] = qsnow
-    ds.variables['LTG1_MAX'][h-1,:,:] = ltg1_max
-    ds.variables['LTG2_MAX'][h-1,:,:] = ltg2_max
-    ds.variables['LTG3_MAX'][h-1,:,:] = ltg3_max
+    ds.variables['QGRAUP'][h-1,:,:,:] = ds_in.variables['QGRAUP'][:]
+    ds.variables['QICE'][h-1,:,:,:] = ds_in.variables['QICE'][:]
+    ds.variables['QSNOW'][h-1,:,:,:] = ds_in.variables['QSNOW'][:]
+    ds.variables['LTG1_MAX'][h-1,:,:] = ds_in.variables['LTG1_MAX'][:]
+    ds.variables['LTG2_MAX'][h-1,:,:] = ds_in.variables['LTG2_MAX'][:]
+    ds.variables['LTG3_MAX'][h-1,:,:] = 0.95 * ds_in.variables['LTG1_MAX'][:] + 0.05 * ds_in.variables['LTG2_MAX'][:]
 ds.close()
