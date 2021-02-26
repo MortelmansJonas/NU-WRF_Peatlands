@@ -5,3 +5,5 @@ The Read_WRF.py file contains code to visualize the wrf output variables such as
 The Read_GRIB2.py file is used to write the UPP output into netCDF files that can be further used to visualize the data.
 
 The WRF_LTG_threats.py file is used to extract the lightning threats from the WRF output and write them to netCDF files.
+
+The Map_proposal_avg_daily_fl_2015.py file is used to calculate the average observed flashes per location for the summer of 2015 and to transform the McCaul lightning threat 3 into number of flashes per day per km² for the 9 and 3 km resolution runs.
