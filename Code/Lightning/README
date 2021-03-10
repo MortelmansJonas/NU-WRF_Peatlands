@@ -3,6 +3,7 @@ Lightning
 ==========
 
 Notes (10/03/2021):
+
 - 'Lightning_data_full.py' does multiple things:
 
 	- It plots the amount of flashes per day and per type (CC and CG)
