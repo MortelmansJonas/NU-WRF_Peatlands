@@ -1,9 +1,9 @@
-===================
+------------------
 This is the repository for the MSc thesis of Jonas Mortelmans.
-===================
+------------------
 
 Notes (10/03/2021):
--------------------
+
 	- It is still under construction. Specific files will still be regularly updated.
 
 	- The folder 'Literature' contains reference namelist files from other papers. 
