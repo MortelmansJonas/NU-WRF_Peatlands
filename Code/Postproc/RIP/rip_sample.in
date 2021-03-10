@@ -1,0 +1,75 @@
+ &userin
+ idotitle=1,titlecolor='def.foreground',
+ ptimes=0,-24,1 ptimeunits='h',tacc=120,timezone=-7,iusdaylightrule=1,
+ iinittime=0,ifcsttime=0,ivalidtime=1,inearesth=0,
+ flmin=.05, frmax=.95, fbmin=.10, ftmax=.90,
+ ntextq=0,ntextcd=0,fcoffset=0.0,idotser=0,
+ idescriptive=1,icgmsplit=0,maxfld=10,itrajcalc=0,imakev5d=0,
+ ncarg_type='x11'
+ /
+ &trajcalc
+ rtim=15,ctim=6,dtfile=3600.,dttraj=600.,vctraj='s',
+ xjtraj=95,90,85,80,75,70,65,80.6,80.6,80.6,80.6,80.6,80.6,
+ yitraj=50,55,60,65,70,75,80,77,77,77,77,77,77,
+ zktraj=25,25,25,25,25,25,25,27,25,22,19,16,13,
+ ihydrometeor=0
+ /
+===========================================================================
+----------------------    Plot Specification Table    ---------------------
+===========================================================================
+feld=xlus; ptyp=hh; chfl; cosq=1,red,2,yellow,3,mustard,>
+   4,gold,5,orange,6,dark.red,7,violet,8,lavender,9,lavender,>
+   10,lavender,11,green,12,dark.green,13,light.green,14,avocado,15,eireann.green,>
+   16,aqua,17,brown,18,parchment,19,med.gray,20,lemon,21,lemon,>
+   22,lemon,23,lemon,24,white
+feld=map; ptyp=hb
+feld=tic; ptyp:hb; axtg=10; axlg=20
+===========================================================================
+feld=mcap; ptyp=hc; cint=50; cmth=fill; arng; cosq=0,blue,50,white,100,red 
+feld=map; ptyp=hb
+feld=tic; ptyp=vb; axtg=10; axlg=20
+===========================================================================
+feld=cap3; ptyp=hc; cint=50; cmth=fill; arng; cosq=0,blue,50,white,100,red
+feld=map; ptyp=hb
+feld=tic; ptyp=vb; axtg=10; axlg=20
+===========================================================================
+feld=ctt; ptyp=hc; cmth=fill; arng; cosq=0,blue,50,white,100,red
+feld=map; ptyp=hb
+feld=tic; ptyp=hb; axtg=10; axlg=20
+===========================================================================
+feld=ter; ptyp=hc; cint=50; cmth=fill; arng; cosq=0,green,50,yellow,100,red
+feld=map; ptyp=hb
+feld=tic; ptyp=hb; axtg=10; axlg=20
+===========================================================================
+feld=ght; ptyp=hc; cint=50; cmth=fill; arng; cosq=0,green,50,yellow,100,red
+feld=map; ptyp=hb
+feld=tic; ptyp=hb; axtg=10; axlg=20
+===========================================================================
+feld=lfc; ptyp=hc; cmth=fill; arng; cosq=0,blue,50,white,100,red
+feld=map; ptyp=hb
+feld=tic; ptyp=hb; axtg=10; axlg=20
+===========================================================================
+feld=lcl; ptyp=hc; cmth=fill; arng; cosq=0,blue,50,white,100,red
+feld=map; ptyp=hb
+feld=tic; ptyp=hb; axtg=10; axlg=20
+===========================================================================
+feld=mcin; ptyp=hc; cmth=fill; arng; cosq=0,blue,50,white,100,red
+feld=map; ptyp=hb
+feld=tic; ptyp=hb; axtg=10; axlg=20
+===========================================================================
+feld=cin3; ptyp=hc; cmth=fill; arng; cosq=0,blue,50,white,100,red
+feld=map; ptyp=hb
+feld=tic; ptyp=hb; axtg=10; axlg=20
+===========================================================================
+feld=slp; ptyp=hc; cmth=fill; arng; cosq=0,blue,50,white,100,red
+feld=map; ptyp=hb
+feld=tic; ptyp=hb; axtg=10; axlg=20
+===========================================================================
+feld=tmc; ptyp=hc; vcor=p; levs=850; cmth=fill; arng; cosq=0,blue,50,white,100,red
+feld=map; ptyp=hb
+feld=tic; ptyp=hb; axtg=10; axlg=20
+===========================================================================
+feld=uuu,vvv; ptyp=hv; colr=black; hodo; sndg; intv=10; fulb=10ms
+feld=map; ptyp=hb
+feld=tic; ptyp=hb; axtg=10; axlg=20
+===========================================================================
