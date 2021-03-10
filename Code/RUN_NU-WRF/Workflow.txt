@@ -1,0 +1,88 @@
+This file contains the workflow as provided by the NASA, but with certain adaptations on the HPC. 
+
+- First make sure the RUNDIR and NUWRFDIR are set correctly. Check the common.reg file and set the RUNDIR to the directory in which you're working. 
+  The NUWRFDIR is the directory of the source code. EXEDIR is in this case set to the same directory as the NUWRFDIR. 
+  Set RIP_ROOT to the directory containing the RIP source code (here: $NUWRFDIR/RIP4).
+
+  Run:
+  source common.reg
+
+- Run geogrid file:
+  INPUT: namelist.wps
+  OUTPUT: geo_em.d0N.nc files with N the domain number (one file per domain)
+
+  ./geogrid.reg
+
+  After finishing check the geogrid.log.0000 file for *** Succesful completion of program geogrid.exe ***
+
+- Get the variable TAVGSFC
+  ./avg_tsfc.reg
+
+- Get MERRA2 and SSTRSS data:
+./merra2wrf.py BEGINDATE ENDDATE
+  e.g.: ./merra2wrf.py 20050701 20050702
+
+./sst2wrf.py BEGINDATE ENDDATE
+  e.g.: ./sst2wrf.py 20050701 20050702
+
+  After this, copy the files from data/merra2wrf and data/mw_ir (or any other name your sstrss data has) to the RUNDIR
+   cp data/merra2wrf/* $RUNDIR
+   cp data/mw_ir/* $RUNDIR
+
+- Run metgrid
+  INPUT: namelist.wps, MERRA*, SSTRSS* and geo_em* files
+  OUTPUT: met_em* files corresponding to the number of intervals (defined as interval_seconds in namelist.wps) in the simulation length (start/end dates)
+
+ ./metgrid.reg
+
+   When done, check for *** Successful completion of program metgrid.exe *** in metgrid.log.0000
+
+- Run liswrfdomain
+  INPUT: lis.config.coldstart, lis.config.wrf, ldt.config.prelis, ldt.config.postlis and geo_em* files
+  OUTPUT -: lis.config.coldstart.new, lis.config.wrf.new, ldt.config.prelis.new, ldt.config.postlis.new (unless there were no changes needed)
+
+  ./liswrf_domain.reg
+
+  If necessary, this script will replace the original lis.config and ldt.config files with new ones. This ensures that the domain parameters between LIS and WRF are consistent.
+
+- Run LDT (pre-LIS)
+  INPUT: ldt.config (ldt.config.prelis gets copied into ldt.config by ldt_prelis.reg)
+  OUPUT: lis_input* files for each domain
+
+  ./ldt_prelis.reg
+
+  After finishing, check ldtlog_prelis.0000 for 'Finished LDT run'
+
+- LIS
+  INPUT: lis_input* files, lis.config.coldstart, forcing_variables_merra2.txt, NOAHMP36_OUTPUT_LIST_SPINUP.TBL
+  OUTPUT: surface model output in OUTPUT/SURFACEMODEL/YYYYMM (e.g. OUTPUT/SURFACEMODEL/200507)
+
+  ./lis.reg
+
+  When done, check lislog.0000 for  LIS Run completed.
+  Copy the LIS restart and history files from OUTPUT to $RUNDIR
+    cp OUTPUT/SURFACEMODEL/YYYYMM/* $RUNDIR
+
+- LDT (post-LIS)
+  INPUT: ldt.config, LIS history files
+  OUTPUT: lis4real_input* (one for each domain)
+
+  ./ldt_postlis.reg
+
+  When done, check ldtlog_postlis.0000 for 'Finished LDT run' 
+
+- REAL
+  INPUT: namelist.input.real, met_em*, geo_em*, lis4real_input*
+  OUTPUT: wrfinput* files (one for each domain) and wrfbdy_d01
+
+  ./real.reg
+
+  When done, check real.rsl.error.0000 for 'real_em: SUCCESS COMPLETE REAL_EM INIT'
+
+- WRF 
+  INPUT: namelist.input.wrf, lis.config.wrf, NOAHMP36_OUTPUT_LIST.TBL, wrfinput*, wrfbdy_d01
+  OUTPUT: wrfout* files (one for each domain)
+
+  ./wrf.reg
+
+ When done, check wrf.rsl.error.0000 for completion.

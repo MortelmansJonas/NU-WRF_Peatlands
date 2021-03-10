@@ -1,0 +1,348 @@
+Adaptations:
+- ldt.config.postlis
+	LIS number of nests: 3
+	Number of processors along x: 2 # (depending on how many processors -> if 36 set to 6)
+	Number of processors along y: 1 # (depending on how many processors -> if 36 set to 6)
+
+  	Map projection of the LIS domain:  lambert                                                                                       
+  	Run domain lower left lat:    53.80067   57.25259   59.70230                                                      
+  	Run domain lower left lon:  -129.90358 -125.37016 -118.05930                                                 
+  	Run domain true lat1:    60.25000   60.25000   60.25000                                           
+  	Run domain true lat2:    60.25000   60.25000   60.25000                                              
+  	Run domain standard lon:  -116.24950 -116.24950 -116.24950                             
+  	Run domain resolution:     9.00000    3.00000    1.00000
+  	Run domain x-dimension size:    200   363   114                                                                                           
+ 	Run domain y-dimension size:    140   216   111         
+	
+	LIS history file for land state initialization: ./LIS_HIST_201506010000.d01.nc ./LIS_HIST_201506010000.d02.nc ./LIS_HIST_201506010000.d03.nc
+	
+	Noah-MP PBL Height Value:               900. 900. 900.
+
+- ldt.config.prelis
+	LIS number of nests: 3
+	Number of processors along x: 2 # (depending on how many processors -> if 36 set to 6)
+	Number of processors along y: 1 # (depending on how many processors -> if 36 set to 6)
+	
+  	Run domain lower left lat:    53.80067   57.25259   59.70230                                                      
+  	Run domain lower left lon:  -129.90358 -125.37016 -118.05930                                                 
+  	Run domain true lat1:    60.25000   60.25000   60.25000                                           
+  	Run domain true lat2:    60.25000   60.25000   60.25000                                              
+  	Run domain standard lon:  -116.24950 -116.24950 -116.24950                             
+  	Run domain resolution:     9.00000    3.00000    1.00000
+  	Run domain x-dimension size:    200   363   114                                                                                           
+ 	Run domain y-dimension size:    140   216   111 
+
+	Soil texture fill option:         neighbor neighbor neighbor 
+
+	Elevation map:       	./LS_PARAMETERS/topo_parms2/SRTM ./LS_PARAMETERS/topo_parms2/SRTM ./LS_PARAMETERS/topo_parms2/SRTM
+	
+	Slope map:       	./LS_PARAMETERS/topo_parms2/SRTM ./LS_PARAMETERS/topo_parms2/SRTM ./LS_PARAMETERS/topo_parms2/SRTM
+
+	Aspect map:       	./LS_PARAMETERS/topo_parms2/SRTM ./LS_PARAMETERS/topo_parms2/SRTM ./LS_PARAMETERS/topo_parms2/SRTM
+
+	Bottom temperature map:	./LS_PARAMETERS/UMD/1KM/tbot_NCEP.1gd4r ./LS_PARAMETERS/UMD/1KM/tbot_NCEP.1gd4r ./LS_PARAMETERS/UMD/1KM/tbot_NCEP.1gd4r 
+
+	 Noah-MP PBL Height Value:   900. 900. 900.     # Planetary Boundary layer height (in meters)
+
+- lis.config.coldstart
+	Number of nests:    3
+
+	Surface model output interval: 1mo 1mo 1mo
+	Starting year:           	2005
+	Starting month:          	1
+	Starting day:            	01
+	Starting hour:           	00
+	Starting minute:         	0
+	Starting second:         	0
+	Ending year:             	2015
+	Ending month:           	9
+	Ending day:             	01
+	Ending hour:             	00
+	Ending minute:           	0
+	Ending second:           	0
+	Number of processors along x:   6 # (depending on how many processors)
+	Number of processors along y:   6 # (depending on how many processors)
+
+	MERRA2 forcing directory:        ./LS_PARAMETERS/MERRA2_land_forcing ./LS_PARAMETERS/MERRA2_land_forcing ./LS_PARAMETERS/MERRA2_land_forcing
+
+	Noah-MP.3.6 model timestep:      30mn 15mn 1mn
+	Noah-MP.3.6 restart output interval: 1mo 1mo 1mo
+	Noah-MP.3.6 restart file format:          netcdf netcdf netcdf
+	Noah-MP.3.6 landuse parameter table:      ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL
+	Noah-MP.3.6 soil parameter table:         ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL
+	Noah-MP.3.6 general parameter table:      ./LS_PARAMETERS/noahmp_params/GENPARM.TBL ./LS_PARAMETERS/noahmp_params/GENPARM.TBL ./LS_PARAMETERS/noahmp_params/GENPARM.TBL
+	Noah-MP.3.6 MP parameter table:           ./LS_PARAMETERS/noahmp_params/MPTABLE.TBL ./LS_PARAMETERS/noahmp_params/MPTABLE.TBL ./LS_PARAMETERS/noahmp_params/MPTABLE.TBL
+	
+	Noah-MP.3.6 vegetation model option:                    1 1 1 # 1=prescribed; 2=dynamic; 3=calculate; 4=maximum
+	Noah-MP.3.6 canopy stomatal resistance option:          2 2 2  # 1=Ball-Berry; 2=Jarvis
+	Noah-MP.3.6 soil moisture factor for stomatal resistance option:  1 1 1 # 1=Noah; 2=CLM; 3=SSiB
+	Noah-MP.3.6 runoff and groundwater option:              3 3 3  # 1=SIMGM; 2=SIMTOP; 3=Schaake96; 4=BATS
+	Noah-MP.3.6 surface layer drag coefficient option:      2 2 2  # 1=M-O; 2=Chen97
+	Noah-MP.3.6 supercooled liquid water option:            2 2 2  # 1=NY06; 2=Koren99
+	Noah-MP.3.6 frozen soil permeability option:            2 2 2  # 1=NY06; 2=Koren99
+	Noah-MP.3.6 radiation transfer option:                  1 1 1  # 1=gap=F(3D;cosz); 2=gap=0; 3=gap=1-Fveg
+	Noah-MP.3.6 snow surface albedo option:                 2 2 2  # 1=BATS; 2=CLASS
+	Noah-MP.3.6 rainfall and snowfall option:               3 3 3  # 1=Jordan91; 2=BATS; 3=Noah
+	Noah-MP.3.6 lower boundary of soil temperature option:  2 2 2  # 1=zero-flux; 2=Noah
+	Noah-MP.3.6 snow and soil temperature time scheme:      1 1 1  # 1=semi-implicit; 2=fully implicit
+
+	Output start year:     2015 2015 2015
+	Output start month:    05 05 05
+	Output start day:      30 30 30
+	Output start hour:     00 00 00
+	Output start minutes:   0 0 0
+	Output start seconds:   0 0 0
+	Output at specific time only: 0 0 0
+	Specific output writing time (month):   6 6 6
+	Specific output writing time (day):    01 01 01
+	Specific output writing time (hour):   00 00 00
+	Specific output writing time (minute):  0 0 0
+	Specific output writing time (second):  0 0 0
+	Model output attributes file:   './NOAHMP36_OUTPUT_LIST_SPINUP.TBL' './NOAHMP36_OUTPUT_LIST_SPINUP.TBL' './NOAHMP36_OUTPUT_LIST_SPINUP.TBL'
+
+- lis.config.wrf
+	Number of nests:	3
+
+	Starting year:                             2015
+	Starting month:                            6
+	Starting day:                              01
+	Starting hour:                             01
+	Starting minute:                           0
+	Starting second:                           0
+	Ending year:                               2015
+	Ending month:                              9
+	Ending day:                                01
+	Ending hour:                               00
+	Ending minute:                             0
+	Ending second:                             0
+	Number of processors along x:   6 # (depending on how many processors)
+	Number of processors along y:   6 # (depending on how many processors)
+
+	MERRA2 forcing directory:        ./LS_PARAMETERS/MERRA2_land_forcing ./LS_PARAMETERS/MERRA2_land_forcing ./LS_PARAMETERS/MERRA2_land_forcing
+
+	Noah-MP.3.6 model timestep:      36ss 12ss 4ss
+	Noah-MP.3.6 restart output interval: 1mo  1mo  1mo
+	Noah-MP.3.6 restart file: 	LIS_RST_NOAHMP36_201506010000.d01.nc LIS_RST_NOAHMP36_201506010000.d02.nc LIS_RST_NOAHMP36_201506010000.d03.nc	
+	Noah-MP.3.6 restart file format:          netcdf netcdf netcdf
+	Noah-MP.3.6 landuse parameter table:      ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL
+	Noah-MP.3.6 soil parameter table:         ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL
+	Noah-MP.3.6 general parameter table:      ./LS_PARAMETERS/noahmp_params/GENPARM.TBL ./LS_PARAMETERS/noahmp_params/GENPARM.TBL ./LS_PARAMETERS/noahmp_params/GENPARM.TBL
+	Noah-MP.3.6 MP parameter table:           ./LS_PARAMETERS/noahmp_params/MPTABLE.TBL ./LS_PARAMETERS/noahmp_params/MPTABLE.TBL ./LS_PARAMETERS/noahmp_params/MPTABLE.TBL
+
+    	Noah-MP.3.6 vegetation model option:                    1 1 1 # 1=prescribed; 2=dynamic; 3=calculate; 4=maximum
+	Noah-MP.3.6 canopy stomatal resistance option:          2 2 2 # 1=Ball-Berry; 2=Jarvis
+	Noah-MP.3.6 soil moisture factor for stomatal resistance option:  1 1 1 # 1=Noah; 2=CLM; 3=SSiB
+	Noah-MP.3.6 runoff and groundwater option:              3 3 3 # 1=SIMGM; 2=SIMTOP; 3=Schaake96; 4=BATS
+	Noah-MP.3.6 surface layer drag coefficient option:      2 2 2 # 1=M-O; 2=Chen97
+	Noah-MP.3.6 supercooled liquid water option:            2 2 2 # 1=NY06; 2=Koren99
+	Noah-MP.3.6 frozen soil permeability option:            2 2 2 # 1=NY06; 2=Koren99
+	Noah-MP.3.6 radiation transfer option:                  1 1 1 # 1=gap=F(3D;cosz); 2=gap=0; 3=gap=1-Fveg
+	Noah-MP.3.6 snow surface albedo option:                 2 2 2 # 1=BATS; 2=CLASS
+	Noah-MP.3.6 rainfall and snowfall option:               3 3 3 # 1=Jordan91; 2=BATS; 3=Noah
+	Noah-MP.3.6 lower boundary of soil temperature option:  2 2 2 # 1=zero-flux; 2=Noah
+	Noah-MP.3.6 snow and soil temperature time scheme:      1 1 1 # 1=semi-implicit; 2=fully implicit
+	Noah-MP.3.6 soil color index:             4 4 4
+	Noah-MP.3.6 CZIL option (iz0tlnd):        0 0 0
+- ldt_prelis.reg
+	# Run LDT
+	ln -fs $NUWRFDIR/LISF/ldt/LDT LDT || exit 1
+	
+	Remove MPIRUN at the end!
+
+- lis.reg
+	ln -sf $LISDIR/LS_PARAMETERS/MERRA2_land_forcing/MERRA2_400/diag/Y2005/M07 $RUNDIR || exit 1 # (instead of MET_FORCING)
+	if [ ! -e $RUNDIR/M07 ] ; then
+    	echo "ERROR, $RUNDIR/MET_FORCING does not exist!"
+    	exit 1
+	fi
+	ln -sf $RUNDIR/LS_PARAMETERS/noahmp_params noahmp_params || exit 1 # (instead of noah3X)
+	if [ ! -e $RUNDIR/noahmp_params ] ; then
+   	echo "ERROR, $RUNDIR/noahmp_parms does not exist!"
+  	exit 1
+	fi
+	#ln -sf $RUNDIR/LS_PARAMETERS/noah36_parms noah36_parms || exit 1 # (because no noah36_marms)
+	#if [ ! -e $RUNDIR/noah36_parms ] ; then
+	#    echo "ERROR, $RUNDIR/noah36_parms does not exist!"
+	#    exit 1
+	#fi
+	
+	# Need LIS files for ldt_postlis and WRF-LIS run
+	cp OUTPUT/SURFACEMODEL/200507/LIS_* .
+
+- merra2wrf.reg
+	-> Use merra2wrf.py instead -> ./merra2wrf.py BEGINDATE ENDDATE
+	e.g.: ./merra2wrf.py 20050701 20050703
+
+	# Initialize directories
+    	merra_server = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/'
+    	merra_server_2 = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_400'
+	
+	file_name1 = 'MERRA2_400.const_2d_asm_Nx.00000000.nc4'
+        get_file(merra_server_2,'diag',file_name1, outdir)
+
+        file_name2 = stage_prefix+'.inst6_3d_ana_Nv.'+year+month+day+'.nc4'
+        get_file(merra_server,
+                 stage_prefix+'/diag/Y'+year+'/M'+month,
+                 file_name2, outdir)
+
+        file_name3 = stage_prefix+'.inst6_3d_ana_Np.'+year+month+day+'.nc4'
+        get_file(merra_server,
+                 stage_prefix+'/diag/Y'+year+'/M'+month,
+                 file_name3, outdir)
+
+        file_name4 = stage_prefix+'.tavg1_2d_slv_Nx.'+year+month+day+'.nc4'
+        get_file(merra_server,
+                 stage_prefix+'/diag/Y'+year+'/M'+month,
+                 file_name4, outdir)
+
+        file_name5 = stage_prefix+'.tavg1_2d_ocn_Nx.'+year+month+day+'.nc4'
+        get_file(merra_server,
+                 stage_prefix+'/diag/Y'+year+'/M'+month,
+                 file_name5, outdir)
+
+        file_name6 = stage_prefix+'.tavg1_2d_lnd_Nx.'+year+month+day+'.nc4'
+        get_file(merra_server,
+                 stage_prefix+'/diag/Y'+year+'/M'+month,
+                 file_name6, outdir)
+
+	In clean up: put all os.remove() statements in the for loop.
+	
+- Get sst2wrf.py from src_code -> ./sst2wrf.py BEGINDATE ENDDATE
+	e.g.: ./sst2wrf.py 20050701 20050703
+
+- namelist.wps
+	max_dom = 3,
+	start_date = '2015-06-01_00:00:00','2015-06-01_00:00:00', '2015-06-01_00:00:00',
+ 	end_date   = '2015-09-01_00:00:00','2015-09-01_00:00:00', '2015-09-01_00:00:00',
+
+	parent_id         =   0,   1,   2,
+ 	parent_grid_ratio =   1,   3,   3,
+ 	i_parent_start    =   1,   40,  150,
+ 	j_parent_start    =   1,   38,  80,
+ 	s_we              =   1,   1,   1,
+ 	e_we              = 201,   364, 115,
+ 	s_sn              =   1,   1,   1,
+ 	e_sn              = 141,   217, 112,
+	
+	dx        = 9000,
+ 	dy        = 9000,
+
+ 	ref_lat   =   60.25,
+ 	ref_lon   =  -116.2495,
+	truelat1  =   60.25,
+	truelat2  =   60.25,
+	stand_lon =  -116.2495,
+	geog_data_path = '/staging/leuven/stg_00024/OUTPUT/michelb/l_data/model_param/nu-wrf/geog'
+
+- namelist.input.real
+	run_days			    = 92,
+	start_year                          = 2015,  2015,  2015,
+	start_month                         =   06,    06,    06,
+	start_day                           =   01,    01,    01,
+	start_hour                          =   00,    00,    00,
+	start_minute                        =   00,    00,    00,
+	start_second                        =   00,    00,    00,
+	end_year                            = 2015,  2015,  2015,
+	end_month                           =   09,    09,    09,
+	end_day                             =   01,    01,    01,
+	end_hour                            =   00,    00,    00,
+	end_minute                          =   00,    00,    00,
+	end_second                          =   00,    00,    00,
+
+	max_dom                             = 3,
+ 	s_we                                =      1,     1,     1,
+ 	e_we                                =    201,   364,   115,
+ 	s_sn                                =      1,     1,     1,
+ 	e_sn                                =    141,   217,   112,
+ 	s_vert                              =      1,     1,     1,
+ 	e_vert                              =     61,    61,    61,
+
+	
+ 	dx                                  =  9000,  3000,  1000,
+ 	dy                                  =  9000,  3000,  1000,
+ 	grid_id                             =    1,     2,     3,
+ 	parent_id                           =    0,     1,     2,
+ 	i_parent_start                      =    1,    40,   150,
+ 	j_parent_start                      =    1,    38,    80,
+	parent_grid_ratio                   =    1,     3,     3,
+	parent_time_step_ratio              =    1,     3,     3,
+
+
+	ra_lw_physics                       = 57,     57,     57,
+ 	ra_sw_physics                       = 57,     57,     57,
+	sf_sfclay_physics                   = 2,     2,     2,
+	sf_urban_physics                    = 0,     0,     0,
+ 	bl_pbl_physics                      = 2,     2,     2,
+ 	bldt                                = 0,     0,     0,
+ 	cu_physics                          = 3,     0,     0,
+ 	cudt                                = 0,     0,     0,
+
+	gfdda_end_h                         = 0,     0,     0,
+ 	gfdda_interval_m                    = 0,     0,     0,
+
+	if_zfac_uv                          = 0,     0,     0,
+  	 k_zfac_uv                          = 10,    10,     1,
+ 	if_zfac_t                           = 0,     0,     0,
+ 	 k_zfac_t                           = 10,    10,     1,
+ 	if_zfac_q                           = 0,     0,     0,
+ 	 k_zfac_q                           = 10,    10,     1,
+
+	w_damping                           = 1,
+
+- namelist.input.wrf
+	run_days			    = 92,
+	start_year                          = 2015,  2015,  2015,
+	start_month                         =   06,    06,    06,
+	start_day                           =   01,    01,    01,
+	start_hour                          =   00,    00,    00,
+	start_minute                        =   00,    00,    00,
+	start_second                        =   00,    00,    00,
+	end_year                            = 2015,  2015,  2015,
+	end_month                           =   09,    09,    09,
+	end_day                             =   01,    01,    01,
+	end_hour                            =   00,    00,    00,
+	end_minute                          =   00,    00,    00,
+	end_second                          =   00,    00,    00,
+	history_interval                    =   60,    60,    60,
+
+	max_dom                             = 3,
+ 	s_we                                =      1,     1,     1,
+ 	e_we                                =    201,   364,   115,
+ 	s_sn                                =      1,     1,     1,
+ 	e_sn                                =    141,   217,   112,
+ 	s_vert                              =      1,     1,     1,
+ 	e_vert                              =     61,    61,    61,
+
+	
+ 	dx                                  =  9000,  3000,  1000,
+ 	dy                                  =  9000,  3000,  1000,
+ 	grid_id                             =    1,     2,     3,
+ 	parent_id                           =    0,     1,     2,
+ 	i_parent_start                      =    1,    40,   150,
+ 	j_parent_start                      =    1,    38,    80,
+	parent_grid_ratio                   =    1,     3,     3,
+	parent_time_step_ratio              =    1,     3,     3,
+
+
+	ra_lw_physics                       = 57,     57,     57,
+ 	ra_sw_physics                       = 57,     57,     57,
+	sf_sfclay_physics                   = 2,     2,     2,
+	sf_urban_physics                    = 0,     0,     0,
+ 	bl_pbl_physics                      = 2,     2,     2,
+ 	bldt                                = 0,     0,     0,
+ 	cu_physics                          = 3,     0,     0,
+ 	cudt                                = 0,     0,     0,
+
+	gfdda_end_h                         = 0,     0,     0,
+ 	gfdda_interval_m                    = 0,     0,     0,
+
+	if_zfac_uv                          = 0,     0,     0,
+  	 k_zfac_uv                          = 10,    10,     1,
+ 	if_zfac_t                           = 0,     0,     0,
+ 	 k_zfac_t                           = 10,    10,     1,
+ 	if_zfac_q                           = 0,     0,     0,
+ 	 k_zfac_q                           = 10,    10,     1,
+
+
+	w_damping                           = 1,
+
