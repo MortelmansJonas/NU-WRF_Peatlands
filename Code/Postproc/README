@@ -1,12 +1,20 @@
-The CAPE.py file contains code to calculate the CAPE from the wrf output files.
+==========
+Postproc
+==========
 
-The Read_WRF.py file contains code to visualize the wrf output variables such as sea level pressure, terrain, temperature, wind speeds, wind direction,...
+Notes (10/03/2021):
+- The folder CAPExP contains scripts to calculate and plot CAPE times convective precipitation rate, to be used in the lightning parameterization of Romps et al.
 
-The Read_GRIB2.py file is used to write the UPP output into netCDF files that can be further used to visualize the data.
+- The folder LPI contains the script to calculate LPI (based on the ncl script of prof. Barry Lynn) and store it in a netCDF file. It also contains a script to plot it (although unfinished).
 
-The WRF_LTG_threats.py file is used to extract the lightning threats from the WRF output and write them to netCDF files.
+- The folder McCaul contains the script to make a map and diurnal cycle plot of the observations, the McCaul threats in domain 1 and 2 and the total precipitation in both domains.
 
-The Map_proposal_avg_daily_fl_2015.py file is used to calculate the average observed flashes per location for the summer of 
-2015 and to transform the McCaul lightning threat 3 into number of flashes per day per km² for the 9 and 3 km resolution runs. (FIRST TRY)
+- The folder PR92 contains the script to calculate the Price and Rind 92 lightning parameterization scheme based on both cloud top height and maximal vertical updraft velocity.
 
-The Map_Proposal_2015.py file is an updated version of the Map_proposal_avg_daily_fl_2015.py file, but gives different results.
+- The folder RIP contains all files needed to run RIP. 
+
+- The folder UPP contains all scripts neede to run UPP and the scripts 'read_grib2_*' to combine all UPP output files for a specific domain into one for further analysis.
+
+- 'WRF_output_nc.py' contains the script to combine all wrf output files into one netcdf file and extract specific variables.
+
+- The two files with 'diurnal' create netCDF files that are used for the diurnal plotting in other scripts. It is needed to first run these before making a diurnal plot.
