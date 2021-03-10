@@ -1,7 +1,12 @@
-This folder contains the code used for the testcases. The domain is set to fit the domain of interest (Great Slave Lake).
-The time period is set from 1-7-2005 12:00:00 to 2-7-2005 12:00:00.
+Code
+----
 
-The subfolder Lightning contains the script to create a netCDF file from the Lightning data provided by the CLDN (Canadian Lightning Detection Network). 
-This file can be visualized with panoply.
+Notes (10/03/2021):
 
-The subfolder postproc contains scripts to visualize the output of the wrf run.
+- 'RUN_NU-WRF' contains all files that need adaptations to run on VSC HPC. It contains the adapted files, a list of needed changes and a workflow to go through NU-WRF.
+
+- 'Lightning' contains all files that are used to process (store in netcdf file) and plot the observational lightning data.
+
+- 'Postproc' contains all files that are needed to postprocess the wrf output, including RIP, UPP and the scripts to calculate/plot the different lightning schemes.
+
+- 'Spin-up_control' contains files to check the spin-up performed with LIS and plots two variables to evaluate over time.
