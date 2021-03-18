@@ -1,0 +1,73 @@
+Making a set of restart files.
+
+### link all LIS files into main folder 
+ln -s OUTPUT/SURFACEMODEL/*/* .
+
+### if the wrf rst files have an odd time for which no met_files exist, cp them to a round time, e.g.
+cp wrfrst_d01_2015-08-14_01\:31\:12  wrfrst_d01_2015-08-14_00\:00\:00
+cp wrfrst_d02_2015-08-14_01\:31\:12  wrfrst_d02_2015-08-14_00\:00\:00
+# the restart is not perfect but the best one can do. 
+# This should not happen anymore in future with correctly set 
+# restart_interval for the writeout of rst files in wrf config files:
+restart_interval 1440
+
+### Adjust a copy of each of the input files and all give the _restart ending
+### to keep restart settings separate from the original files
+### File 1: ldt_postlis.reg_restart
+cp ldt_postlis.reg  ldt_postlis.reg_restart 
+# in ldt_postlis.reg_restart change 3 times
+ldt.config.postlis into ldt.config.postlis_restart
+
+### File 2: ldt.config.postlis_restart
+cp ldt.config.postlis ldt.config.postlis_restart
+# in ldt.config.postlis_restart change LIS HIST file for land initialization 
+# to the last LIS HIST file closest to your restart time
+LIS history file for land state initialization: ./LIS_HIST_201508140000.d01.nc ./LIS_HIST_201508140000.d02.nc ./LIS_HIST_201508140000.d03.nc
+
+### File 3: real.reg_restart
+cp real.reg real.reg_restart
+# in real.reg_restart change 3 times
+namelist.input.real into namelist.input.real_restart
+
+### File 4: namelist.input.real_restart
+cp namelist.input.real namelist.input.real_restart
+# in namelist.input.real_restart change 
+restart                             = .true.,
+# and run_days and start_* for the start time
+
+### File 5: wrf.reg_restart
+cp wrf.reg wrf.reg_restart
+# in wrf.reg_restart change 3 times
+namelist.input.wrf into namelist.input.wrf_restart
+# and 2 times
+lis.config.wrf into lis.config.wrf_restart
+
+### File 6: namelist.input.wrf_restart
+cp namelist.input.wrf namelist.input.wrf_restart
+# in namelist.input.wrf_restart change 
+restart                             = .true.,
+# and run_days and start_* for the start time
+
+### File 7: lis.config.wrf_restart
+cp lis.config.wrf lis.config.wrf_restart
+# change the Noah-MP.3.6 restart file  to the file name with the start time
+# and change the start time year/month/day/hour/
+
+### File 8: create new nu-wrf_2015.pbs_restart with normal header and
+cd $PBS_O_WORKDIR
+ulimit -s unlimited
+source common.reg
+./wrf.reg_restart
+
+### RUN
+source common.reg
+bash ldt_postlis.reg_restart
+bash real.reg_restart
+qsub nu-wrf_2015.pbs_restart
+
+
+# Generate all necessary files at once:
+cp ldt_postlis.reg ldt_postlis.reg_restart; cp ldt.config.postlis ldt.config.postlis_restart; cp real.reg real.reg_restart; cp namelist.input.real namelist.input.real_restart; cp wrf.reg wrf.reg_restart; cp namelist.input.wrf namelist.input.wrf_restart; cp lis.config.wrf lis.config.wrf_restart; cp nu-wrf_2017_MB.pbs nu-wrf_2017_MB.pbs_restart
+# Then edit according to the steps above
+
+vim -p ldt_postlis.reg_restart ldt.config.postlis_restart real.reg_restart namelist.input.real_restart wrf.reg_restart namelist.input.wrf_restart lis.config.wrf_restart nu-wrf_2017_MB.pbs_restart
