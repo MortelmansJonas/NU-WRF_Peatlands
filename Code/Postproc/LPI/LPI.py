@@ -153,7 +153,7 @@ m.pcolormesh(lon_d01,lat_d01,avg_daily_LPI_d01,latlon=True,cmap=newcmp)
 if switch_interactive=="1":
     plt.show()
 else:
-    outpath = "/scratch/leuven/336/vsc33651/nu-wrf-dev/Plots"
+    outpath = "/scratch/leuven/317/vsc31786/nu-wrf-dev/Plots"
     fname = "LPI_ALL_d01_v03"
     fname_long = os.path.join(outpath, fname+'.png')
     plt.title('Convection-parameterized (9 km)',size=12)
@@ -180,7 +180,7 @@ m.pcolormesh(lon_d02,lat_d02,avg_daily_LPI_d02,latlon=True,cmap=newcmp)
 if switch_interactive=="1":
     plt.show()
 else:
-    outpath = "/scratch/leuven/336/vsc33651/nu-wrf-dev/Plots"
+    outpath = "/scratch/leuven/317/vsc31786/nu-wrf-dev/Plots"
     fname = "LPI_ALL_d02_v03"
     fname_long = os.path.join(outpath, fname+'.png')
     plt.title('Convection-permitting (3 km)',size=12)
@@ -233,7 +233,8 @@ weeks = pd.date_range(time_2015_pd[0],time_2015_pd[2207],freq='W-MON')
 seasonal_d02 = np.zeros((len(weeks),217,364))
 seasonal_d01 = np.zeros((len(weeks),90,157))
 for i in range(0,len(weeks)): # By far not the most efficient way, but the only way I could make it work.
-    j = i+7
+    # MB: end of index 7 days times 24 hours
+    j = i+(7*24)
     indices = np.array([np.arange(i,j), np.arange(i+2208,j+2208), np.arange(i+4416,j+4416), np.arange(i+6624,j+6624),
                         np.arange(i+8832,j+8832), np.arange(i+11040,j+11040)]).flatten()
     seasonal_d02[i,:,:] = np.mean(LPI_d02[indices], axis=(0))
@@ -257,7 +258,7 @@ plt.show()
 plt.plot(weeks,np.mean(seasonal_d02,axis=(1,2)), 'k')
 plt.xlabel('Date', size = 12)
 plt.ylabel('LPI (J kg$^{-1}$)', size = 12)
-plt.title('Convection-permitting(3 km)')
+plt.title('Convection-permitting (3 km)')
 plt.ticklabel_format(axis='y',style='sci', scilimits=(0,0))
 locator = mdates.MonthLocator()
 fmt = mdates.DateFormatter('%b')
