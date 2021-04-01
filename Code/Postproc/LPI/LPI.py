@@ -153,7 +153,7 @@ m.pcolormesh(lon_d01,lat_d01,avg_daily_LPI_d01,latlon=True,cmap=newcmp)
 if switch_interactive=="1":
     plt.show()
 else:
-    outpath = "/scratch/leuven/317/vsc31786/nu-wrf-dev/Plots"
+    outpath = "/scratch/leuven/336/vsc33651/nu-wrf-dev/Plots"
     fname = "LPI_ALL_d01_v03"
     fname_long = os.path.join(outpath, fname+'.png')
     plt.title('Convection-parameterized (9 km)',size=12)
@@ -180,7 +180,7 @@ m.pcolormesh(lon_d02,lat_d02,avg_daily_LPI_d02,latlon=True,cmap=newcmp)
 if switch_interactive=="1":
     plt.show()
 else:
-    outpath = "/scratch/leuven/317/vsc31786/nu-wrf-dev/Plots"
+    outpath = "/scratch/leuven/336/vsc33651/nu-wrf-dev/Plots"
     fname = "LPI_ALL_d02_v03"
     fname_long = os.path.join(outpath, fname+'.png')
     plt.title('Convection-permitting (3 km)',size=12)
