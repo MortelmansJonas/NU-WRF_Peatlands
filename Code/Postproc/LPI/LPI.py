@@ -572,3 +572,17 @@ X.set_major_locator(locator)
 X.set_major_formatter(fmt)
 plt.grid(which='major', axis='both', color='lightgray')
 plt.show()
+
+# ---------------------------------------------------------------------------------------------
+# FREQUENCY IFO HOURLY GRID FLASH DENSITY (SEE WONG ET AL. FIG. 5)
+# ---------------------------------------------------------------------------------------------
+# rounded_LPI_d02 = np.round(LPI_d02, 8)
+unique,counts=np.unique(LPI_d02,return_counts=True)
+
+# rolling_average = np.convolve(counts, np.ones(10), 'valid')/10
+plt.plot(unique,counts,'.', ms=1)
+plt.ylabel('Frequency')
+plt.xlabel('Hourly gird flash density (#/km${2}$')
+plt.xscale('log')
+plt.yscale('log')
+plt.show()
