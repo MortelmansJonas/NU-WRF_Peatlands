@@ -96,7 +96,6 @@ time_all[4416:6624] = time_2017_pd
 time_all[6624:8832] = time_2018_pd
 time_all[8832:11040] = time_2019_pd
 time_all[11040:13248] = time_2020_pd
-
 # LPI DOMAIN 2
 LPI_d02 = np.zeros((13248,217,364))
 LPI_d02[0:2208,:,:] = lpi_2015_d02
@@ -127,6 +126,8 @@ for i in range(0,days):
 avg_daily_LPI_d02 = np.mean(daily_LPI_d02, axis = 0)
 avg_daily_LPI_d01 = np.mean(daily_LPI_d01, axis = 0)
 
+print(np.amax(daily_LPI_d02))
+print(np.amax(daily_LPI_d01))
 # ---------------------------------------------------------------------------------------------
 # MAPS
 # ---------------------------------------------------------------------------------------------
@@ -229,61 +230,345 @@ time_summer = times[summer[1]]
 # ---------------------------------------------------------------------------------------------
 # SEASONAL CLIMATOLOGY
 # ---------------------------------------------------------------------------------------------
-weeks = pd.date_range(time_2015_pd[0],time_2015_pd[2207],freq='W-MON')
-seasonal_d02 = np.zeros((len(weeks),217,364))
-seasonal_d01 = np.zeros((len(weeks),90,157))
-for i in range(0,len(weeks)): # By far not the most efficient way, but the only way I could make it work.
-    # MB: end of index 7 days times 24 hours
-    j = i+(7*24)
-    indices = np.array([np.arange(i,j), np.arange(i+2208,j+2208), np.arange(i+4416,j+4416), np.arange(i+6624,j+6624),
-                        np.arange(i+8832,j+8832), np.arange(i+11040,j+11040)]).flatten()
-    seasonal_d02[i,:,:] = np.mean(LPI_d02[indices], axis=(0))
-    seasonal_d01[i,:,:] = np.mean(LPI_d01[indices], axis=(0))
+# weeks = pd.date_range(time_2015_pd[0],time_2015_pd[2207],freq='W-MON')
+# seasonal_d02 = np.zeros((len(weeks),217,364))
+# seasonal_d01 = np.zeros((len(weeks),90,157))
+# for i in range(0,len(weeks)): # By far not the most efficient way, but the only way I could make it work.
+    # j = i+(7*24) # MB: end of index 7 days times 24 hours
+    # j = (i+1)*(7*24)
+    # k = i*(7*24)
+    # indices = np.array([np.arange(k,j), np.arange(k+2208,j+2208), np.arange(k+4416,j+4416), np.arange(k+6624,j+6624),
+    #                     np.arange(k+8832,j+8832), np.arange(k+11040,j+11040)]).flatten()
+    # seasonal_d02[i,:,:] = np.mean(LPI_d02[indices], axis=(0))
+    # seasonal_d01[i,:,:] = np.mean(LPI_d01[indices], axis=(0))
+
 
 # PLOT DOMAIN 1
-plt.plot(weeks, np.mean(seasonal_d01, axis=(1,2)), 'k')
-plt.xlabel('Date', size = 12)
-plt.ylabel('LPI (J kg$^{-1}$)', size = 12)
-plt.title('Convection-parameterized (9 km)')
-plt.ticklabel_format(axis='y',style='sci', scilimits=(0,0))
-locator = mdates.MonthLocator()
-fmt = mdates.DateFormatter('%b')
-X = plt.gca().xaxis
-X.set_major_locator(locator)
-X.set_major_formatter(fmt)
-plt.grid(which='major', axis='both', color='lightgray')
-plt.show()
+# plt.plot(weeks, np.mean(seasonal_d01, axis=(1,2)), 'k')
+# plt.xlabel('Date', size = 12)
+# plt.ylabel('LPI (J kg$^{-1}$)', size = 12)
+# plt.title('Convection-parameterized (9 km)')
+# plt.ticklabel_format(axis='y',style='sci', scilimits=(0,0))
+# locator = mdates.MonthLocator()
+# fmt = mdates.DateFormatter('%b')
+# X = plt.gca().xaxis
+# X.set_major_locator(locator)
+# X.set_major_formatter(fmt)
+# plt.grid(which='major', axis='both', color='lightgray')
+# plt.show()
 
 # PLOT DOMAIN 2
-plt.plot(weeks,np.mean(seasonal_d02,axis=(1,2)), 'k')
-plt.xlabel('Date', size = 12)
-plt.ylabel('LPI (J kg$^{-1}$)', size = 12)
-plt.title('Convection-permitting (3 km)')
-plt.ticklabel_format(axis='y',style='sci', scilimits=(0,0))
-locator = mdates.MonthLocator()
-fmt = mdates.DateFormatter('%b')
-X = plt.gca().xaxis
-X.set_major_locator(locator)
-X.set_major_formatter(fmt)
-plt.grid(which='major', axis='both', color='lightgray')
-plt.show()
+# plt.plot(weeks,np.mean(seasonal_d02,axis=(1,2)), 'k')
+# plt.xlabel('Date', size = 12)
+# plt.ylabel('LPI (J kg$^{-1}$)', size = 12)
+# plt.title('Convection-permitting(3 km)')
+# plt.ticklabel_format(axis='y',style='sci', scilimits=(0,0))
+# locator = mdates.MonthLocator()
+# fmt = mdates.DateFormatter('%b')
+# X = plt.gca().xaxis
+# X.set_major_locator(locator)
+# X.set_major_formatter(fmt)
+# plt.grid(which='major', axis='both', color='lightgray')
+# plt.show()
 
 # ---------------------------------------------------------------------------------------------
 # TIMESERIES
 # ---------------------------------------------------------------------------------------------
-time_all = pd.to_datetime(time_all)
-# DOMAIN 1
-plt.plot(time_all, np.mean(LPI_d01, axis = (1,2)),'.')
+# PLOT
+timeseries = pd.date_range('2015-05-15', '2020-09-15', freq='D')
+data_d01 = np.zeros((len(timeseries), 2))
+data_d02 = np.zeros((len(timeseries), 2))
+year = timeseries.year
+month = timeseries.month
+i2015 = np.where((year == 2015) & (month > 5) & (month < 9))
+i2016 = np.where((year == 2016) & (month > 5) & (month < 9))
+i2017 = np.where((year == 2017) & (month > 5) & (month < 9))
+i2018 = np.where((year == 2018) & (month > 5) & (month < 9))
+i2019 = np.where((year == 2019) & (month > 5) & (month < 9))
+i2020 = np.where((year == 2020) & (month > 5) & (month < 9))
+data_d01[:,0] = pd.to_datetime(timeseries)
+data_d01[i2015,1] = np.mean(daily_LPI_d01[0:92], axis=(1,2))
+data_d01[i2016,1] = np.mean(daily_LPI_d01[92:184], axis=(1,2))
+data_d01[i2017,1] = np.mean(daily_LPI_d01[184:276], axis=(1,2))
+data_d01[i2018,1] = np.mean(daily_LPI_d01[276:368], axis=(1,2))
+data_d01[i2019,1] = np.mean(daily_LPI_d01[368:460], axis=(1,2))
+data_d01[i2020,1] = np.mean(daily_LPI_d01[460:552], axis=(1,2))
+
+data_d02[:,0] = pd.to_datetime(timeseries)
+data_d02[i2015,1] = np.mean(daily_LPI_d02[0:92], axis=(1,2))
+data_d02[i2016,1] = np.mean(daily_LPI_d02[92:184], axis=(1,2))
+data_d02[i2017,1] = np.mean(daily_LPI_d02[184:276], axis=(1,2))
+data_d02[i2018,1] = np.mean(daily_LPI_d02[276:368], axis=(1,2))
+data_d02[i2019,1] = np.mean(daily_LPI_d02[368:460], axis=(1,2))
+data_d02[i2020,1] = np.mean(daily_LPI_d02[460:552], axis=(1,2))
+
+data_d01[:,1] = np.where(month == 6, data_d01[:,1],
+                np.where(month == 7, data_d01[:,1],
+                         np.where(month == 8, data_d01[:,1], np.nan)))
+data_d02[:,1] = np.where(month == 6, data_d02[:,1],
+                np.where(month == 7, data_d02[:,1],
+                         np.where(month == 8, data_d02[:,1], np.nan)))
+timeseries_array = timeseries.astype(int)
+timeseries_array = np.where((month >5) & (month<9), timeseries_array, np.nan)
+timeseries = pd.to_datetime(timeseries_array)
+# 14 DAY AVERAGE
+# biweeks = pd.date_range('2015-05-15', '2020-09-15', freq='2W')
+# biweekly_d01 = np.zeros((len(timeseries), 2))
+# biweekly_d02 = np.zeros((len(timeseries), 2))
+# for i in range(0,biweeks):
+#     j = (i+1)*(14*24)
+#     k = i*(14*24)
+#     biweekly_d02[i,:,:] = np.mean(daily_LPI_d02[k:j,:,:], axis = 0)
+#     biweekly_d01[i, :, :] = np.mean(daily_LPI_d01[k:j, :, :], axis=0)
+# avg_biweekly_LPI_d01 = np.mean(biweekly_d01, axis=(1,2))
+# avg_biweekly_LPI_d02 = np.mean(biweekly_d02, axis=(1,2))
+print(data_d01)
+# DOMAIN 1 (from: https://www.semicolonworld.com/question/43500/python-matplotlib-is-there-a-way-to-make-a-discontinuous-axis)
+# First: create a subplot for each year
+fig, (ax, ax2, ax3, ax4, ax5, ax6) = plt.subplots(1, 6, sharey = 'row')
+ax.plot(pd.to_datetime(timeseries), data_d01[:,1],'.',ms=3)
+ax2.plot(pd.to_datetime(timeseries), data_d01[:,1],'.',ms=3)
+ax3.plot(pd.to_datetime(timeseries), data_d01[:,1],'.',ms=3)
+ax4.plot(pd.to_datetime(timeseries), data_d01[:,1],'.',ms=3)
+ax5.plot(pd.to_datetime(timeseries), data_d01[:,1],'.',ms=3)
+ax6.plot(pd.to_datetime(timeseries), data_d01[:,1],'.',ms=3)
+# then set the limits of the x-axis to cover only one year
+ax.set_xlim(pd.to_datetime('2015-05-15'), pd.to_datetime('2015-09-15'))
+ax2.set_xlim(pd.to_datetime('2016-05-15'), pd.to_datetime('2016-09-15'))
+ax3.set_xlim(pd.to_datetime('2017-05-15'), pd.to_datetime('2017-09-15'))
+ax4.set_xlim(pd.to_datetime('2018-05-15'), pd.to_datetime('2018-09-15'))
+ax5.set_xlim(pd.to_datetime('2019-05-15'), pd.to_datetime('2019-09-15'))
+ax6.set_xlim(pd.to_datetime('2020-05-15'), pd.to_datetime('2020-09-15'))
+# Set the spines invisible
+ax.spines['right'].set_visible(False)
+ax2.spines['right'].set_visible(False)
+ax3.spines['right'].set_visible(False)
+ax4.spines['right'].set_visible(False)
+ax5.spines['right'].set_visible(False)
+ax2.spines['left'].set_visible(False)
+ax3.spines['left'].set_visible(False)
+ax4.spines['left'].set_visible(False)
+ax5.spines['left'].set_visible(False)
+ax6.spines['left'].set_visible(False)
+ax.yaxis.tick_left()
+# ylim = np.arange(0, np.amax(daily_LPI_d01), 0.25)
+ax2.tick_params(axis='y', colors='w')
+ax3.tick_params(axis='y', colors='w')
+ax4.tick_params(axis='y', colors='w')
+ax5.tick_params(axis='y', colors='w')
+ax6.tick_params(axis='y', colors='w')
+# ax.tick_parms(labeltop='off')
+# Make spacing between two axes a bit smaller
+plt.subplots_adjust(wspace=0.075)
+# add broken axis lines
+d = 0.015
+kwargs = dict(transform=ax.transAxes, color='k', clip_on = False)
+ax.plot((1-d,1+d),(-d,+d), **kwargs)
+ax.plot((1-d,1+d),(1-d,1+d), **kwargs)
+kwargs.update(transform=ax2.transAxes)
+ax2.plot((1-d,1+d),(-d,+d), **kwargs)
+ax2.plot((1-d,1+d),(1-d,1+d), **kwargs)
+ax2.plot((-d,d),(-d,+d), **kwargs)
+ax2.plot((-d,d),(1-d,1+d), **kwargs)
+kwargs.update(transform=ax3.transAxes)
+ax3.plot((1-d,1+d),(-d,+d), **kwargs)
+ax3.plot((1-d,1+d),(1-d,1+d), **kwargs)
+ax3.plot((-d,d),(-d,+d), **kwargs)
+ax3.plot((-d,d),(1-d,1+d), **kwargs)
+kwargs.update(transform=ax4.transAxes)
+ax4.plot((1-d,1+d),(-d,+d), **kwargs)
+ax4.plot((1-d,1+d),(1-d,1+d), **kwargs)
+ax4.plot((-d,d),(-d,+d), **kwargs)
+ax4.plot((-d,d),(1-d,1+d), **kwargs)
+kwargs.update(transform=ax5.transAxes)
+ax5.plot((1-d,1+d),(-d,+d), **kwargs)
+ax5.plot((1-d,1+d),(1-d,1+d), **kwargs)
+ax5.plot((-d,d),(-d,+d), **kwargs)
+ax5.plot((-d,d),(1-d,1+d), **kwargs)
+kwargs.update(transform=ax6.transAxes)
+ax6.plot((-d,d),(-d,+d), **kwargs)
+ax6.plot((-d,d),(1-d,1+d), **kwargs)
+ax.set_ylabel('LPI (J kg$^{-1}$)', size = 12)
+fig.suptitle('Convection-parameterized (9 km)')
+ax.ticklabel_format(axis='y',style='sci', scilimits=(0,0))
+ax.grid(which='major', axis='both', color='lightgray')
+ax2.grid(which='major', axis='both', color='lightgray')
+ax3.grid(which='major', axis='both', color='lightgray')
+ax4.grid(which='major', axis='both', color='lightgray')
+ax5.grid(which='major', axis='both', color='lightgray')
+ax6.grid(which='major', axis='both', color='lightgray')
+
+ax.set_xticks(ticks=[pd.to_datetime('2015-06', format='%Y-%m'), pd.to_datetime('2015-07', format='%Y-%m'),
+                     pd.to_datetime('2015-08', format='%Y-%m'), pd.to_datetime('2015-09', format='%Y-%m')])
+ax.set_xticklabels(['Jun \'15', 'Jul \'15', 'Aug \'15', 'Sep \'15'], rotation=30)
+ax2.set_xticks(ticks=[pd.to_datetime('2016-06', format='%Y-%m'), pd.to_datetime('2016-07', format='%Y-%m'),
+                      pd.to_datetime('2016-08', format='%Y-%m'), pd.to_datetime('2016-09', format='%Y-%m')])
+ax2.set_xticklabels(['Jun \'16', 'Jul \'16', 'Aug \'16', 'Sep \'16'], rotation=30)
+ax3.set_xticks(ticks=[pd.to_datetime('2017-06', format='%Y-%m'), pd.to_datetime('2017-07', format='%Y-%m'),
+                      pd.to_datetime('2017-08', format='%Y-%m'), pd.to_datetime('2017-09', format='%Y-%m')])
+ax3.set_xticklabels(['Jun \'17', 'Jul \'17', 'Aug \'17', 'Sep \'17'], rotation=30)
+ax4.set_xticks(ticks=[pd.to_datetime('2018-06', format='%Y-%m'), pd.to_datetime('2018-07', format='%Y-%m'),
+                      pd.to_datetime('2018-08', format='%Y-%m'), pd.to_datetime('2018-09', format='%Y-%m')])
+ax4.set_xticklabels(['Jun \'18', 'Jul \'18', 'Aug \'18', 'Sep \'18'], rotation=30)
+ax5.set_xticks(ticks=[pd.to_datetime('2019-06', format='%Y-%m'), pd.to_datetime('2019-07', format='%Y-%m'),
+                      pd.to_datetime('2019-08', format='%Y-%m'), pd.to_datetime('2019-09', format='%Y-%m')])
+ax5.set_xticklabels(['Jun \'19', 'Jul \'19', 'Aug \'19', 'Sep \'19'], rotation=30)
+ax6.set_xticks(ticks=[pd.to_datetime('2020-06', format='%Y-%m'), pd.to_datetime('2020-07', format='%Y-%m'),
+                      pd.to_datetime('2020-08', format='%Y-%m'), pd.to_datetime('2020-09', format='%Y-%m')])
+ax6.set_xticklabels(['Jun \'20', 'Jul \'20', 'Aug \'20', 'Sep \'20'], rotation=30)
+# plt.xticks(ticks=[pd.to_datetime('2015-06', format='%Y-%m'), pd.to_datetime('2015-07', format='%Y-%m'), pd.to_datetime('2015-08', format='%Y-%m'),
+#            pd.to_datetime('2015-09', format='%Y-%m'), pd.to_datetime('2016-06', format='%Y-%m'), pd.to_datetime('2016-07', format='%Y-%m'),
+#            pd.to_datetime('2016-08', format='%Y-%m'), pd.to_datetime('2016-09', format='%Y-%m'), pd.to_datetime('2017-06', format='%Y-%m'),
+#            pd.to_datetime('2017-07', format='%Y-%m'), pd.to_datetime('2017-08', format='%Y-%m'), pd.to_datetime('2017-09', format='%Y-%m'),
+#            pd.to_datetime('2018-06', format='%Y-%m'), pd.to_datetime('2018-07', format='%Y-%m'), pd.to_datetime('2018-08', format='%Y-%m'),
+#            pd.to_datetime('2018-09', format='%Y-%m'), pd.to_datetime('2019-06', format='%Y-%m'), pd.to_datetime('2019-07', format='%Y-%m'),
+#            pd.to_datetime('2019-08', format='%Y-%m'), pd.to_datetime('2020-06', format='%Y-%m'), pd.to_datetime('2020-07', format='%Y-%m'),
+#            pd.to_datetime('2020-08', format='%Y-%m'), pd.to_datetime('2020-09', format='%Y-%m')],
+#            labels = ['Jun \'15', 'Jul \'15', 'Aug \'15', 'Sep \'15', 'Jun \'16', 'Jul \'16', 'Aug \'16', 'Sep \'16',
+#             'Jun \'17', 'Jul \'17', 'Aug \'17', 'Sep \'17', 'Jun \'18', 'Jul \'18', 'Aug \'18', 'Sep \'18',
+#             'Jun \'19', 'Jul \'19', 'Aug \'19', 'Sep \'19', 'Jun \'20', 'Jul \'20', 'Aug \'20', 'Sep \'20'])
+plt.show()
+
+# DOMAIN 2
+fig, (ax, ax2, ax3, ax4, ax5, ax6) = plt.subplots(1, 6, sharey = 'row')
+ax.plot(pd.to_datetime(timeseries), data_d02[:,1],'.',ms=3)
+ax2.plot(pd.to_datetime(timeseries), data_d02[:,1],'.',ms=3)
+ax3.plot(pd.to_datetime(timeseries), data_d02[:,1],'.',ms=3)
+ax4.plot(pd.to_datetime(timeseries), data_d02[:,1],'.',ms=3)
+ax5.plot(pd.to_datetime(timeseries), data_d02[:,1],'.',ms=3)
+ax6.plot(pd.to_datetime(timeseries), data_d02[:,1],'.',ms=3)
+# then set the limits of the x-axis to cover only one year
+ax.set_xlim(pd.to_datetime('2015-05-15'), pd.to_datetime('2015-09-15'))
+ax2.set_xlim(pd.to_datetime('2016-05-15'), pd.to_datetime('2016-09-15'))
+ax3.set_xlim(pd.to_datetime('2017-05-15'), pd.to_datetime('2017-09-15'))
+ax4.set_xlim(pd.to_datetime('2018-05-15'), pd.to_datetime('2018-09-15'))
+ax5.set_xlim(pd.to_datetime('2019-05-15'), pd.to_datetime('2019-09-15'))
+ax6.set_xlim(pd.to_datetime('2020-05-15'), pd.to_datetime('2020-09-15'))
+# Set the spines invisible
+ax.spines['right'].set_visible(False)
+ax2.spines['right'].set_visible(False)
+ax3.spines['right'].set_visible(False)
+ax4.spines['right'].set_visible(False)
+ax5.spines['right'].set_visible(False)
+ax2.spines['left'].set_visible(False)
+ax3.spines['left'].set_visible(False)
+ax4.spines['left'].set_visible(False)
+ax5.spines['left'].set_visible(False)
+ax6.spines['left'].set_visible(False)
+ax.yaxis.tick_left()
+# ylim = np.arange(0, np.amax(daily_LPI_d01), 0.25)
+ax2.tick_params(axis='y', colors='w')
+ax3.tick_params(axis='y', colors='w')
+ax4.tick_params(axis='y', colors='w')
+ax5.tick_params(axis='y', colors='w')
+ax6.tick_params(axis='y', colors='w')
+# ax.tick_parms(labeltop='off')
+# Make spacing between two axes a bit smaller
+plt.subplots_adjust(wspace=0.075)
+# add broken axis lines
+d = 0.015
+kwargs = dict(transform=ax.transAxes, color='k', clip_on = False)
+ax.plot((1-d,1+d),(-d,+d), **kwargs)
+ax.plot((1-d,1+d),(1-d,1+d), **kwargs)
+kwargs.update(transform=ax2.transAxes)
+ax2.plot((1-d,1+d),(-d,+d), **kwargs)
+ax2.plot((1-d,1+d),(1-d,1+d), **kwargs)
+ax2.plot((-d,d),(-d,+d), **kwargs)
+ax2.plot((-d,d),(1-d,1+d), **kwargs)
+kwargs.update(transform=ax3.transAxes)
+ax3.plot((1-d,1+d),(-d,+d), **kwargs)
+ax3.plot((1-d,1+d),(1-d,1+d), **kwargs)
+ax3.plot((-d,d),(-d,+d), **kwargs)
+ax3.plot((-d,d),(1-d,1+d), **kwargs)
+kwargs.update(transform=ax4.transAxes)
+ax4.plot((1-d,1+d),(-d,+d), **kwargs)
+ax4.plot((1-d,1+d),(1-d,1+d), **kwargs)
+ax4.plot((-d,d),(-d,+d), **kwargs)
+ax4.plot((-d,d),(1-d,1+d), **kwargs)
+kwargs.update(transform=ax5.transAxes)
+ax5.plot((1-d,1+d),(-d,+d), **kwargs)
+ax5.plot((1-d,1+d),(1-d,1+d), **kwargs)
+ax5.plot((-d,d),(-d,+d), **kwargs)
+ax5.plot((-d,d),(1-d,1+d), **kwargs)
+kwargs.update(transform=ax6.transAxes)
+ax6.plot((-d,d),(-d,+d), **kwargs)
+ax6.plot((-d,d),(1-d,1+d), **kwargs)
+ax.set_ylabel('LPI (J kg$^{-1}$)', size = 12)
+fig.suptitle('Convection-permitting (3 km)')
+ax.ticklabel_format(axis='y',style='sci', scilimits=(0,0))
+ax.grid(which='major', axis='both', color='lightgray')
+ax2.grid(which='major', axis='both', color='lightgray')
+ax3.grid(which='major', axis='both', color='lightgray')
+ax4.grid(which='major', axis='both', color='lightgray')
+ax5.grid(which='major', axis='both', color='lightgray')
+ax6.grid(which='major', axis='both', color='lightgray')
+
+ax.set_xticks(ticks=[pd.to_datetime('2015-06', format='%Y-%m'), pd.to_datetime('2015-07', format='%Y-%m'),
+                     pd.to_datetime('2015-08', format='%Y-%m'), pd.to_datetime('2015-09', format='%Y-%m')])
+ax.set_xticklabels(['Jun \'15', 'Jul \'15', 'Aug \'15', 'Sep \'15'], rotation=30)
+ax2.set_xticks(ticks=[pd.to_datetime('2016-06', format='%Y-%m'), pd.to_datetime('2016-07', format='%Y-%m'),
+                      pd.to_datetime('2016-08', format='%Y-%m'), pd.to_datetime('2016-09', format='%Y-%m')])
+ax2.set_xticklabels(['Jun \'16', 'Jul \'16', 'Aug \'16', 'Sep \'16'], rotation=30)
+ax3.set_xticks(ticks=[pd.to_datetime('2017-06', format='%Y-%m'), pd.to_datetime('2017-07', format='%Y-%m'),
+                      pd.to_datetime('2017-08', format='%Y-%m'), pd.to_datetime('2017-09', format='%Y-%m')])
+ax3.set_xticklabels(['Jun \'17', 'Jul \'17', 'Aug \'17', 'Sep \'17'], rotation=30)
+ax4.set_xticks(ticks=[pd.to_datetime('2018-06', format='%Y-%m'), pd.to_datetime('2018-07', format='%Y-%m'),
+                      pd.to_datetime('2018-08', format='%Y-%m'), pd.to_datetime('2018-09', format='%Y-%m')])
+ax4.set_xticklabels(['Jun \'18', 'Jul \'18', 'Aug \'18', 'Sep \'18'], rotation=30)
+ax5.set_xticks(ticks=[pd.to_datetime('2019-06', format='%Y-%m'), pd.to_datetime('2019-07', format='%Y-%m'),
+                      pd.to_datetime('2019-08', format='%Y-%m'), pd.to_datetime('2019-09', format='%Y-%m')])
+ax5.set_xticklabels(['Jun \'19', 'Jul \'19', 'Aug \'19', 'Sep \'19'], rotation=30)
+ax6.set_xticks(ticks=[pd.to_datetime('2020-06', format='%Y-%m'), pd.to_datetime('2020-07', format='%Y-%m'),
+                      pd.to_datetime('2020-08', format='%Y-%m'), pd.to_datetime('2020-09', format='%Y-%m')])
+ax6.set_xticklabels(['Jun \'20', 'Jul \'20', 'Aug \'20', 'Sep \'20'], rotation=30)
+plt.show()
+
+# ---------------------------------------------------------------------------------------------
+# SEASONALITY 2.0
+# ---------------------------------------------------------------------------------------------
+weekly_LPI_d02 = np.zeros((len(timeseries)))
+weekly_LPI_d01 = np.zeros((len(timeseries)))
+print(data_d02)
+print(data_d02[0:7,1])
+for i in range(0, len(timeseries)-7):
+    j = (i+1)*7
+    k = i*7
+    weekly_LPI_d02[i] = np.nanmean(data_d02[k:j,1])
+    weekly_LPI_d01[i] = np.nanmean(data_d01[k:j,1])
+
+seasonal_LPI_d01 = np.zeros((14))
+seasonal_LPI_d02 = np.zeros((14))
+for i in range(2,15):
+    indices = np.array([i, i+92, i+184, i+276, i+368, i+460])
+    seasonal_LPI_d02[i-2] = np.nanmean(weekly_LPI_d02[indices])
+    seasonal_LPI_d01[i-2] = np.nanmean(weekly_LPI_d01[indices])
+seasonal_LPI_d01[13] = np.nan
+seasonal_LPI_d02[13] = np.nan
+print(seasonal_LPI_d01)
+weeks = pd.date_range(time_2015_pd[0],time_2015_pd[2207],freq='W-MON')
+
+plt.plot(weeks, seasonal_LPI_d01, 'k')
 plt.xlabel('Date', size = 12)
 plt.ylabel('LPI (J kg$^{-1}$)', size = 12)
 plt.title('Convection-parameterized (9 km)')
 plt.ticklabel_format(axis='y',style='sci', scilimits=(0,0))
+locator = mdates.MonthLocator()
+fmt = mdates.DateFormatter('%b')
+X = plt.gca().xaxis
+X.set_major_locator(locator)
+X.set_major_formatter(fmt)
+plt.grid(which='major', axis='both', color='lightgray')
 plt.show()
 
-# DOMAIN 2
-plt.plot(time_all, np.mean(LPI_d02, axis = (1,2)),'.')
+plt.plot(weeks, seasonal_LPI_d02, 'k')
 plt.xlabel('Date', size = 12)
 plt.ylabel('LPI (J kg$^{-1}$)', size = 12)
 plt.title('Convection-permitting (3 km)')
 plt.ticklabel_format(axis='y',style='sci', scilimits=(0,0))
+locator = mdates.MonthLocator()
+fmt = mdates.DateFormatter('%b')
+X = plt.gca().xaxis
+X.set_major_locator(locator)
+X.set_major_formatter(fmt)
+plt.grid(which='major', axis='both', color='lightgray')
 plt.show()
