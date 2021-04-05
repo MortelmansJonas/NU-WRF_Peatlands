@@ -493,31 +493,6 @@ plt.show()
 # ---------------------------------------------------------------------------------------------
 # SEASONALITY 2.0
 # ---------------------------------------------------------------------------------------------
-new_data_d02 = np.zeros((546)) # Because 78 weeks in total over 6 years (13/year) -> 546 days (last day is dropped)
-new_data_d01 = np.zeros((546)) # Because 78 weeks in total over 6 years (13/year) -> 546 days (last day is dropped)
-
-new_data_d02[0:91] = data_d02[17:108,1]
-new_data_d02[91:182] = data_d02[383:474,1]
-new_data_d02[182:273] = data_d02[748:839,1]
-new_data_d02[273:364] = data_d02[1113:1204,1]
-new_data_d02[364:455] = data_d02[1478:1569,1]
-new_data_d02[455:546] = data_d02[1844:1935,1]
-
-new_data_d01[0:91] = data_d01[17:108,1]
-new_data_d01[91:182] = data_d01[383:474,1]
-new_data_d01[182:273] = data_d01[748:839,1]
-new_data_d01[273:364] = data_d01[1113:1204,1]
-new_data_d01[364:455] = data_d01[1478:1569,1]
-new_data_d01[455:546] = data_d01[1844:1935,1]
-
-weekly_LPI_d02 = np.zeros((78)) # Because 78 weeks in total over 6 years
-weekly_LPI_d01 = np.zeros((78))
-for i in range(0,78):
-    j = (i+1)*7
-    k = i*7
-    weekly_LPI_d02[i] = np.nanmean(new_data_d02[k:j])
-    weekly_LPI_d01[i] = np.nanmean(new_data_d01[k:j])
-
 seasonal_LPI_d01 = np.zeros((14))
 seasonal_LPI_d02 = np.zeros((14))
 for i in range(0,13):
@@ -556,7 +531,7 @@ X.set_major_locator(locator)
 X.set_major_formatter(fmt)
 plt.grid(which='major', axis='both', color='lightgray')
 plt.ylim(0,0.010)
-# plt.show()
+plt.show()
 
 # ---------------------------------------------------------------------------------------------
 # FREQUENCY IFO HOURLY GRID FLASH DENSITY (SEE WONG ET AL. FIG. 5)
