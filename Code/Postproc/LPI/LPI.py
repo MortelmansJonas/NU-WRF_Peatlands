@@ -228,50 +228,6 @@ time_summer = times[summer[1]]
 # plt.show()
 
 # ---------------------------------------------------------------------------------------------
-# SEASONAL CLIMATOLOGY
-# ---------------------------------------------------------------------------------------------
-# weeks = pd.date_range(time_2015_pd[0],time_2015_pd[2207],freq='W-MON')
-# seasonal_d02 = np.zeros((len(weeks),217,364))
-# seasonal_d01 = np.zeros((len(weeks),90,157))
-# for i in range(0,len(weeks)): # By far not the most efficient way, but the only way I could make it work.
-    # j = i+(7*24) # MB: end of index 7 days times 24 hours
-    # j = (i+1)*(7*24)
-    # k = i*(7*24)
-    # indices = np.array([np.arange(k,j), np.arange(k+2208,j+2208), np.arange(k+4416,j+4416), np.arange(k+6624,j+6624),
-    #                     np.arange(k+8832,j+8832), np.arange(k+11040,j+11040)]).flatten()
-    # seasonal_d02[i,:,:] = np.mean(LPI_d02[indices], axis=(0))
-    # seasonal_d01[i,:,:] = np.mean(LPI_d01[indices], axis=(0))
-
-
-# PLOT DOMAIN 1
-# plt.plot(weeks, np.mean(seasonal_d01, axis=(1,2)), 'k')
-# plt.xlabel('Date', size = 12)
-# plt.ylabel('LPI (J kg$^{-1}$)', size = 12)
-# plt.title('Convection-parameterized (9 km)')
-# plt.ticklabel_format(axis='y',style='sci', scilimits=(0,0))
-# locator = mdates.MonthLocator()
-# fmt = mdates.DateFormatter('%b')
-# X = plt.gca().xaxis
-# X.set_major_locator(locator)
-# X.set_major_formatter(fmt)
-# plt.grid(which='major', axis='both', color='lightgray')
-# plt.show()
-
-# PLOT DOMAIN 2
-# plt.plot(weeks,np.mean(seasonal_d02,axis=(1,2)), 'k')
-# plt.xlabel('Date', size = 12)
-# plt.ylabel('LPI (J kg$^{-1}$)', size = 12)
-# plt.title('Convection-permitting(3 km)')
-# plt.ticklabel_format(axis='y',style='sci', scilimits=(0,0))
-# locator = mdates.MonthLocator()
-# fmt = mdates.DateFormatter('%b')
-# X = plt.gca().xaxis
-# X.set_major_locator(locator)
-# X.set_major_formatter(fmt)
-# plt.grid(which='major', axis='both', color='lightgray')
-# plt.show()
-
-# ---------------------------------------------------------------------------------------------
 # TIMESERIES
 # ---------------------------------------------------------------------------------------------
 # PLOT
@@ -526,26 +482,42 @@ plt.show()
 # ---------------------------------------------------------------------------------------------
 # SEASONALITY 2.0
 # ---------------------------------------------------------------------------------------------
-weekly_LPI_d02 = np.zeros((len(timeseries)))
-weekly_LPI_d01 = np.zeros((len(timeseries)))
-print(data_d02)
-print(data_d02[0:7,1])
-for i in range(0, len(timeseries)-7):
+new_data_d02 = np.zeros((546)) # Because 78 weeks in total over 6 years (13/year) -> 546 days (last day is dropped)
+new_data_d01 = np.zeros((546)) # Because 78 weeks in total over 6 years (13/year) -> 546 days (last day is dropped)
+
+new_data_d02[0:91] = data_d02[17:108,1]
+new_data_d02[91:182] = data_d02[383:474,1]
+new_data_d02[182:273] = data_d02[748:839,1]
+new_data_d02[273:364] = data_d02[1113:1204,1]
+new_data_d02[364:455] = data_d02[1478:1569,1]
+new_data_d02[455:546] = data_d02[1844:1935,1]
+
+new_data_d01[0:91] = data_d01[17:108,1]
+new_data_d01[91:182] = data_d01[383:474,1]
+new_data_d01[182:273] = data_d01[748:839,1]
+new_data_d01[273:364] = data_d01[1113:1204,1]
+new_data_d01[364:455] = data_d01[1478:1569,1]
+new_data_d01[455:546] = data_d01[1844:1935,1]
+
+weekly_LPI_d02 = np.zeros((78)) # Because 78 weeks in total over 6 years
+weekly_LPI_d01 = np.zeros((78))
+for i in range(0,78):
     j = (i+1)*7
     k = i*7
-    weekly_LPI_d02[i] = np.nanmean(data_d02[k:j,1])
-    weekly_LPI_d01[i] = np.nanmean(data_d01[k:j,1])
+    weekly_LPI_d02[i] = np.nanmean(new_data_d02[k:j])
+    weekly_LPI_d01[i] = np.nanmean(new_data_d01[k:j])
 
 seasonal_LPI_d01 = np.zeros((14))
 seasonal_LPI_d02 = np.zeros((14))
-for i in range(2,15):
-    indices = np.array([i, i+92, i+184, i+276, i+368, i+460])
-    seasonal_LPI_d02[i-2] = np.nanmean(weekly_LPI_d02[indices])
-    seasonal_LPI_d01[i-2] = np.nanmean(weekly_LPI_d01[indices])
+for i in range(0,13):
+    indices = np.arange(i,78,13)
+    seasonal_LPI_d02[i] = np.nanmean(weekly_LPI_d02[indices])
+    seasonal_LPI_d01[i] = np.nanmean(weekly_LPI_d01[indices])
+
 seasonal_LPI_d01[13] = np.nan
 seasonal_LPI_d02[13] = np.nan
 print(seasonal_LPI_d01)
-weeks = pd.date_range(time_2015_pd[0],time_2015_pd[2207],freq='W-MON')
+weeks = pd.date_range('2015-06-01','2015-09-01',freq='W-MON')
 
 plt.plot(weeks, seasonal_LPI_d01, 'k')
 plt.xlabel('Date', size = 12)
@@ -558,6 +530,7 @@ X = plt.gca().xaxis
 X.set_major_locator(locator)
 X.set_major_formatter(fmt)
 plt.grid(which='major', axis='both', color='lightgray')
+plt.ylim(0,0.0018)
 plt.show()
 
 plt.plot(weeks, seasonal_LPI_d02, 'k')
@@ -571,7 +544,8 @@ X = plt.gca().xaxis
 X.set_major_locator(locator)
 X.set_major_formatter(fmt)
 plt.grid(which='major', axis='both', color='lightgray')
-plt.show()
+plt.ylim(0,0.010)
+# plt.show()
 
 # ---------------------------------------------------------------------------------------------
 # FREQUENCY IFO HOURLY GRID FLASH DENSITY (SEE WONG ET AL. FIG. 5)
