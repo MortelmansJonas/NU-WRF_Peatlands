@@ -230,7 +230,7 @@ time_summer = times[summer[1]]
 # ---------------------------------------------------------------------------------------------
 # TIMESERIES
 # ---------------------------------------------------------------------------------------------
-# PLOT
+# DATA
 timeseries = pd.date_range('2015-05-15', '2020-09-15', freq='D')
 data_d01 = np.zeros((len(timeseries), 2))
 data_d02 = np.zeros((len(timeseries), 2))
@@ -264,30 +264,49 @@ data_d01[:,1] = np.where(month == 6, data_d01[:,1],
 data_d02[:,1] = np.where(month == 6, data_d02[:,1],
                 np.where(month == 7, data_d02[:,1],
                          np.where(month == 8, data_d02[:,1], np.nan)))
-timeseries_array = timeseries.astype(int)
-timeseries_array = np.where((month >5) & (month<9), timeseries_array, np.nan)
-timeseries = pd.to_datetime(timeseries_array)
-# 14 DAY AVERAGE
-# biweeks = pd.date_range('2015-05-15', '2020-09-15', freq='2W')
-# biweekly_d01 = np.zeros((len(timeseries), 2))
-# biweekly_d02 = np.zeros((len(timeseries), 2))
-# for i in range(0,biweeks):
-#     j = (i+1)*(14*24)
-#     k = i*(14*24)
-#     biweekly_d02[i,:,:] = np.mean(daily_LPI_d02[k:j,:,:], axis = 0)
-#     biweekly_d01[i, :, :] = np.mean(daily_LPI_d01[k:j, :, :], axis=0)
-# avg_biweekly_LPI_d01 = np.mean(biweekly_d01, axis=(1,2))
-# avg_biweekly_LPI_d02 = np.mean(biweekly_d02, axis=(1,2))
-print(data_d01)
+
+# WEEKLY AVERAGE
+weekly_d02 = np.zeros((546))
+weekly_d01 = np.zeros((546))
+
+weekly_d02[0:91] = data_d02[17:108,1]
+weekly_d02[91:182] = data_d02[383:474,1]
+weekly_d02[182:273] = data_d02[748:839,1]
+weekly_d02[273:364] = data_d02[1113:1204,1]
+weekly_d02[364:455] = data_d02[1478:1569,1]
+weekly_d02[455:546] = data_d02[1844:1935,1]
+
+weekly_d01[0:91] = data_d01[17:108,1]
+weekly_d01[91:182] = data_d01[383:474,1]
+weekly_d01[182:273] = data_d01[748:839,1]
+weekly_d01[273:364] = data_d01[1113:1204,1]
+weekly_d01[364:455] = data_d01[1478:1569,1]
+weekly_d01[455:546] = data_d01[1844:1935,1]
+
+weekly_LPI_d02 = np.zeros((78)) # Because 78 weeks in total over 6 years
+weekly_LPI_d01 = np.zeros((78))
+for i in range(0,78):
+    j = (i+1)*7
+    k=i*7
+    weekly_LPI_d02[i] = np.nanmean(weekly_d02[k:j])
+    weekly_LPI_d01[i] = np.nanmean(weekly_d01[k:j])
+
+# PLOTS
 # DOMAIN 1 (from: https://www.semicolonworld.com/question/43500/python-matplotlib-is-there-a-way-to-make-a-discontinuous-axis)
 # First: create a subplot for each year
 fig, (ax, ax2, ax3, ax4, ax5, ax6) = plt.subplots(1, 6, sharey = 'row')
 ax.plot(pd.to_datetime(timeseries), data_d01[:,1],'.',ms=3)
+ax.plot(pd.date_range('2015-06-01','2015-08-31', freq='W'), weekly_LPI_d01[0:13],'r-', ms=3)
 ax2.plot(pd.to_datetime(timeseries), data_d01[:,1],'.',ms=3)
+ax2.plot(pd.date_range('2016-06-01','2016-08-31', freq='W'), weekly_LPI_d01[13:26],'r-', ms=3)
 ax3.plot(pd.to_datetime(timeseries), data_d01[:,1],'.',ms=3)
+ax3.plot(pd.date_range('2017-06-01','2017-08-31', freq='W'), weekly_LPI_d01[26:39],'r-', ms=3)
 ax4.plot(pd.to_datetime(timeseries), data_d01[:,1],'.',ms=3)
+ax4.plot(pd.date_range('2018-06-01','2018-08-31', freq='W'), weekly_LPI_d01[39:52],'r-', ms=3)
 ax5.plot(pd.to_datetime(timeseries), data_d01[:,1],'.',ms=3)
+ax5.plot(pd.date_range('2019-06-01','2019-08-31', freq='W'), weekly_LPI_d01[52:65],'r-', ms=3)
 ax6.plot(pd.to_datetime(timeseries), data_d01[:,1],'.',ms=3)
+ax6.plot(pd.date_range('2020-06-01','2020-08-31', freq='W'), weekly_LPI_d01[65:78],'r-', ms=3)
 # then set the limits of the x-axis to cover only one year
 ax.set_xlim(pd.to_datetime('2015-05-15'), pd.to_datetime('2015-09-15'))
 ax2.set_xlim(pd.to_datetime('2016-05-15'), pd.to_datetime('2016-09-15'))
@@ -313,7 +332,6 @@ ax3.tick_params(axis='y', colors='w')
 ax4.tick_params(axis='y', colors='w')
 ax5.tick_params(axis='y', colors='w')
 ax6.tick_params(axis='y', colors='w')
-# ax.tick_parms(labeltop='off')
 # Make spacing between two axes a bit smaller
 plt.subplots_adjust(wspace=0.075)
 # add broken axis lines
@@ -372,27 +390,22 @@ ax5.set_xticklabels(['Jun \'19', 'Jul \'19', 'Aug \'19', 'Sep \'19'], rotation=3
 ax6.set_xticks(ticks=[pd.to_datetime('2020-06', format='%Y-%m'), pd.to_datetime('2020-07', format='%Y-%m'),
                       pd.to_datetime('2020-08', format='%Y-%m'), pd.to_datetime('2020-09', format='%Y-%m')])
 ax6.set_xticklabels(['Jun \'20', 'Jul \'20', 'Aug \'20', 'Sep \'20'], rotation=30)
-# plt.xticks(ticks=[pd.to_datetime('2015-06', format='%Y-%m'), pd.to_datetime('2015-07', format='%Y-%m'), pd.to_datetime('2015-08', format='%Y-%m'),
-#            pd.to_datetime('2015-09', format='%Y-%m'), pd.to_datetime('2016-06', format='%Y-%m'), pd.to_datetime('2016-07', format='%Y-%m'),
-#            pd.to_datetime('2016-08', format='%Y-%m'), pd.to_datetime('2016-09', format='%Y-%m'), pd.to_datetime('2017-06', format='%Y-%m'),
-#            pd.to_datetime('2017-07', format='%Y-%m'), pd.to_datetime('2017-08', format='%Y-%m'), pd.to_datetime('2017-09', format='%Y-%m'),
-#            pd.to_datetime('2018-06', format='%Y-%m'), pd.to_datetime('2018-07', format='%Y-%m'), pd.to_datetime('2018-08', format='%Y-%m'),
-#            pd.to_datetime('2018-09', format='%Y-%m'), pd.to_datetime('2019-06', format='%Y-%m'), pd.to_datetime('2019-07', format='%Y-%m'),
-#            pd.to_datetime('2019-08', format='%Y-%m'), pd.to_datetime('2020-06', format='%Y-%m'), pd.to_datetime('2020-07', format='%Y-%m'),
-#            pd.to_datetime('2020-08', format='%Y-%m'), pd.to_datetime('2020-09', format='%Y-%m')],
-#            labels = ['Jun \'15', 'Jul \'15', 'Aug \'15', 'Sep \'15', 'Jun \'16', 'Jul \'16', 'Aug \'16', 'Sep \'16',
-#             'Jun \'17', 'Jul \'17', 'Aug \'17', 'Sep \'17', 'Jun \'18', 'Jul \'18', 'Aug \'18', 'Sep \'18',
-#             'Jun \'19', 'Jul \'19', 'Aug \'19', 'Sep \'19', 'Jun \'20', 'Jul \'20', 'Aug \'20', 'Sep \'20'])
 plt.show()
 
 # DOMAIN 2
 fig, (ax, ax2, ax3, ax4, ax5, ax6) = plt.subplots(1, 6, sharey = 'row')
 ax.plot(pd.to_datetime(timeseries), data_d02[:,1],'.',ms=3)
+ax.plot(pd.date_range('2015-06-01','2015-08-31', freq='W'), weekly_LPI_d02[0:13],'r-', ms=3)
 ax2.plot(pd.to_datetime(timeseries), data_d02[:,1],'.',ms=3)
+ax2.plot(pd.date_range('2016-06-01','2016-08-31', freq='W'), weekly_LPI_d02[13:26],'r-', ms=3)
 ax3.plot(pd.to_datetime(timeseries), data_d02[:,1],'.',ms=3)
+ax3.plot(pd.date_range('2017-06-01','2017-08-31', freq='W'), weekly_LPI_d02[26:39],'r-', ms=3)
 ax4.plot(pd.to_datetime(timeseries), data_d02[:,1],'.',ms=3)
+ax4.plot(pd.date_range('2018-06-01','2018-08-31', freq='W'), weekly_LPI_d02[39:52],'r-', ms=3)
 ax5.plot(pd.to_datetime(timeseries), data_d02[:,1],'.',ms=3)
+ax5.plot(pd.date_range('2019-06-01','2019-08-31', freq='W'), weekly_LPI_d02[52:65],'r-', ms=3)
 ax6.plot(pd.to_datetime(timeseries), data_d02[:,1],'.',ms=3)
+ax6.plot(pd.date_range('2020-06-01','2020-08-31', freq='W'), weekly_LPI_d02[65:78],'r-', ms=3)
 # then set the limits of the x-axis to cover only one year
 ax.set_xlim(pd.to_datetime('2015-05-15'), pd.to_datetime('2015-09-15'))
 ax2.set_xlim(pd.to_datetime('2016-05-15'), pd.to_datetime('2016-09-15'))
@@ -412,13 +425,11 @@ ax4.spines['left'].set_visible(False)
 ax5.spines['left'].set_visible(False)
 ax6.spines['left'].set_visible(False)
 ax.yaxis.tick_left()
-# ylim = np.arange(0, np.amax(daily_LPI_d01), 0.25)
 ax2.tick_params(axis='y', colors='w')
 ax3.tick_params(axis='y', colors='w')
 ax4.tick_params(axis='y', colors='w')
 ax5.tick_params(axis='y', colors='w')
 ax6.tick_params(axis='y', colors='w')
-# ax.tick_parms(labeltop='off')
 # Make spacing between two axes a bit smaller
 plt.subplots_adjust(wspace=0.075)
 # add broken axis lines
