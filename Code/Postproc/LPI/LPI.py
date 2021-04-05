@@ -550,13 +550,43 @@ plt.ylim(0,0.010)
 # ---------------------------------------------------------------------------------------------
 # FREQUENCY IFO HOURLY GRID FLASH DENSITY (SEE WONG ET AL. FIG. 5)
 # ---------------------------------------------------------------------------------------------
-# rounded_LPI_d02 = np.round(LPI_d02, 8)
-unique,counts=np.unique(LPI_d02,return_counts=True)
+rounded_LPI_d02 = np.round(LPI_d02, 8) # It's rounded to get a nicer curve with less fluctuations.
+unique_d02,counts_d02=np.unique(rounded_LPI_d02,return_counts=True)
 
-# rolling_average = np.convolve(counts, np.ones(10), 'valid')/10
-plt.plot(unique,counts,'.', ms=1)
-plt.ylabel('Frequency')
-plt.xlabel('Hourly gird flash density (#/km${2}$')
-plt.xscale('log')
-plt.yscale('log')
+rolling_average_d02 = np.convolve(counts_d02, np.ones(10), 'valid')/10
+x = np.linspace(0,np.amax(unique_d02), 9918326)
+np.where(rolling_average_d02 < 0.00075, np.nan,rolling_average_d02)
+
+fig1, ax1 = plt.subplots()
+ax1.loglog(x, rolling_average_d02,'-', ms=0.1)
+ax1.set_ylabel('Frequency')
+ax1.set_xlabel('Hourly gird flash density (#/km${2}$)')
+ax1.set_xlim(0.0005,600)
+ax1.set_ylim(1,4000000)
+plt.grid(which='major', axis='both', color='lightgray')
+plt.title('Convection-permitting (3 km)',size=12)
+locmin = mticker.LogLocator(base=10.0,subs=(0.2,0.4,0.6,0.8),numticks=12)
+ax1.xaxis.set_minor_locator(locmin)
+ax1.xaxis.set_minor_formatter(mticker.NullFormatter())
+plt.show()
+
+# DOMAIN 1
+rounded_LPI_d01 = np.round(LPI_d01, 8)
+unique_d01,counts_d01=np.unique(rounded_LPI_d01,return_counts=True)
+
+rolling_average_d01 = np.convolve(counts_d01, np.ones(10), 'valid')/10
+x = np.linspace(0,np.amax(unique_d01), 1667812)
+np.where(rolling_average_d01 < 0.00075, np.nan,rolling_average_d01)
+
+fig1, ax1 = plt.subplots()
+ax1.loglog(x, rolling_average_d01,'-', ms=0.1)
+ax1.set_ylabel('Frequency')
+ax1.set_xlabel('Hourly gird flash density (#/km${2}$)')
+plt.title('Convection-parameterized (9 km)',size=12)
+ax1.set_xlim(0.0005,80)
+ax1.set_ylim(1,500000)
+plt.grid(which='major', axis='both', color='lightgray')
+locmin = mticker.LogLocator(base=10.0,subs=(0.2,0.4,0.6,0.8),numticks=12)
+ax1.xaxis.set_minor_locator(locmin)
+ax1.xaxis.set_minor_formatter(mticker.NullFormatter())
 plt.show()
