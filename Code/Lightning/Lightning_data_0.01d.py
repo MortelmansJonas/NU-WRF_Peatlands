@@ -107,7 +107,7 @@ for var in ds.variables.values():
 ## Flashdensity_CC and EPC_CC
 print('Flashdensity_CC and EPC_CC')
 for i in range(0,len(CCPL)):
-    print('loop 2 '+str(i) + '/' + str(len(CGPL)))
+    print('loop 1 '+str(i) + '/' + str(len(CGPL)))
     times_indices = np.where(Time_array == CCPL['Date'][i])[0]
     lats_indices = np.where(lats == CCPL['Latitude'][i])[0]
     lons_indices = np.where(lons == CCPL['Longitude'][i])[0]
