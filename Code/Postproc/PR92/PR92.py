@@ -16,7 +16,7 @@ from matplotlib import cm
 # ---------------------------------------------------------------------------------------------
 # FROM THE WRF FILES
 # D02
-ds_wrf_d02 = Dataset('/scratch/leuven/336/vsc33651/nu-wrf-dev/wrfout_nc_files/wrfout_d02_2015.nc', 'r')
+ds_wrf_d02 = Dataset('/scratch/leuven/336/vsc33651/nu-wrf-dev/wrfout_nc_files/wrfout_d02_2015_v03.nc', 'r')
 lats_d02 = ds_wrf_d02.variables['lat'][:]
 lons_d02 = ds_wrf_d02.variables['lon'][:]
 time_2015= ds_wrf_d02.variables['time'][:]
@@ -25,7 +25,7 @@ COD2D_d02 = ds_wrf_d02['COD2D'][:]
 W_UP_MAX_d02 = ds_wrf_d02['W_UP_MAX'][:]
 
 # D01
-ds_wrf_d01 = Dataset('/scratch/leuven/336/vsc33651/nu-wrf-dev/wrfout_nc_files/wrfout_d01_2015.nc', 'r')
+ds_wrf_d01 = Dataset('/scratch/leuven/336/vsc33651/nu-wrf-dev/wrfout_nc_files/wrfout_d01_2015_v03.nc', 'r')
 lats_d01 = ds_wrf_d01.variables['lat'][:]
 lons_d01 = ds_wrf_d01.variables['lon'][:]
 latinds_d02 = np.where((lats_d01 >= np.min(lats_d02)) & (lats_d01 <= np.max(lats_d02)))[0]
@@ -36,13 +36,13 @@ W_UP_MAX_d01 = ds_wrf_d01['W_UP_MAX'][:, latinds_d02, loninds_d02]
 
 # FROM THE UPP FILE
 # D02
-ds_upp_d02 = Dataset('/staging/leuven/stg_00024/OUTPUT/michelb/nu-wrf-dev/Great_Slave_Lake/2015/WRFPRS_d02_2015.nc', mode='r')
+ds_upp_d02 = Dataset('/scratch/leuven/336/vsc33651/nu-wrf-dev/wrfout_nc_files/WRFPRS_d02_2015.nc', mode='r')
 Cdim_d02 = ds_upp_d02['Cdim'][:]
 Ctop_d02 = ds_upp_d02['Ctop'][:]
 Cbot_d02 = ds_upp_d02['Cbot'][:]
 
 # D01
-ds_upp_d01 = Dataset('/staging/leuven/stg_00024/OUTPUT/michelb/nu-wrf-dev/Great_Slave_Lake/2015/WRFPRS_d01_2015.nc', mode='r')
+ds_upp_d01 = Dataset('/scratch/leuven/336/vsc33651/nu-wrf-dev/wrfout_nc_files/WRFPRS_d01_2015.nc', mode='r')
 Cdim_d01 = ds_upp_d01['Cdim'][:, latinds_d02, loninds_d02]
 Ctop_d01 = ds_upp_d01['Ctop'][:, latinds_d02, loninds_d02]
 Cbot_d01 = ds_upp_d01['Cbot'][:, latinds_d02, loninds_d02]
