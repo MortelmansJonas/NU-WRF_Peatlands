@@ -63,7 +63,7 @@ Ctop_2015_km = np.divide(Ctop_2015, 1000) # get top height in km
 power_2015 = np.power(Ctop_2015_km, 4.9) # power for PR92 scheme
 PR92H_2015 = np.multiply(0.0000344, power_2015) # Formula
 PR92_H_2015_ph = np.multiply(PR92H_2015, 60) # To get flashes per hour instead of minute
-ctopp_2015 = np.where(ds_mccaul_2015_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] <440
+ctopp_2015 = np.where((ds_mccaul_2015_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] <440)
                       & (ds_mccaul_2015_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] >0),1,0) # conv cloud
 COD_2015 = np.where(ds_mccaul_2015_d02.variables['COD2D'][0:-1,inds_lat, inds_lon]>23,1,0) # conv cloud
 conv_2015 = np.multiply(ctopp_2015, COD_2015) # to locate convective clouds
@@ -96,7 +96,7 @@ Ctop_2016_km = np.divide(Ctop_2016, 1000) # get top height in km
 power_2016 = np.power(Ctop_2016_km, 4.9) # power for PR92 scheme
 PR92H_2016 = np.multiply(0.0000344, power_2016) # Formula
 PR92_H_2016_ph = np.multiply(PR92H_2016, 60) # To get flashes per hour instead of minute
-ctopp_2016 = np.where(ds_mccaul_2016_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] <440
+ctopp_2016 = np.where((ds_mccaul_2016_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] <440)
                       & (ds_mccaul_2016_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] >0),1,0) # conv cloud
 COD_2016 = np.where(ds_mccaul_2016_d02.variables['COD2D'][0:-1,inds_lat, inds_lon]>23,1,0) # conv cloud
 conv_2016 = np.multiply(ctopp_2016, COD_2016) # to locate convective clouds
@@ -128,7 +128,7 @@ Ctop_2017_km = np.divide(Ctop_2017, 1000) # get top height in km
 power_2017 = np.power(Ctop_2017_km, 4.9) # power for PR92 scheme
 PR92H_2017 = np.multiply(0.0000344, power_2017) # Formula
 PR92_H_2017_ph = np.multiply(PR92H_2017, 60) # To get flashes per hour instead of minute
-ctopp_2017 = np.where(ds_mccaul_2017_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] <440
+ctopp_2017 = np.where((ds_mccaul_2017_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] <440)
                       & (ds_mccaul_2017_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] >0),1,0) # conv cloud
 COD_2017 = np.where(ds_mccaul_2017_d02.variables['COD2D'][0:-1,inds_lat, inds_lon]>23,1,0) # conv cloud
 conv_2017 = np.multiply(ctopp_2017, COD_2017) # to locate convective clouds
@@ -160,7 +160,7 @@ Ctop_2018_km = np.divide(Ctop_2018, 1000) # get top height in km
 power_2018 = np.power(Ctop_2018_km, 4.9) # power for PR92 scheme
 PR92H_2018 = np.multiply(0.0000344, power_2018) # Formula
 PR92_H_2018_ph = np.multiply(PR92H_2018, 60) # To get flashes per hour instead of minute
-ctopp_2018 = np.where(ds_mccaul_2018_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] <440
+ctopp_2018 = np.where((ds_mccaul_2018_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] <440)
                       & (ds_mccaul_2018_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] >0),1,0) # conv cloud
 COD_2018 = np.where(ds_mccaul_2018_d02.variables['COD2D'][0:-1,inds_lat, inds_lon]>23,1,0) # conv cloud
 conv_2018 = np.multiply(ctopp_2018, COD_2018) # to locate convective clouds
@@ -192,7 +192,7 @@ Ctop_2019_km = np.divide(Ctop_2019, 1000) # get top height in km
 power_2019 = np.power(Ctop_2019_km, 4.9) # power for PR92 scheme
 PR92H_2019 = np.multiply(0.0000344, power_2019) # Formula
 PR92_H_2019_ph = np.multiply(PR92H_2019, 60) # To get flashes per hour instead of minute
-ctopp_2019 = np.where(ds_mccaul_2019_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] <440
+ctopp_2019 = np.where((ds_mccaul_2019_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] <440)
                       & (ds_mccaul_2019_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] >0),1,0) # conv cloud
 COD_2019 = np.where(ds_mccaul_2019_d02.variables['COD2D'][0:-1,inds_lat, inds_lon]>23,1,0) # conv cloud
 conv_2019 = np.multiply(ctopp_2019, COD_2019) # to locate convective clouds
@@ -222,7 +222,7 @@ Ctop_2020_km = np.divide(Ctop_2020, 1000) # get top height in km
 power_2020 = np.power(Ctop_2020_km, 4.9) # power for PR92 scheme
 PR92H_2020 = np.multiply(0.0000344, power_2020) # Formula
 PR92_H_2020_ph = np.multiply(PR92H_2020, 60) # To get flashes per hour instead of minute
-ctopp_2020 = np.where(ds_mccaul_2020_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] <440
+ctopp_2020 = np.where((ds_mccaul_2020_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] <440)
                       & (ds_mccaul_2020_d02.variables['CTOP2D'][0:-1,inds_lat, inds_lon] >0),1,0) # conv cloud
 COD_2020 = np.where(ds_mccaul_2020_d02.variables['COD2D'][0:-1,inds_lat, inds_lon]>23,1,0) # conv cloud
 conv_2020 = np.multiply(ctopp_2020, COD_2020) # to locate convective clouds
