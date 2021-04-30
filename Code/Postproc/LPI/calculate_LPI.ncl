@@ -1,4 +1,4 @@
-load "$NCARG_ROOT/lib/ncarg/nclscripts/wrf/WRFUserARW.ncl"
+  load "$NCARG_ROOT/lib/ncarg/nclscripts/wrf/WRFUserARW.ncl"
 external CALC_LPI "./calclpi.so"
 begin
    tn = 0
@@ -48,5 +48,4 @@ begin
      ncdf->lpi=lpi
      end do
 ;    end do
-end 
-    
+end
