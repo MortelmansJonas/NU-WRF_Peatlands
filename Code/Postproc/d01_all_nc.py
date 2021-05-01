@@ -321,7 +321,7 @@ print('CAPExP')
 RAINC[:] = np.divide(RAINC[:],3600) # To convert units to km/m²/s
 ds['CAPExP'][:] = np.multiply(CAPE[:], RAINC[:])
 ds['CAPExP'][:] = np.multiply(ds['CAPExP'][:], 0.000000000013) # constant, see Romps et al. 2014 (eta/E)
-ds['CAPExP'][:] = np.multiply(ds['CAPExP'][:], 86400000000) # To convert from (m2s)-1 to (km2day)-1
+ds['CAPExP'][:] = np.multiply(ds['CAPExP'][:], 3600000000) # To convert from (m2s)-1 to (km2hour)-1
 
 #plt.plot(ds['H'][:,50,50],'.')
 
