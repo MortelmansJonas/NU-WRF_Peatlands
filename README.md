@@ -2,6 +2,10 @@
 This is the repository for the MSc thesis of Jonas Mortelmans.
 ------------------
 
+
+make sure to include ldt and lis config files. It's important to give information about the land surface input, since albedo is variable at the km scale based on tree cover. See context
+
+
 Notes (10/03/2021):
 
 	- It is still under construction. Specific files will still be regularly updated.
