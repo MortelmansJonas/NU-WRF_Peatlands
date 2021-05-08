@@ -10,4 +10,4 @@ Notes (10/03/2021):
 
 - 'Postproc' contains all files that are needed to postprocess the wrf output, including RIP, UPP and the scripts to calculate/plot the different lightning schemes.
 
-- 'Spin-up_control' contains files to check the spin-up performed with LIS and plots two variables to evaluate over time.
+- 'Spin-up_control' contains files to check the spin-up performed with LIS.
