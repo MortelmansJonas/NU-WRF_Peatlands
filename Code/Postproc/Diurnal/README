@@ -1,9 +1,1 @@
-==========
-DIURNAL
-==========
 
-This folder contains the two scripts used to plot the diurnal cycle of all indices.
-
-- 'Diurnal_Cycle.py' extracts the hourly data and calculates the diurnal cycles, which it stores in a netcdf file.
-
-- 'Diurnal_plot.py' plots the netcdf file made by 'Diurnal_Cycle.py'
