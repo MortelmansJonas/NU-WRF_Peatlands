@@ -4,7 +4,7 @@
 
 LDT running mode:                  "NUWRF preprocessing for real"
 Processed LSM parameter filename:  ./lis_input.d01.nc ./lis_input.d02.nc ./lis_input.d03.nc
-LIS number of nests:    3
+LIS number of nests:    2
 Number of surface model types:        1
 Surface model types:                  LSM        
 Land surface model:                   Noah-MP.3.6    
@@ -44,14 +44,14 @@ Buffer count in x-direction:           50         # Add pixel buffer to target p
 Buffer count in y-direction:           25         #  5 - is set internally as the default value
 
 Map projection of the LIS domain:  lambert
-Run domain lower left lat:    53.80067   57.25259   59.70230
-Run domain lower left lon:  -129.90358 -125.37016 -118.05930
-Run domain true lat1:    60.25000   60.25000   60.25000
-Run domain true lat2:    60.25000   60.25000   60.25000
-Run domain standard lon:  -116.24950 -116.24950 -116.24950
-Run domain resolution:     9.00000    3.00000    1.00000
-Run domain x-dimension size:    200   363   114
-Run domain y-dimension size:    140   216   111
+Run domain lower left lat:    53.80067   55.96386
+Run domain lower left lon:  -129.90358 -127.09229
+Run domain true lat1:    60.25000   60.25000
+Run domain true lat2:    60.25000   60.25000
+Run domain standard lon:  -116.24950 -116.24950
+Run domain resolution:     9.00000    3.00000
+Run domain x-dimension size:    200   444
+Run domain y-dimension size:    140   297
 
 #------------------------------------------------------------------------------
 # Parameters
@@ -228,7 +228,7 @@ Bottom temperature resolution (dy):      0.010
 # NUWRF preprocessing for real options
 #------------------------------------------------------------------------------
 
-LIS history file for land state initialization: ./LIS_HIST_201506010000.d01.nc ./LIS_HIST_201506010000.d02.nc ./LIS_HIST_201506010000.d03.nc
+LIS history file for land state initialization: ./LIS_HIST_201505150000.d01.nc ./LIS_HIST_201505150000.d02.nc ./LIS_HIST_201505150000.d03.nc
 Processed NUWRF file for input to real: lis4real_input.d01.nc lis4real_input.d02.nc lis4real_input.d03.nc
 
 Noah-MP PBL Height Value:               900. 900. 900.

@@ -2,7 +2,7 @@
 # Overall driver options
 #------------------------------------------------------------------------------
 Running mode: 		         "WRF coupling"
-Number of nests:    3
+Number of nests:    2
 Number of surface model types:    1
 Surface model types:            LSM
 Surface model output interval:  3hr 3hr 3hr
@@ -27,8 +27,8 @@ Output data format:                        netcdf
 Output naming style:                       "3 level hierarchy"
 Start mode:                                restart
 Starting year:                             2015
-Starting month:                            6
-Starting day:                              01
+Starting month:                            5
+Starting day:                              15
 Starting hour:                             00
 Starting minute:                           0
 Starting second:                           0
@@ -148,7 +148,7 @@ MERRA2 use corrected total precipitation: 1 1 1
 #------------------------------------------------------------------------------
 Noah-MP.3.6 model timestep:                  36ss 12ss 4ss
 Noah-MP.3.6 restart output interval:         1da  1da  1da
-Noah-MP.3.6 restart file: LIS_RST_NOAHMP36_201506010000.d01.nc LIS_RST_NOAHMP36_201506010000.d02.nc LIS_RST_NOAHMP36_201506010000.d03.nc
+Noah-MP.3.6 restart file: LIS_RST_NOAHMP36_201505150000.d01.nc LIS_RST_NOAHMP36_201505150000.d02.nc LIS_RST_NOAHMP36_201505150000.d03.nc
 Noah-MP.3.6 restart file format:          netcdf netcdf netcdf
 Noah-MP.3.6 landuse parameter table:      ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL
 Noah-MP.3.6 soil parameter table:         ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL
@@ -160,10 +160,10 @@ Noah-MP.3.6 number of snow layers:        3 3 3
 Noah-MP.3.6 vegetation model option:                    1 1 1 # 1=prescribed; 2=dynamic; 3=calculate; 4=maximum
 Noah-MP.3.6 canopy stomatal resistance option:          2 2 2 # 1=Ball-Berry; 2=Jarvis
 Noah-MP.3.6 soil moisture factor for stomatal resistance option:  1 1 1 # 1=Noah; 2=CLM; 3=SSiB
-Noah-MP.3.6 runoff and groundwater option:              3 3 3 # 1=SIMGM; 2=SIMTOP; 3=Schaake96; 4=BATS
+Noah-MP.3.6 runoff and groundwater option:              1 1 1 # 1=SIMGM; 2=SIMTOP; 3=Schaake96; 4=BATS
 Noah-MP.3.6 surface layer drag coefficient option:      2 2 2 # 1=M-O; 2=Chen97
-Noah-MP.3.6 supercooled liquid water option:            2 2 2 # 1=NY06; 2=Koren99
-Noah-MP.3.6 frozen soil permeability option:            2 2 2 # 1=NY06; 2=Koren99
+Noah-MP.3.6 supercooled liquid water option:            1 1 1 # 1=NY06; 2=Koren99
+Noah-MP.3.6 frozen soil permeability option:            1 1 1 # 1=NY06; 2=Koren99
 Noah-MP.3.6 radiation transfer option:                  1 1 1 # 1=gap=F(3D;cosz); 2=gap=0; 3=gap=1-Fveg
 Noah-MP.3.6 snow surface albedo option:                 2 2 2 # 1=BATS; 2=CLASS
 Noah-MP.3.6 rainfall and snowfall option:               3 3 3 # 1=Jordan91; 2=BATS; 3=Noah

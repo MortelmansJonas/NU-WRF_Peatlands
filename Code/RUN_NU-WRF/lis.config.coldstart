@@ -2,7 +2,7 @@
 # Overall driver options
 #------------------------------------------------------------------------------
 Running mode: 		         "retrospective"
-Number of nests:    3
+Number of nests:    2
 Number of surface model types:    1
 Surface model types:            LSM
 Surface model output interval:  1mo 1mo 1mo
@@ -26,15 +26,15 @@ Output model restart files:                1
 Output data format:                        netcdf
 Output naming style:                       "3 level hierarchy"
 Start mode:                                coldstart
-Starting year:                             2005 
-Starting month:                            9
-Starting day:                              01
+Starting year:                             1995
+Starting month:                            6
+Starting day:                              1
 Starting hour:                             00
 Starting minute:                           0
 Starting second:                           0
 Ending year:                               2015
-Ending month:                              6
-Ending day:                                01 
+Ending month:                              5
+Ending day:                                15 
 Ending hour:                               00
 Ending minute:                             0
 Ending second:                             0
@@ -54,8 +54,8 @@ Maximum number of slope bands per grid:            1
 Minimum cutoff percentage (slope bands):           0.10
 Maximum number of aspect bands per grid:           1
 Minimum cutoff percentage (aspect bands):          0.10
-Number of processors along x:    6
-Number of processors along y:    6
+Number of processors along x:   12
+Number of processors along y:   12
 Halo size along x: 0 
 Halo size along y: 0 
 Routing model:                   none
@@ -160,10 +160,10 @@ Noah-MP.3.6 number of snow layers:        3 3 3
 Noah-MP.3.6 vegetation model option:                    1 1 1 # 1=prescribed; 2=dynamic; 3=calculate; 4=maximum
 Noah-MP.3.6 canopy stomatal resistance option:          2 2 2  # 1=Ball-Berry; 2=Jarvis
 Noah-MP.3.6 soil moisture factor for stomatal resistance option:  1 1 1 # 1=Noah; 2=CLM; 3=SSiB
-Noah-MP.3.6 runoff and groundwater option:              3 3 3  # 1=SIMGM; 2=SIMTOP; 3=Schaake96; 4=BATS
-Noah-MP.3.6 surface layer drag coefficient option:      2 2 2  # 1=M-O; 2=Chen97
-Noah-MP.3.6 supercooled liquid water option:            2 2 2  # 1=NY06; 2=Koren99
-Noah-MP.3.6 frozen soil permeability option:            2 2 2  # 1=NY06; 2=Koren99
+Noah-MP.3.6 runoff and groundwater option:              1 1 1  # 1=SIMGM; 2=SIMTOP; 3=Schaake96; 4=BATS
+Noah-MP.3.6 surface layer drag coefficient option:      1 1 1  # 1=M-O; 2=Chen97
+Noah-MP.3.6 supercooled liquid water option:            1 1 1  # 1=NY06; 2=Koren99
+Noah-MP.3.6 frozen soil permeability option:            1 1 1  # 1=NY06; 2=Koren99
 Noah-MP.3.6 radiation transfer option:                  1 1 1  # 1=gap=F(3D;cosz); 2=gap=0; 3=gap=1-Fveg
 Noah-MP.3.6 snow surface albedo option:                 2 2 2  # 1=BATS; 2=CLASS
 Noah-MP.3.6 rainfall and snowfall option:               3 3 3  # 1=Jordan91; 2=BATS; 3=Noah
@@ -225,14 +225,14 @@ Irrigation scheme: none none none
 #------------------------------------------------------------------------------
 
 Output start year:     2015 2015 2015
-Output start month:    06 06 06
-Output start day:      01 01 01
+Output start month:    05 05 05
+Output start day:      15 15 15
 Output start hour:     00 00 00
 Output start minutes:   0 0 0
 Output start seconds:   0 0 0
 Output at specific time only: 1 1 1
-Specific output writing time (month):   6 6 6
-Specific output writing time (day):    01 01 01
+Specific output writing time (month):   5 5 5
+Specific output writing time (day):    15 15 15
 Specific output writing time (hour):   00 00 00
 Specific output writing time (minute):  0 0 0
 Specific output writing time (second):  0 0 0 
