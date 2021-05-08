@@ -1,6 +1,6 @@
-==========
-SPIN-UP CONTROL
-==========
+------------------
+Spin-up control
+------------------
 
 - 'Spin-up_control.py' extracts from all LIS_OUTPUT files the variables to evaluate and stores it in one netCDF file for further processing.
 
