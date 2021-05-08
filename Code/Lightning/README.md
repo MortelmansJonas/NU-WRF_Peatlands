@@ -1,5 +1,5 @@
 ------------------
-Observational Data
+Lightning
 ------------------
 
 Notes (08/05/2021):
