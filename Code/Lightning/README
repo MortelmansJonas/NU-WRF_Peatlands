@@ -2,12 +2,12 @@
 Lightning
 ==========
 
-Notes (10/03/2021):
+Notes (08/05/2021):
 
-- 'Lightning_data_full.py' does multiple things:
+- 'Lightning_data_0.1d.py' does multiple things:
 
 	- It plots the amount of flashes per day and per type (CC and CG)
-	- It plots the amount of flashes per day, per type and per location (latitudes and longitudes are rounded to 2 decimal places.)
+	- It plots the amount of flashes per day, per type and per location (latitudes and longitudes are rounded to 1 decimal places.)
 	- It creates a netCDF file with, for each type separately, the flashedensity and the average Estimated Peak Current (EPC).
 	
-- 'Observations_data_diurnal.py' takes the average of each hour of the day and stores it in a netCDF file. This makes it possible to make diurnal plots (the script for this is in 'Postproc')
+- 'Lightning_data_0.01d.py' does the same thing as 'Lightning_data_0.1d.py', but rounds the latitudes and longitudes to 2 decimal places.
