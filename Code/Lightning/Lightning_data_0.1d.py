@@ -24,7 +24,7 @@ data['Date'] = data['Date'] + pd.to_timedelta(hour, unit='h')
 print(data.head(35))
 data['Date'] = data['Date'].astype(int)
 data['Type'] = data['Type'].astype('category')
-data['Latitude'] = round(data['Latitude'],1) # 1 for d01, 2 for d02
+data['Latitude'] = round(data['Latitude'],1) # 1 for d01
 data['Longitude'] = round(data['Longitude'],1)
 data['Count'] = 1
 
