@@ -1,6 +1,6 @@
-==========
+------------------
 Postproc
-==========
+------------------
 
 - The folder 'Atmospheric_variables' contains all scripts that are used to compare the modeled precipitation and heat fluxes with the MERRA-2 input data. 
 
