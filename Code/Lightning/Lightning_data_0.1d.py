@@ -38,7 +38,9 @@ flashes_per_day= data.groupby(['Date', 'Type']).agg({'Count': ['sum'],'EPC':['me
 CC = flashes_per_day[flashes_per_day.Type == 'C'].reset_index()
 CG = flashes_per_day[flashes_per_day.Type == 'G'].reset_index()
 
-## Plot it
+# ---------------------------------------------------------------------------------------------
+# PLOT IT TO GET AN OVERVIEW
+# ---------------------------------------------------------------------------------------------
 plt.plot(CC['Date'], CC['Count'],'.', label='CC')
 plt.plot(CG['Date'], CG['Count'],'.',  label='CG')
 plt.xlabel("date")
