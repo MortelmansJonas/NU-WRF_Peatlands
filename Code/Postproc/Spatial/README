@@ -1,5 +1,0 @@
-==========
-Spatial
-==========
-
-- 'Spatial_pattern.py' contains the script to map the spatial distribution patterns for each index. It uses the daily averaged data from 'Daily_nc.py' in the folder 'Postproc'.
