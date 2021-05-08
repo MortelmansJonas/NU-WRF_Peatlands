@@ -2,19 +2,6 @@
 Postproc
 ==========
 
-Notes (10/03/2021):
-- The folder CAPExP contains scripts to calculate and plot CAPE times convective precipitation rate, to be used in the lightning parameterization of Romps et al.
+- The folder 'Atmospheric_variables' contains all scripts that are used to compare the modeled precipitation and heat fluxes with the MERRA-2 input data. 
 
-- The folder LPI contains the script to calculate LPI (based on the ncl script of prof. Barry Lynn) and store it in a netCDF file. It also contains a script to plot it (although unfinished).
-
-- The folder McCaul contains the script to make a map and diurnal cycle plot of the observations, the McCaul threats in domain 1 and 2 and the total precipitation in both domains.
-
-- The folder PR92 contains the script to calculate the Price and Rind 92 lightning parameterization scheme based on both cloud top height and maximal vertical updraft velocity.
-
-- The folder RIP contains all files needed to run RIP. 
-
-- The folder UPP contains all scripts neede to run UPP and the scripts 'read_grib2_*' to combine all UPP output files for a specific domain into one for further analysis.
-
-- 'WRF_output_nc.py' contains the script to combine all wrf output files into one netcdf file and extract specific variables.
-
-- The two files with 'diurnal' create netCDF files that are used for the diurnal plotting in other scripts. It is needed to first run these before making a diurnal plot.
+- The folder 'UPP' contains the scripts used to run UPP and 
