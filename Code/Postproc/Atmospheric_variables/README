@@ -1,0 +1,14 @@
+==========
+Atmospheric_variables
+==========
+
+This folder contains all scripts used to plot the daily average precipitation, latent, and sensible heat flux for both the model (both resolutions) and the MERRA-2 data.
+
+- 'WRF_output_2015_d01_MERRA2.py' and 'WRF_output_2015_d02_MERRA2.py' contain the script to extract the plotted variables from the hourly WRF files (d01 and d02, respectively).
+  This is also done for all the other years, by executing the same script, but changing the year.
+ 
+- 'd01_MERRA2.py' and 'd02_MERRA2.py' combine the data of all years and put them in 1 netcdf file.
+
+- 'Daily_MERRA2.py' calculates the daily averages of the variables for both the model output and the MERRA-2 data.
+
+- 'MERRA2_maps.py' is then used to plot the 6-year average of these daily averages for both the model and the MERRA-2 data.
