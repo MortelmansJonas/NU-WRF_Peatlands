@@ -14,7 +14,6 @@ from matplotlib import cm
 import matplotlib.dates as mdates
 from datetime import timedelta
 
-
 # ---------------------------------------------------------------------------------------------
 # CREATE NC FILE
 # ---------------------------------------------------------------------------------------------
