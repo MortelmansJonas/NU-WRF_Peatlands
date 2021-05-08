@@ -8,6 +8,6 @@ Notes (10/03/2021):
 
 - 'Lightning' contains all files that are used to process (store in netcdf file) and plot the observational lightning data.
 
-- 'Postproc' contains all files that are needed to postprocess the wrf output, including RIP, UPP and the scripts to calculate/plot the different lightning schemes.
+- 'Postproc' contains all files that are needed to postprocess the wrf output, including UPP and the scripts to calculate/plot the different lightning indices.
 
 - 'Spin-up_control' contains files to check the spin-up performed with LIS.
