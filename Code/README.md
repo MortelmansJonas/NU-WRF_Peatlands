@@ -4,7 +4,7 @@ CODE
 
 Notes (10/03/2021):
 
-- 'RUN_NU-WRF' contains all files that need adaptations to run on VSC HPC. It contains the adapted files, a list of needed changes and a workflow to go through NU-WRF.
+- 'RUN_NU-WRF' contains all files that were adapted to run on VSC HPC, a list of the changes, a workflow to run NU-WRF, and the input files for the LDT, LIS and WRF modules of NU-WRF.
 
 - 'Lightning' contains all files that are used to process (store in netcdf file) and plot the observational lightning data.
 
