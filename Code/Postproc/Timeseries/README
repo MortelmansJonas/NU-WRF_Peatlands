@@ -1,6 +1,0 @@
-==========
-Timeseries
-==========
-
-This folder only contains 'Timeseries.py' which is used to calculate and plot the timeseries of the daily flash density for both domains.
-To show the weekly averages, it uses the netCDF file 'Weekly_nc.py' in the 'Postproc' folder.
