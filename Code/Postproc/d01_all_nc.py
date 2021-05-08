@@ -38,6 +38,7 @@ ds.createVariable('PR92W', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('CAPExP', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('W', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('H', 'f4', dimensions=('time','lat','lon',), zlib=True)
+
 # ---------------------------------------------------------------------------------------------
 # LOAD DATA OF D01
 # ---------------------------------------------------------------------------------------------
@@ -71,26 +72,6 @@ PR92H_2015_deg = np.multiply(PR92H_2015_spat,0.0625) # apply custom calibration 
 print(np.nanmax(PR92H_2015_deg))
 ds['PR92H'][0:2208] = PR92H_2015_deg
 print(np.nanmax(ds['PR92H'][:]))
-
-#### check with plots
-#hourindex = np.arange(0,2208,24)
-#for i in range(24):
-#CTOP = ds_mccaul_2015_d01.variables['CTOP2D'][0:-1,inds_lat, inds_lon]
-#optth = ds_mccaul_2015_d01.variables['COD2D'][0:-1,inds_lat, inds_lon]
-#CTOP = np.multiply(CTOP, conv_2015) # to only get conv clouds
-#optth = np.multiply(optth, conv_2015) # to only get conv clouds
-#Ctop_2015_km = np.multiply(Ctop_2015_km, conv_2015) # to only get conv clouds
-#updraft = ds_mccaul_2015_d01.variables['W_UP_MAX'][0:-1,inds_lat, inds_lon]
-#plt.plot(optth[:,50,50],CTOP[:,50,50],'.')
-#plt.hist(optth(:))
-#plt.plot(Ctop_2015_km[1:(24*24),50,50],'.')
-#plt.plot(PR92H_2015[1:(24*24),50,50],'.')
-#plt.plot(updraft[1:(24*24),50,50],'.')
-#plt.plot(PR92H_2015[(60*24):(67*24),50,50],'.')
-#plt.plot(updraft[(60*24):(67*24),50,50],'.')
-#plt.plot(CTOP[:,50,50],updraft[:,50,50],'.')
-#plt.plot(optth[:,50,50],updraft[:,50,50],'.')
-#plt.plot(Ctop_2015_km[:,50,50],updraft[:,50,50],'.')
 
 power_w_2015 = np.power(ds_mccaul_2015_d01.variables['W_UP_MAX'][0:-1,inds_lat, inds_lon], 4.54)
 PR92_W_2015 = np.multiply(0.000005, power_w_2015)
