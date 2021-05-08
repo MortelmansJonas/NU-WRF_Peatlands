@@ -1,4 +1,6 @@
-## Import the necessary modules
+# ---------------------------------------------------------------------------------------------
+# MODULES
+# ---------------------------------------------------------------------------------------------
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -7,8 +9,9 @@ register_matplotlib_converters()
 from netCDF4 import Dataset
 import datetime as dt
 
-
-## Read in the data
+# ---------------------------------------------------------------------------------------------
+# LOAD DATA
+# ---------------------------------------------------------------------------------------------
 data = pd.read_csv('/data/leuven/336/vsc33651/projects/nu-wrf-dev/Lightning_data/Slave_lake.txt', delimiter = '\s+')
 
 print(data.head(5))
@@ -18,7 +21,7 @@ print(data.dtypes)
 data['Date'] = pd.to_datetime(data['Date'])
 time = pd.to_datetime(data['Time'], format="%H:%M:%S.%f")
 hour = time.dt.hour
-data['Date'] = data['Date'] #+ pd.to_timedelta(hour, unit='h')  #+ pd.to_timedelta(time.dt.minute, unit='m') + pd.to_timedelta(time.dt.second, unit='s')
+data['Date'] = data['Date'] + pd.to_timedelta(hour, unit='h')
 print(data.head(35))
 data['Date'] = data['Date'].astype(int)
 data['Type'] = data['Type'].astype('category')
@@ -29,24 +32,29 @@ data['Count'] = 1
 print(data.dtypes)
 print(data.head(35))
 
-
-## Get a Flash density per day
+# ---------------------------------------------------------------------------------------------
+# GET HOURLY FLASH DENSITY
+# ---------------------------------------------------------------------------------------------
 flashes_per_day= data.groupby(['Date', 'Type']).agg({'Count': ['sum'],'EPC':['mean']}).reset_index()
 CC = flashes_per_day[flashes_per_day.Type == 'C'].reset_index()
 CG = flashes_per_day[flashes_per_day.Type == 'G'].reset_index()
 
-## Plot it
-# plt.plot(CC['Date'], CC['Count'],'.', label='CC')
-# plt.plot(CG['Date'], CG['Count'],'.',  label='CG')
-# plt.xlabel("date")
-# plt.yscale("log")
-# plt.grid()
-# plt.ylabel("number of flashes")
-# plt.title('Number of flashes per day per location')
-# plt.legend()
-# plt.show()
+# ---------------------------------------------------------------------------------------------
+# PLOT IT TO GET AN OVERVIEW
+# ---------------------------------------------------------------------------------------------
+plt.plot(CC['Date'], CC['Count'],'.', label='CC')
+plt.plot(CG['Date'], CG['Count'],'.',  label='CG')
+plt.xlabel("date")
+plt.yscale("log")
+plt.grid()
+plt.ylabel("number of flashes")
+plt.title('Number of flashes per day per location')
+plt.legend()
+plt.show()
 
-## Get a Flash density per day per latlon
+# ---------------------------------------------------------------------------------------------
+# GET HOURLY FLASH DENSITY AND LOCATION
+# ---------------------------------------------------------------------------------------------
 flashes= data.groupby(['Date', 'Latitude', 'Longitude', 'Type']).agg({'Count': ['sum'],'EPC':['mean']}).reset_index()
 #print(flashes)
 CCPL = flashes[flashes.Type == 'C'].reset_index()
@@ -57,16 +65,21 @@ CCPL.columns = ['Date', 'Latitude', 'Longitude', 'Type', 'Count', 'avg_EPC']
 CGPL.columns = ['Date', 'Latitude', 'Longitude', 'Type', 'Count', 'avg_EPC']
 print(CCPL)
 print(CGPL)
-## Plot it
-# plt.plot(CCPL.Date, CCPL['Count'], '.', label='CC')
-# plt.plot(CGPL.Date, CGPL['Count'], '.', label='CG')
-# plt.xlabel("date")
-# plt.ylabel("number of flashes")
-# plt.title('Number of flashes per day per location')
-# plt.legend()
-# plt.show()
 
-## Create a netCDF file
+# ---------------------------------------------------------------------------------------------
+# PLOT IT TO GET AN OVERVIEW
+# ---------------------------------------------------------------------------------------------
+plt.plot(CCPL.Date, CCPL['Count'], '.', label='CC')
+plt.plot(CGPL.Date, CGPL['Count'], '.', label='CG')
+plt.xlabel("date")
+plt.ylabel("number of flashes")
+plt.title('Number of flashes per day per location')
+plt.legend()
+plt.show()
+
+# ---------------------------------------------------------------------------------------------
+# CREATE NETCDF FILE
+# ---------------------------------------------------------------------------------------------
 nf= '/scratch/leuven/336/vsc33651/nu-wrf-dev/wrfout_nc_files/Slave_lake_daily_0.01d.nc'
 ds = Dataset(nf, 'w', format='NETCDF4')
 
@@ -93,8 +106,6 @@ Time_array = np.array(ta)
 times[:] = Time_array # Assign time values
 print(Time_array)
 # Assign Latitude and Longitude Values
-#lats[:] = np.array(np.unique(flashes['Latitude']))
-#lons[:] = np.array(np.unique(flashes['Longitude']))
 lats[:] = np.arange(np.nanmin(flashes['Latitude']),np.nanmax(flashes['Latitude'])+0.01,0.01)
 lons[:] = np.arange(np.nanmin(flashes['Longitude']),np.nanmax(flashes['Longitude'])+0.01,0.01)
 
@@ -104,7 +115,9 @@ for dim in ds.dimensions.values():
 for var in ds.variables.values():
     print(var)
 
-## Flashdensity_CC and EPC_CC
+# ---------------------------------------------------------------------------------------------
+# FILL IN CLOUD-TO-CLOUD DATA (CC)
+# ---------------------------------------------------------------------------------------------
 print('Flashdensity_CC and EPC_CC')
 for i in range(0,len(CCPL)):
     print('loop 1 '+str(i) + '/' + str(len(CGPL)))
@@ -118,10 +131,12 @@ for i in range(0,len(CCPL)):
     Flashdensity_CC[j,k,l] = CCPL['Count'][i]
 
 # Just to check not everythin is still 0
-#print(np.amax(Flashdensity_CC))
-#print(np.amax(EPC_CC))
+print(np.amax(Flashdensity_CC))
+print(np.amax(EPC_CC))
 
-## Flashdensity_CG and EPC_CG
+# ---------------------------------------------------------------------------------------------
+# FILL IN CLOUD-TO-GROUND DATA (CG)
+# ---------------------------------------------------------------------------------------------
 print('Flashdensity_CG and EPC_CG')
 
 for i in range(0,len(CGPL)):
@@ -136,8 +151,8 @@ for i in range(0,len(CGPL)):
     Flashdensity_CG[j,k,l] = CGPL['Count'][i]
 
 # Just to check not everything is still 0
-# print(np.amax(Flashdensity_CG))
-# print(np.amax(EPC_CG))
+print(np.amax(Flashdensity_CG))
+print(np.amax(EPC_CG))
 # For ease: convert times back to easy readable format
 TA = np.unique(pd.to_datetime(flashes['Date']))
 Time_array = np.array(TA)
