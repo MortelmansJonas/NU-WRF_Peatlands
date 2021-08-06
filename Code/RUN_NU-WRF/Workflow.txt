@@ -15,9 +15,6 @@ This file contains the workflow as provided by the NASA, but with certain adapta
 
   After finishing check the geogrid.log.0000 file for *** Succesful completion of program geogrid.exe ***
 
-- Get the variable TAVGSFC
-  ./avg_tsfc.reg
-
 - Get MERRA2 and SSTRSS data:
 ./merra2wrf.py BEGINDATE ENDDATE
   e.g.: ./merra2wrf.py 20050701 20050702
@@ -29,6 +26,9 @@ This file contains the workflow as provided by the NASA, but with certain adapta
    cp data/merra2wrf/* $RUNDIR
    cp data/mw_ir/* $RUNDIR
 
+- Get the variable TAVGSFC
+  ./avg_tsfc.reg
+  
 - Run metgrid
   INPUT: namelist.wps, MERRA*, SSTRSS* and geo_em* files
   OUTPUT: met_em* files corresponding to the number of intervals (defined as interval_seconds in namelist.wps) in the simulation length (start/end dates)
