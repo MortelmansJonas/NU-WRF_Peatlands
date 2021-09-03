@@ -65,7 +65,7 @@ ds_d01['weeks'][13:26] = pd.date_range('2016-06-01 00:00:00','2016-08-31 00:00:0
 ds_d01['weeks'][26:39] = pd.date_range('2017-06-01 00:00:00','2017-08-31 00:00:00', freq='W')
 ds_d01['weeks'][39:52] = pd.date_range('2018-06-01 00:00:00','2018-08-31 00:00:00', freq='W')
 ds_d01['weeks'][52:65] = pd.date_range('2019-06-01 00:00:00','2019-08-31 00:00:00', freq='W')
-ds_d01['weeks'][65:782] = pd.date_range('2020-06-01 00:00:00','2020-08-31 00:00:00', freq='W')
+ds_d01['weeks'][65:78] = pd.date_range('2020-06-01 00:00:00','2020-08-31 00:00:00', freq='W')
 ds_d01['timeseries'][:] = timeseries
 ds_d02['timeseries'][:] = timeseries
 ds_d02.variables['timeseries'].setncatts({'long_name': 'timeseries', 'units': timeseries_unit})
