@@ -160,7 +160,7 @@ Adaptations:
    	echo "ERROR, $RUNDIR/noahmp_parms does not exist!"
   	exit 1
 	fi
-	#ln -sf $RUNDIR/LS_PARAMETERS/noah36_parms noah36_parms || exit 1 # (because no noah36_marms)
+	#ln -sf $RUNDIR/LS_PARAMETERS/noah36_parms noah36_parms || exit 1 # (because no noah36_parms)
 	#if [ ! -e $RUNDIR/noah36_parms ] ; then
 	#    echo "ERROR, $RUNDIR/noah36_parms does not exist!"
 	#    exit 1
@@ -233,6 +233,9 @@ Adaptations:
 	truelat2  =   60.25,
 	stand_lon =  -116.2495,
 	geog_data_path = '/staging/leuven/stg_00024/OUTPUT/michelb/l_data/model_param/nu-wrf/geog'
+	
+	&metgrid
+ 	fg_name         = 'MERRA', # Due to issues with SST, it's removed here.
 
 - namelist.input.real
 	run_days			    = 92,
