@@ -2,11 +2,11 @@
 
 ## This script regrids d02 resolution data to d01 resolution data
 
-infile1 = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/screen-level-obs/all_data.nc'
-infile2 = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/wrfout_d01_2015.nc'
-outfile = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/screen-level-obs/obs_at_d01.nc'
+infile_d01 = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/wrfout_d01_2015.nc'
+infile_d02 = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/screen-level-obs/all_data.nc'
+outfile = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/obs_at_d01.nc'
 # lightning index to regrid
-LIs = ['T', 'RH']
+# LIs = ['T2', 'RH2']
 
 import numpy as np
 import pandas as pd
@@ -24,35 +24,36 @@ import netCDF4 as nc
 import xarray as xr
 from scipy import ndimage
 
-ds01 = Dataset(infile2, 'r')
+def create_file_from_source(src_file, trg_file):
+    src = nc.Dataset(src_file)
+    trg = nc.Dataset(trg_file, mode='w')
 
-# Create outfile with same resolution as d01
-nf = Dataset(outfile, "w", format = 'NETCDF4')
+    # Create the dimensions of the file
+    for name, dim in src.dimensions.items():
+        trg.createDimension(name, len(dim) if not dim.isunlimited() else None)
 
-# Create dimensions
-time = nf.createDimension('time', None)
-lat = nf.createDimension('lat', None)
-lon = nf.createDimension('lon', None)
+    # Copy the global attributes
+    trg.setncatts({a:src.getncattr(a) for a in src.ncattrs()})
 
-# Create variables
-nf.createVariable('time', 'int', dimensions=('time'),zlib=True)
-nf.variables['time'][:] = ds01['time'][:]
-nf.createVariable('lat','f', dimensions=('lat'))
-nf.variables['lat'][:] = np.unique(ds01['lat'][:])
-nf.createVariable('lon', 'f4', dimensions=('lon'))
-nf.variables['lon'][:] = np.unique(ds01['lon'][:])
-nf.createVariable('T', 'f4', dimensions= ('time', 'lat', 'lon'),zlib=True)
-nf.createVariable('RH', 'f4', dimensions= ('time', 'lat', 'lon'),zlib=True)
+    # Create the variables in the file
+    for name, var in src.variables.items():
+        trg.createVariable(name, var.dtype, var.dimensions)
 
-# Set metadata
-nf.variables['time'].setncatts({'long_name': 'Time', 'units': ''})
-nf.variables['lat'].setncatts({'long_name': 'Latitude', 'units': 'degrees_north'})
-nf.variables['lon'].setncatts({'long_name': 'Longitude', 'units': 'degrees_east'})
-nf.variables['T'].setncatts({'long_name': 'Dry Bulb Temperature', 'units': '°C'})
-nf.variables['RH'].setncatts({'long_name': 'Relative Humidity', 'units': '%'})
+        # Copy the variable attributes
+        trg.variables[name].setncatts({a:var.getncattr(a) for a in var.ncattrs()})
 
-# read source dataset at original resolution
-ds02 = Dataset(infile1, 'r')
+        # Copy the variables values (as 'f4' eventually)
+        trg.variables[name][:] = src.variables[name][:]
+
+    # Save the file
+    trg.close()
+
+# destination grid, create output file from input ds01 file
+ds01 = Dataset(infile_d01, 'r')
+create_file_from_source(infile_d01,outfile)
+
+# read source dataset at d02 resolution
+ds02 = Dataset(infile_d02, 'r')
 lat_out     = ds01.variables['lat'][:].data
 lon_out     = ds01.variables['lon'][:].data
 lat_in     = ds02.variables['lat'][:].data
@@ -62,9 +63,13 @@ x, y = np.meshgrid(lon_in, lat_in)
 def_a = SwathDefinition(lons=lon_out, lats=lat_out)
 def_b = SwathDefinition(lons=x, lats=y)
 
-for LI in LIs:
-    for t in range(0,np.shape(ds02[LI])[0]):
-        print(LI + " " + str(t) + " / " + str(np.shape(ds02[LI])[0]))
-        nf[LI][t,:,:] = resample_nearest(def_b,ds02[LI][t,:,:],def_a,radius_of_influence = 70000,fill_value = np.nan)
+ds_out = nc.Dataset(outfile,"a")
+for t in range(0,np.shape(ds02['T2'])[0]):
+    print(str(t) + '/13248')
+    # apply nearest neighbor search, ... worth checking why this is actually needed, ...
+    # from d02 to d01 the 3x3 aggregation is probably already resulting in a grid that matches perfectly the d01 grid
+    ds_out['T2'][t,:,:] = resample_nearest(def_b,ds02['T2'][t,:,:].data,def_a,radius_of_influence = 70000,fill_value = np.nan)
+    ds_out['RH2'][t, :, :] = resample_nearest(def_b, ds02['RH2'][t, :, :].data, def_a, radius_of_influence=70000,
+                                             fill_value=np.nan)
 
-nf.close()
+ds_out.close()
