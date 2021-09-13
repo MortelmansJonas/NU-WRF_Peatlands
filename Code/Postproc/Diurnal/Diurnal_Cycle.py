@@ -46,7 +46,7 @@ time = pd.to_datetime('2000010100',format='%Y%m%d%H') + pd.to_timedelta(ds_d02_i
 # ---------------------------------------------------------------------------------------------
 print('diurnal cycle')
 # GET THE TIMES RIGHT
-times = pd.to_datetime(time) - pd.to_timedelta(7, unit='h')
+times = pd.to_datetime(time) - pd.to_timedelta(6, unit='h') #MDT timezone
 months = times.month
 summer = np.where([(months > 5) & (months < 9)])
 time_summer = times[summer[1]]
