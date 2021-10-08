@@ -66,7 +66,19 @@ for i in range(len(n)):
         n_PR92W[i] = np.nan
     else:
         break
-print(np.nanmax(n))
-print(np.nanmax(n_PR92W))
-plt.scatter(n_PR92W, n)
+
+plt.scatter(n_PR92W, n, label='PR92W')
+plt.scatter(n_lpi, n, label='lpi')
+plt.scatter(n_CAPExP_R, n, label='CAPExP_R')
+plt.scatter(n_CAPExP_CSI, n, label='CAPExP_CSI')
+plt.scatter(n_LTG3, n, label='LT3')
+plt.legend()
 plt.show()
+
+n[np.isnan(n)] = 0
+transformer = pf(degree=1)
+x_ = transformer.fit_transform(n_lpi.reshape((-1,1)))
+reg = lr().fit(x_, n)
+print(reg.score(x_, n))
+print(reg.coef_)
+print(reg.intercept_)
