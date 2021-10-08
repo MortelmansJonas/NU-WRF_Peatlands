@@ -76,7 +76,7 @@ plt.legend()
 plt.show()
 
 n[np.isnan(n)] = 0
-transformer = pf(degree=1)
+transformer = pf(degree=1) # degree=1 -> R_sq = 0.06, degree=2 -> R_sq = 0.14, degree=3 -> R_sq = 0.346, degree=4 -> R_sq = 0.2
 x_ = transformer.fit_transform(n_lpi.reshape((-1,1)))
 reg = lr().fit(x_, n)
 print(reg.score(x_, n))
