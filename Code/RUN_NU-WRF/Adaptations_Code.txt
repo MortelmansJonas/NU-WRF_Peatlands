@@ -207,6 +207,9 @@ Adaptations:
 
 	In clean up: put all os.remove() statements in the for loop.
 
+- Get sst2wrf.py from src_code (ONLY IF USING SSTRSS DATA!)-> ./sst2wrf.py BEGINDATE ENDDATE
+	e.g.: ./sst2wrf.py 20050701 20050703
+	
 - metgrid.reg
 	#ln -fs $NUWRFDIR/WPS/metgrid/METGRID.TBL.ARW metgrid/METGRID.TBL || exit 1
 	
