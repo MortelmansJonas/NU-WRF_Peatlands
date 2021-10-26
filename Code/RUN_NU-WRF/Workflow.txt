@@ -38,10 +38,12 @@ This file contains the workflow as provided by the NASA, but with certain adapta
         ./link_grib.csh $PATH/TO/GRIBFILES/GRIBFILES_TO_LINK.grb2
         
         The output should be GRIBFILE.AAA, GRIBFILE.AAB,... for as many files as you original had.
+        You should link to the output files of step c.
     f. Run g2print.exe:
         ./g2print.exe $PATH/TO/GRIBFILES/GRIBFILES.grb2
         
-        This prints a message that helps to adapt the Vtable. 
+        This prints a message that helps to adapt the Vtable.
+        Make sure to use the output files of step c.
     g. Adapt the Vtable based on the printed information of the previous step.
     h. Run ungrib.exe
 
