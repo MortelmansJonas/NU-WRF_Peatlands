@@ -15,14 +15,37 @@ This file contains the workflow as provided by the NASA, but with certain adapta
 
   After finishing check the geogrid.log.0000 file for *** Succesful completion of program geogrid.exe ***
 
-- Get MERRA2 and SSTRSS data:
+- Get MERRA2 data:
 ./merra2wrf.py BEGINDATE ENDDATE
   e.g.: ./merra2wrf.py 20050701 20050702
 
-./sst2wrf.py BEGINDATE ENDDATE
-  e.g.: ./sst2wrf.py 20050701 20050702
+- Get SST data:
+1. When working with the SSTRSS data from the remote sensing systems, sst2wrf.py can be used (with the appropriate adaptations):
+  ./sst2wrf.py BEGINDATE ENDDATE
+    e.g.: ./sst2wrf.py 20050701 20050702
+    
+2. When working at higher latitudes or far inland, this data does not provide good SST. 
+    a. Download the data (as .nc files) you need from https://podaac-tools.jpl.nasa.gov/drive/files/OceanTemperature/ghrsst/data/L4 
+    b. Run the nc_to_grb.py script to extract the SST from the netcdf file and convert it to .grib2
+    c. From the command line, run (using the module eccodes): 
+        grib_set -s typeOfGeneratingProcess=0,generatingProcessIdentifier=128,typeOfFirstFixedSurface=1,cfVarName=t SSTRSS:*.grb2 "out_[dataDate].grb2"
+    d. copy from the $NUWRFDIR/WPS the following files to your $RUNDIR:
+          * link_grib.csh
+          * ungrib/g2print.exe
+          * ungrib/Variable_Tables/Vtable.SST (copy to a file called 'Vtable')
+          * ungrib/ungrib.exe
+    e. Run link_grib.csh:
+        ./link_grib.csh $PATH/TO/GRIBFILES/GRIBFILES_TO_LINK.grb2
+        
+        The output should be GRIBFILE.AAA, GRIBFILE.AAB,... for as many files as you original had.
+    f. Run g2print.exe:
+        ./g2print.exe $PATH/TO/GRIBFILES/GRIBFILES.grb2
+        
+        This prints a message that helps to adapt the Vtable. 
+    g. Adapt the Vtable based on the printed information of the previous step.
+    h. Run ungrib.exe
 
-  After this, copy the files from data/merra2wrf and data/mw_ir (or any other name your sstrss data has) to the RUNDIR
+  After this, copy the files from data/merra2wrf and data/mw_ir (or any other name your sstrss data has, ONLY IF SSTRSS!) to the RUNDIR
    cp data/merra2wrf/* $RUNDIR
    cp data/mw_ir/* $RUNDIR
 
