@@ -206,9 +206,20 @@ Adaptations:
                  file_name6, outdir)
 
 	In clean up: put all os.remove() statements in the for loop.
+
+- metgrid.reg
+	#ln -fs $NUWRFDIR/WPS/metgrid/METGRID.TBL.ARW metgrid/METGRID.TBL || exit 1
 	
-- Get sst2wrf.py from src_code -> ./sst2wrf.py BEGINDATE ENDDATE
-	e.g.: ./sst2wrf.py 20050701 20050703
+	(This line is commented, but you need to copy (cp) the METGRID.TBL.ARW to the folder metgrid in your working directory.
+	cp is needed because it needs to be adapted.)
+	
+- METGRID.TBL (only needed when not using standard RSS SST data).
+
+	name=SST
+        	interp_option=sixteen_pt+four_pt+wt_average_4pt+wt_average_16pt
+        	fill_missing=0.
+        	missing_value=0
+        	flag_in_output=FLAG_SST
 
 - namelist.wps
 	max_dom = 3,
