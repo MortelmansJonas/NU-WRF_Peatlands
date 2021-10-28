@@ -397,11 +397,27 @@ This can be used to see if all the wanted variables are in there.
 
 So far, all files are still separate for each time step and no further analysis based on all the available data for a certain domain is possible. To do so, a python file needs to be written, looping over all the files of a certain domain and extracting the wanted variables. You can store all the data in a new netCDF file with an additional time dimension (e.g. see [d01_nc.py](https://github.com/MortelmansJonas/NU-WRF_Peatlands/blob/master/Code/Postproc/d01_nc.py))
 
-
-
 # Troubleshoot
-	* NUWRFDIR/WPS/
-		* link_grib.csh
-		* ungrib/g2print.exe
-		* ungrib.Variable_Tables/Vtable.SST (copy to a file called 'Vtable')
-		* ungrib/ungrib.exe
+
+When working at high latitudes or far inland, the SST from Remote Sensing Systems does not provide good data. To work arount this issue, follow these steps:
+
+1. Get the following files from the $NUWRFDIR/WPS:
+	1. link_grib.csh
+	2. ungrib/g2print.exe
+	3. ungrib.Variable_Tables/Vtable.SST (copy to a file called 'Vtable')
+	4. ungrib/ungrib.exe
+2. Download the data (as . nc files) you need from [PODAAC](https://podaac-tools.jpl.nasa.gov/drive/login?dest=L2RyaXZlL2ZpbGVzL09jZWFuVGVtcGVyYXR1cmUvZ2hyc3N0L2RhdGEvTDQ).
+	You will need an account for this and follow their download instructions when using wget.
+3. Run [the nc_to_grb.py script](https://github.com/MortelmansJonas/NU-WRF_Peatlands/blob/master/Code/Postproc/nc_to_grb.py). Make sure the paths are adapted to the location of your downloaded files.
+4. From the command line, run (first load the module eccodes):
+	$ grib_set -s typeOfGeneratingProcess=0,generatingProcessIdentifier=128,typeOfFirstFixedSurface=1,cfVarName=t SSTRSS:*.grb2 "out_[dataDate].grb2"
+5. Run link_grib.csh from your $RUNDIR. The output should be GRIBFILE.AAA, GRIBFILE.BBB,… for as many files as you originally had. ‘out_*.grb2’ is the output of the previous step
+	$ cd $RUNDIR
+	$ ./link_grib.csh $PATH_TO_GRIBFILES/out_*.grb2 
+6. Run g2print.exe to get the necessary information to put in the Vtable.
+	$ ./g2print.exe $PATH_TO_GRIBFILES/out_*.grb2
+7. Adapt the Vtable based on the printed information of the previous step. Make sure to put the correct level type, names,… because otherwise, METGRID won’t recognize the correct data.
+8. Run ungrib.exe
+	$ ./ungrib.exe
+
+The output should be files like SSTRSS:*, one every 6 hours from the defined start time to the defined end time. These files are also in WPS intermediate format, readable by METGRID. The prefix ‘SSTRSS’ is defined in the namelist.wps file.
