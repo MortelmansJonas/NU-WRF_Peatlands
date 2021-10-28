@@ -79,7 +79,7 @@ WRF calls LIS on each advective time step, and provides atmospheric forcing data
 
 This schematic shows the main workflow to follow for WRF-LIS coupled runs. It makes us of MERRA-2 atmospheric initial and lateral boundary conditions, Remote Sensing Systems SST product (SSTRSS), and LIS land surface model initial conditions.
 
-### Needed files
+### Necessary files
 
 In order to run a WRF-LIS coupled run, you need to copy the following files from the source code (NUWRFDIR) to your run directory (RUNDIR):
 
