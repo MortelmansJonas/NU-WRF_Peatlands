@@ -83,10 +83,10 @@ This schematic shows the main workflow to follow for WRF-LIS coupled runs. It ma
 
 In order to run a WRF-LIS coupled run, you need to copy the following files from the source code (NUWRFDIR) to your run directory (RUNDIR):
 
-	* NUWRFDIR/testcases/tutorial/default_workflow
-		* All files
-	* NUWRFDIR/utils/bin/merra2wrf.py
-	* NUWRFDIR/utils/bin/sst2wrf.py
+	- NUWRFDIR/testcases/tutorial/default_workflow
+		- All files
+	- NUWRFDIR/utils/bin/merra2wrf.py
+	- NUWRFDIR/utils/bin/sst2wrf.py
 
 e.g.: $ cp $NUWRFDIR/ wrflis /nohamp36_modis_merra2/* $RUNDIR
 
