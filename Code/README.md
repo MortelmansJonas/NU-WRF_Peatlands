@@ -12,4 +12,4 @@ Notes (10/03/2021):
 
 - 'Spin-up_control' contains files to check the spin-up performed with LIS.
 
-![alt text](https://github.com/MortelmansJonas/NU-WRF_Peatlands/tree/master/Code/RUN_NU-WRF/Workflow.png?raw=true)
+![Workflow](https://user-images.githubusercontent.com/70951991/139251736-7047a82d-7a0a-481f-9a1e-27e03c2e2028.png)
