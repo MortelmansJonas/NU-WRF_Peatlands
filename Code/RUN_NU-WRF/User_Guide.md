@@ -162,10 +162,10 @@ These files are used by lis.reg (for a spin-up of the land) and wrf.reg (to mode
 Changes:
 
 1. **MERRA2 forcing directory: ./LS_PARAMETERS/MERRA2_land_forcing** (max_dom)
-2. **Noah MP.3.6 landuse parameter table : ./LS_ noahmp_params /VEGPARM.TBL** (max_dom)
-3. **Noah MP.3.6 soil parameter table : ./LS_ noahmp_params /SOILPARM.TBL** (max_dom)
-4. **Noah MP.3.6 general parameter table : ./LS_ noahmp_params /GENPARM.TBL** (max_dom)
-5. **Noah MP.3.6 MP parameter table : ./LS_ noahmp_params /MPTABLE.TBL** (max_dom)
+2. **Noah MP.3.6 landuse parameter table : ./LS_ noahmp_params/VEGPARM.TBL** (max_dom)
+3. **Noah MP.3.6 soil parameter table : ./LS_ noahmp_params/SOILPARM.TBL** (max_dom)
+4. **Noah MP.3.6 general parameter table : ./LS_ noahmp_params/GENPARM.TBL** (max_dom)
+5. **Noah MP.3.6 MP parameter table : ./LS_ noahmp_params/MPTABLE.TBL** (max_dom)
 
 #### ldt.config.prelis and ldt.config.postlis
 
