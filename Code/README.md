@@ -11,3 +11,4 @@ Notes (10/03/2021):
 - 'Postproc' contains all files that are needed to postprocess the wrf output, including UPP and the scripts to calculate/plot the different lightning indices. Due to confidentiality, the script used to calculate the LPI is not in this repository.
 
 - 'Spin-up_control' contains files to check the spin-up performed with LIS.
+![alt text](https://github.com/MortelmansJonas/NU-WRF_Peatlands/tree/master/Code/RUN_NU-WRF/workflow.png?raw=true)
