@@ -23,7 +23,7 @@ on the KU Leuven [Tier-1](https://vlaams-supercomputing-centrum-vscdocumentation
 
 -	original source code, Makefiles, ... were developed for the NASA's NCCS Discover cluster
 
--	This documentation is based on the [NU-WRF v10 user guide](https://nuwrf.gsfc.nasa.gov/sites/default/files/docs/nuwrf_userguide_v10.pdf), the [ARW v3 user guide](Microsoft Word index.doc (ucar.edu)), and [the Charney NU-WRF tutorial](NASA Unified Weather Research and Forecasting Model (NU WRF) A Tutorial For Charney Patch 1 and later).
+-	This documentation is based on the [NU-WRF v10 user guide](https://nuwrf.gsfc.nasa.gov/sites/default/files/docs/nuwrf_userguide_v10.pdf), the [ARW v3 user guide](https://www2.mmm.ucar.edu/wrf/users/docs/user_guide_V3/user_guide_V3.9/ARWUsersGuideV3.9.pdf), and [the Charney NU-WRF tutorial](https://nuwrf.gsfc.nasa.gov/sites/default/files/docs/nuwrf_tutorial_charney_p1.pdf).
 
 - 	All text following '$' are commands to be executed in the terminal.
 
