@@ -84,6 +84,37 @@ for i in range(len(n_d01)):
     else:
         break
 
+#plots
+plt.plot(n_PR92W_d01, n_d01, '.')
+plt.xlabel('PR92W')
+plt.ylabel('Obs')
+plt.title('d01')
+plt.show()
+
+plt.plot(n_lpi_d01, n_d01, '.')
+plt.xlabel('LPI')
+plt.ylabel('Obs')
+plt.title('d01')
+plt.show()
+
+plt.plot(n_LTG3_d01, n_d01, '.')
+plt.xlabel('LTG3')
+plt.ylabel('Obs')
+plt.title('d01')
+plt.show()
+
+plt.plot(n_CAPExP_R_d01, n_d01, '.')
+plt.xlabel('CAPExP_R')
+plt.ylabel('Obs')
+plt.title('d01')
+plt.show()
+
+plt.plot(n_CAPExP_CSI_d01, n_d01, '.')
+plt.xlabel('CAPExP_CSI')
+plt.ylabel('Obs')
+plt.title('d01')
+plt.show()
+
 # DOMAIN 2
 n_d02, bins_log10_d02, patches_d02 = plt.hist(np.log10(Ln[Ln!=0]),bins = my_bins)
 plt.close()
@@ -129,6 +160,38 @@ for i in range(len(n_d02)):
         n_PR92W_d02[i] = np.nan
     else:
         break
+
+#plots
+plt.plot(n_PR92W_d02, n_d02, '.')
+plt.xlabel('PR92W')
+plt.ylabel('Obs')
+plt.title('d02')
+plt.show()
+
+plt.plot(n_lpi_d02, n_d02, '.')
+plt.xlabel('LPI')
+plt.ylabel('Obs')
+plt.title('d02')
+plt.show()
+
+plt.plot(n_LTG3_d02, n_d02, '.')
+plt.xlabel('LTG3')
+plt.ylabel('Obs')
+plt.title('d02')
+plt.show()
+
+plt.plot(n_CAPExP_R_d02, n_d02, '.')
+plt.xlabel('CAPExP_R')
+plt.ylabel('Obs')
+plt.title('d02')
+plt.show()
+
+plt.plot(n_CAPExP_CSI_d02, n_d02, '.')
+plt.xlabel('CAPExP_CSI')
+plt.ylabel('Obs')
+plt.title('d02')
+plt.show()
+
 
 # ---------------------------------------------------------------------------------------------
 # PERFORM LINEAR REGRESSION
@@ -242,21 +305,74 @@ linear_CAPExP_R_d02 = np.multiply(reg_CAPExP_R_d02.coef_,ds_d02['CAPExP_R'][:])
 print(np.min(linear_CAPExP_R_d02))
 print(np.max(linear_CAPExP_R_d02))
 
+
 # ---------------------------------------------------------------------------------------------
 # PLOTS TO CHECK LINEAR REGRESSION
 # ---------------------------------------------------------------------------------------------
-# plt.scatter(linear_PR92W_d02, L, label='PR92W_d02')
-# plt.plot(L,L, 'k--')
-# plt.ylabel('Observations')
-# plt.xlabel('Calibrated PR92W_d02')
-# plt.legend()
-# plt.show()
+plt.scatter(linear_PR92W_d01, L)
+plt.ylabel('Observations')
+plt.xlabel('Calibrated PR92W')
+plt.title('d01')
+plt.show()
 
+plt.scatter(linear_LPI_d01, L)
+plt.ylabel('Observations')
+plt.xlabel('Calibrated LPI')
+plt.title('d01')
+plt.show()
+
+plt.scatter(linear_LTG3_d01, L)
+plt.ylabel('Observations')
+plt.xlabel('Calibrated LTG3')
+plt.title('d01')
+plt.show()
+
+plt.scatter(linear_CAPExP_R_d01, L)
+plt.ylabel('Observations')
+plt.xlabel('Calibrated CAPExP_R')
+plt.title('d01')
+plt.show()
+
+plt.scatter(linear_CAPExP_CSI_d01, L)
+plt.ylabel('Observations')
+plt.xlabel('Calibrated CAPExP_CSI')
+plt.title('d01')
+plt.show()
+
+plt.scatter(linear_PR92W_d02, L)
+plt.ylabel('Observations')
+plt.xlabel('Calibrated PR92W')
+plt.title('d02')
+plt.show()
+
+plt.scatter(linear_LPI_d02, L)
+plt.ylabel('Observations')
+plt.xlabel('Calibrated LPI')
+plt.title('d02')
+plt.show()
+
+plt.scatter(linear_LTG3_d02, L)
+plt.ylabel('Observations')
+plt.xlabel('Calibrated LTG3')
+plt.title('d02')
+plt.show()
+
+plt.scatter(linear_CAPExP_R_d02, L)
+plt.ylabel('Observations')
+plt.xlabel('Calibrated CAPExP_R')
+plt.title('d02')
+plt.show()
+
+plt.scatter(linear_CAPExP_CSI_d02, L)
+plt.ylabel('Observations')
+plt.xlabel('Calibrated CAPExP_CSI')
+plt.title('d02')
+plt.show()
 # ---------------------------------------------------------------------------------------------
 # PUT CALIBRATED DATA IN NEW NETCDF FILE
 # ---------------------------------------------------------------------------------------------
 # Create .nc file
-ds = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/data_calibrated_ax.nc', mode='w', format='NETCDF4')
+ds = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/data_calibrated_ax+b.nc', mode='w', format='NETCDF4')
 ds.createDimension('time', 13248)
 ds.createDimension('lat', 63)
 ds.createDimension('lon', 109)
