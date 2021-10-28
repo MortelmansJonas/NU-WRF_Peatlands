@@ -7,11 +7,11 @@ Compile and run NASA's NU-WRF on the HPC at KU Leuven
         contact: jonas.mortelmans@kuleuven.be 
 
   ----------- ----------------------------------------------------------------------------------------------------
-  version 1   Jonas Mortelmans, initial documentation \
+  version 1   Jonas Mortelmans, initial documentation 
   ----------- ----------------------------------------------------------------------------------------------------
 
-\
-\
+
+
 
 # Background information
 
