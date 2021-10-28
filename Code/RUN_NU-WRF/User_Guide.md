@@ -377,7 +377,7 @@ The output files of geogrid (geo_em*), metgrid (met_em*), LIS (LIS_HIST* & LIS_R
 
 This can be a useful tool to make sure all the data is as expected before continuing to the wrf-lis coupled run.
 
-The MERRA2:* and SSTRSS:* files are in the WPS intermediate format. These files are not readable by any of the more standard programs. To visualize the fields that are written in these files, a NCAR Command Language (ncl) script is available on the github ([open_wps.ncl]https://github.com/MortelmansJonas/NU-WRF_Peatlands/blob/master/Code/Postproc/open_wps.ncl)).
+The MERRA2:* and SSTRSS:* files are in the WPS intermediate format. These files are not readable by any of the more standard programs. To visualize the fields that are written in these files, a NCAR Command Language (ncl) script is available on the github ([open_wps.ncl](https://github.com/MortelmansJonas/NU-WRF_Peatlands/blob/master/Code/Postproc/open_wps.ncl)).
 Before running this script, specify in the very first line of the file the file you want to check (wps_filename).
 To run: 
 	$ module load NCL/6.5.0-intel-2018a
