@@ -208,6 +208,24 @@ On Tier-2:
 <PATH_TO_MERRA2_DATA> = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/'
 <PATH_TO_MERRA2_constant_fil0> e= '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_400'
 
+#### sst2wrf.py
+	
+This script is used instead of the sst2wrf.reg, just because it skips some error-prone preprocessing steps. It is used to download SST data from [Remote Sensing Products](https://data.remss.com/sst/daily/mw_ir/v05.0/bmaps/) and processes it into WPS intermediate format.
+Changes:
+	
+1. Comment the following lines:
+	1. if int(syear) > 2017 and inst_type == 'mw_ir':
+	2. print('SST2WRF cannot process mw_ir data for years >= ', syear)
+	3. sys.exit()
+2. delete:
+	1. if "4" in data_version:
+	  ftpname = data_server+'/daily_v04.0/'+inst_type+'/'+year+'/
+	  else:
+	  ftpname = data_server+'/daily/'+inst_type+'/v05.0/bmaps/'+year+'/'
+	2. if "4" in data_version:
+	3. else:
+	   ver = 'v04.0'
+	
 #### lis.reg
 
 This file is used to actually run the LIS. It has some specifications in it first and lastly calls the LIS executable.
