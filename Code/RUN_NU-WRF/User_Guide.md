@@ -88,7 +88,7 @@ In order to run a WRF-LIS coupled run, you need to copy the following files from
 	- NUWRFDIR/utils/bin/merra2wrf.py
 	- NUWRFDIR/utils/bin/sst2wrf.py
 
-e.g.: $ cp $NUWRFDIR/ wrflis /nohamp36_modis_merra2/* $RUNDIR
+e.g.: $ cp $NUWRFDIR/testcases/tutorial/default_workflow/* $RUNDIR
 
 ### Required script changes
 
