@@ -372,7 +372,7 @@ plt.show()
 # PUT CALIBRATED DATA IN NEW NETCDF FILE
 # ---------------------------------------------------------------------------------------------
 # Create .nc file
-ds = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/data_calibrated_ax+b.nc', mode='w', format='NETCDF4')
+ds = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/data_calibrated_ax.nc', mode='w', format='NETCDF4')
 ds.createDimension('time', 13248)
 ds.createDimension('lat', 63)
 ds.createDimension('lon', 109)
