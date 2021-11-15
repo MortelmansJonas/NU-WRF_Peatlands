@@ -11,5 +11,3 @@ Notes (10/03/2021):
 - 'Postproc' contains all files that are needed to postprocess the wrf output, including UPP and the scripts to calculate/plot the different lightning indices. Due to confidentiality, the script used to calculate the LPI is not in this repository.
 
 - 'Spin-up_control' contains files to check the spin-up performed with LIS.
-
-![Workflow](https://user-images.githubusercontent.com/70951991/139251736-7047a82d-7a0a-481f-9a1e-27e03c2e2028.png)
