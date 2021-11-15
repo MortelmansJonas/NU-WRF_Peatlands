@@ -23,7 +23,7 @@ L = ds_obs['Flashdensity_CC'][:,:,:].data.flatten() + ds_obs['Flashdensity_CG'][
 # SORTING
 # ---------------------------------------------------------------------------------------------
 # First sort non-zero observations
-Obs = np.sort(L[L!=0])
+Obs = np.sort(L[L!=0])[::-1]
 
 # Sort model and take n highest values (with n = number of observations)
 n = Obs.shape[0]
@@ -152,10 +152,41 @@ print(reg_CAPExP_R_d02.score(CAPExP_R_d02.reshape((-1,1)), Obs))
 linear_CAPExP_R_d02 =np.add(reg_CAPExP_R_d02.intercept_, np.multiply(reg_CAPExP_R_d02.coef_,ds_d02['CAPExP_R'][:]))
 
 # ---------------------------------------------------------------------------------------------
-# PLOTS TO CHECK LINEAR REGRESSION
+# PUT CALIBRATED DATA IN NEW NETCDF FILE
 # ---------------------------------------------------------------------------------------------
-plt.scatter(linear_PR92W_d01, L)
-plt.ylabel('Observations')
-plt.xlabel('Calibrated PR92W')
-plt.title('d01')
-plt.show()
+# Create .nc file
+ds = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/data_calibrated_ax.nc', mode='w', format='NETCDF4')
+ds.createDimension('time', 13248)
+ds.createDimension('lat', 63)
+ds.createDimension('lon', 109)
+ds.createVariable('time','int', dimensions=('time',),zlib=True)
+ds.variables['time'][:] = ds_d01['time'][:]
+ds.createVariable('lat',ds_d01['lat'][:].dtype, dimensions=('lat','lon',),zlib=True)
+ds.variables['lat'][:] = ds_d01['lat'][:]
+ds.createVariable('lon',ds_d01['lon'][:].dtype, dimensions=('lat','lon',),zlib=True)
+ds.variables['lon'][:] = ds_d01['lon'][:]
+ds.createVariable('LPI_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('LTG3_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('PR92W_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('CAPExP_R_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('CAPExP_CSI_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('LPI_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('LTG3_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('PR92W_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('CAPExP_R_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('CAPExP_CSI_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('Obs', 'f4', dimensions=('time','lat','lon',), zlib=True)
+
+# Fill it
+ds['LPI_d01'][:] = linear_LPI_d01[:]
+ds['LPI_d02'][:] = linear_LPI_d02[:]
+ds['PR92W_d01'][:] = linear_PR92W_d01[:]
+ds['PR92W_d02'][:] = linear_PR92W_d02[:]
+ds['LTG3_d01'][:] = linear_LTG3_d01[:]
+ds['LTG3_d02'][:] = linear_LTG3_d02[:]
+ds['CAPExP_CSI_d01'][:] = linear_CAPExP_CSI_d01[:]
+ds['CAPExP_CSI_d02'][:] = linear_CAPExP_CSI_d02[:]
+ds['CAPExP_R_d01'][:] = linear_CAPExP_R_d01[:]
+ds['CAPExP_R_d02'][:] = linear_CAPExP_R_d02[:]
+ds['Obs'][:] = ds_obs['Flashdensity_CC'][:,:,:].data + ds_obs['Flashdensity_CG'][:,:,:].data
+ds.close()
