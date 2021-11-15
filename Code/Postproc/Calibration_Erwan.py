@@ -63,94 +63,145 @@ c = Obs.shape[0]
 
 LPI_sorted_d01 = np.sort(LPI_d01.flatten())[::-1]
 LPI_c_d01 = LPI_sorted_d01[0:c]
+LPI_d01_new = np.where(LPI_d01>=LPI_sorted_d01[c],LPI_d01, np.nan)
 print('cutoff value LPI_d01 = ', LPI_sorted_d01[c])
 
 LTG3_sorted_d01 = np.sort(LTG3_d01.flatten())[::-1]
 LTG3_c_d01 = LTG3_sorted_d01[0:c]
+LTG3_d01_new = np.where(LTG3_d01>=LTG3_sorted_d01[c],LTG3_d01, np.nan)
 print('cutoff value LTG3_d01 = ', LTG3_sorted_d01[c])
 
 PR92W_sorted_d01 = np.sort(PR92W_d01.flatten())[::-1]
 PR92W_c_d01 = PR92W_sorted_d01[0:c]
+PR92W_d01_new = np.where(PR92W_d01>=PR92W_sorted_d01[c],PR92W_d01, np.nan)
 print('cutoff value PR92W_d01 = ', PR92W_sorted_d01[c])
 
 CAPExP_CSI_sorted_d01 = np.sort(CAPExP_CSI_d01.flatten())[::-1]
 CAPExP_CSI_c_d01 = CAPExP_CSI_sorted_d01[0:c]
+CAPExP_CSI_d01_new = np.where(CAPExP_CSI_d01>=CAPExP_CSI_sorted_d01[c],CAPExP_CSI_d01, np.nan)
 print('cutoff value CAPExP_CSI_d01 = ', CAPExP_CSI_sorted_d01[c])
 
 CAPExP_R_sorted_d01 = np.sort(CAPExP_R_d01.flatten())[::-1]
 CAPExP_R_c_d01 = CAPExP_R_sorted_d01[0:c]
+CAPExP_R_d01_new = np.where(CAPExP_R_d01>=CAPExP_R_sorted_d01[c],CAPExP_R_d01, np.nan)
 print('cutoff value CAPExP_R_d01 = ', CAPExP_R_sorted_d01[c])
 
 LPI_sorted_d02 = np.sort(LPI_d02.flatten())[::-1]
 LPI_c_d02 = LPI_sorted_d02[0:c]
+LPI_d02_new = np.where(LPI_d02>=LPI_sorted_d02[c],LPI_d02, np.nan)
 print('cutoff value LPI_d02 = ', LPI_sorted_d02[c])
 
 LTG3_sorted_d02 = np.sort(LTG3_d02.flatten())[::-1]
 LTG3_c_d02 = LTG3_sorted_d02[0:c]
+LTG3_d02_new = np.where(LTG3_d02>=LTG3_sorted_d02[c],LTG3_d02, np.nan)
 print('cutoff value LTG3_d02 = ', LTG3_sorted_d02[c])
 
 PR92W_sorted_d02 = np.sort(PR92W_d02.flatten())[::-1]
 PR92W_c_d02 = PR92W_sorted_d02[0:c]
+PR92W_d02_new = np.where(PR92W_d02>=PR92W_sorted_d02[c],PR92W_d02, np.nan)
 print('cutoff value PR92W_d02 = ', PR92W_sorted_d02[c])
 
 CAPExP_CSI_sorted_d02 = np.sort(CAPExP_CSI_d02.flatten())[::-1]
 CAPExP_CSI_c_d02 = CAPExP_CSI_sorted_d02[0:c]
+CAPExP_CSI_d02_new = np.where(CAPExP_CSI_d02>=CAPExP_CSI_sorted_d02[c],CAPExP_CSI_d02, np.nan)
 print('cutoff value CAPExP_CSI_d02 = ', CAPExP_CSI_sorted_d02[c])
 
 CAPExP_R_sorted_d02 = np.sort(CAPExP_R_d02.flatten())[::-1]
 CAPExP_R_c_d02 = CAPExP_R_sorted_d02[0:c]
+CAPExP_R_d02_new = np.where(CAPExP_R_d02>=CAPExP_R_sorted_d02[c],CAPExP_R_d02, np.nan)
 print('cutoff value CAPExP_R_d02 = ', CAPExP_R_sorted_d02[c])
 
 # -------------------------------------------------------------------------------------------------------------
 # X_adj = aX+b if X >= c
 # -------------------------------------------------------------------------------------------------------------
 reg_LPI_d01 = lr().fit(LPI_c_d01.reshape((-1,1)), Obs)
-LPI_d01_adj =np.add(reg_LPI_d01.intercept_, np.multiply(reg_LPI_d01.coef_,LPI_d01[LPI_d01>=LPI_sorted_d01[c]]))
+LPI_d01_adj =np.add(reg_LPI_d01.intercept_, np.multiply(reg_LPI_d01.coef_,LPI_d01_new))
 
 reg_LTG3_d01 = lr().fit(LTG3_c_d01.reshape((-1,1)), Obs)
-LTG3_d01_adj =np.add(reg_LTG3_d01.intercept_, np.multiply(reg_LTG3_d01.coef_,LTG3_d01[LTG3_d01>=LTG3_sorted_d01[c]]))
+LTG3_d01_adj =np.add(reg_LTG3_d01.intercept_, np.multiply(reg_LTG3_d01.coef_,LTG3_d01_new))
 
 reg_PR92W_d01 = lr().fit(PR92W_c_d01.reshape((-1,1)), Obs)
-PR92W_d01_adj =np.add(reg_PR92W_d01.intercept_, np.multiply(reg_PR92W_d01.coef_,PR92W_d01[PR92W_d01>=PR92W_sorted_d01[c]]))
+PR92W_d01_adj =np.add(reg_PR92W_d01.intercept_, np.multiply(reg_PR92W_d01.coef_,PR92W_d01_new))
 
 reg_CAPExP_CSI_d01 = lr().fit(CAPExP_CSI_c_d01.reshape((-1,1)), Obs)
-CAPExP_CSI_d01_adj =np.add(reg_CAPExP_CSI_d01.intercept_, np.multiply(reg_CAPExP_CSI_d01.coef_,CAPExP_CSI_d01[CAPExP_CSI_d01>=CAPExP_CSI_sorted_d01[c]]))
+CAPExP_CSI_d01_adj =np.add(reg_CAPExP_CSI_d01.intercept_, np.multiply(reg_CAPExP_CSI_d01.coef_,CAPExP_CSI_d01_new))
 
 reg_CAPExP_R_d01 = lr().fit(CAPExP_R_c_d01.reshape((-1,1)), Obs)
-CAPExP_R_d01_adj =np.add(reg_CAPExP_R_d01.intercept_, np.multiply(reg_CAPExP_R_d01.coef_,CAPExP_R_d01[CAPExP_R_d01>=CAPExP_R_sorted_d01[c]]))
+CAPExP_R_d01_adj =np.add(reg_CAPExP_R_d01.intercept_, np.multiply(reg_CAPExP_R_d01.coef_,CAPExP_R_d01_new))
 
 reg_LPI_d02 = lr().fit(LPI_c_d02.reshape((-1,1)), Obs)
-LPI_d02_adj =np.add(reg_LPI_d02.intercept_, np.multiply(reg_LPI_d02.coef_,LPI_d02[LPI_d02>=LPI_sorted_d02[c]]))
+LPI_d02_adj =np.add(reg_LPI_d02.intercept_, np.multiply(reg_LPI_d02.coef_,LPI_d02_new))
 
 reg_LTG3_d02 = lr().fit(LTG3_c_d02.reshape((-1,1)), Obs)
-LTG3_d02_adj =np.add(reg_LTG3_d02.intercept_, np.multiply(reg_LTG3_d02.coef_,LTG3_d02[LTG3_d02>=LTG3_sorted_d02[c]]))
+LTG3_d02_adj =np.add(reg_LTG3_d02.intercept_, np.multiply(reg_LTG3_d02.coef_,LTG3_d02_new))
 
 reg_PR92W_d02 = lr().fit(PR92W_c_d02.reshape((-1,1)), Obs)
-PR92W_d02_adj =np.add(reg_PR92W_d02.intercept_, np.multiply(reg_PR92W_d02.coef_,PR92W_d02[PR92W_d02>=PR92W_sorted_d02[c]]))
+PR92W_d02_adj =np.add(reg_PR92W_d02.intercept_, np.multiply(reg_PR92W_d02.coef_,PR92W_d02_new))
 
 reg_CAPExP_CSI_d02 = lr().fit(CAPExP_CSI_c_d02.reshape((-1,1)), Obs)
-CAPExP_CSI_d02_adj =np.add(reg_CAPExP_CSI_d02.intercept_, np.multiply(reg_CAPExP_CSI_d02.coef_,CAPExP_CSI_d02[CAPExP_CSI_d02>=CAPExP_CSI_sorted_d02[c]]))
+CAPExP_CSI_d02_adj =np.add(reg_CAPExP_CSI_d02.intercept_, np.multiply(reg_CAPExP_CSI_d02.coef_,CAPExP_CSI_d02_new))
 
 reg_CAPExP_R_d02 = lr().fit(CAPExP_R_c_d02.reshape((-1,1)), Obs)
-CAPExP_R_d02_adj =np.add(reg_CAPExP_R_d02.intercept_, np.multiply(reg_CAPExP_R_d02.coef_,CAPExP_R_d02[CAPExP_R_d02>=CAPExP_R_sorted_d02[c]]))
+CAPExP_R_d02_adj =np.add(reg_CAPExP_R_d02.intercept_, np.multiply(reg_CAPExP_R_d02.coef_,CAPExP_R_d02_new))
+
+# ---------------------------------------------------------------------------------------------
+# PUT CALIBRATED DATA IN NEW NETCDF FILE
+# ---------------------------------------------------------------------------------------------
+# Create .nc file
+ds = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/data_calibrated_ax_d01.nc', mode='w', format='NETCDF4')
+ds.createDimension('time', 13248)
+ds.createDimension('lat', 63)
+ds.createDimension('lon', 109)
+ds.createVariable('time','int', dimensions=('time',),zlib=True)
+ds.variables['time'][:] = ds_d01['time'][:]
+ds.createVariable('lat',ds_d01['lat'][:].dtype, dimensions=('lat','lon',),zlib=True)
+ds.variables['lat'][:] = ds_d01['lat'][:]
+ds.createVariable('lon',ds_d01['lon'][:].dtype, dimensions=('lat','lon',),zlib=True)
+ds.variables['lon'][:] = ds_d01['lon'][:]
+ds.createVariable('LPI_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('LTG3_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('PR92W_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('CAPExP_R_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('CAPExP_CSI_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('LPI_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('LTG3_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('PR92W_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('CAPExP_R_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('CAPExP_CSI_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('Obs', 'f4', dimensions=('time','lat','lon',), zlib=True)
+
+# Fill it
+ds['LPI_d01'][:] = LPI_d01_adj[:]
+ds['LPI_d02'][:] = LPI_d02_adj[:]
+ds['PR92W_d01'][:] = PR92W_d01_adj[:]
+ds['PR92W_d02'][:] = PR92W_d02_adj[:]
+ds['LTG3_d01'][:] = LTG3_d01_adj[:]
+ds['LTG3_d02'][:] = LTG3_d02_adj[:]
+ds['CAPExP_CSI_d01'][:] = CAPExP_CSI_d01_adj[:]
+ds['CAPExP_CSI_d02'][:] = CAPExP_CSI_d02_adj[:]
+ds['CAPExP_R_d01'][:] = CAPExP_R_d01_adj[:]
+ds['CAPExP_R_d02'][:] = CAPExP_R_d02_adj[:]
+ds['Obs'][:] = ds_obs['Flashdensity_CC'][:,:,:].data + ds_obs['Flashdensity_CG'][:,:,:].data
+ds.close()
 
 # -------------------------------------------------------------------------------------------------------------
 # Plots to check
 # -------------------------------------------------------------------------------------------------------------
-# ---------------------------------------------------------------------------------------------
 # exclude low values that likely don't produce lightning
-# Remove lightning predictions with less than 1 flash per hour per storm (e.g. 100 sqkm)
-cond_LTG3_d01 = LTG3_d01_adj < 0.01
-cond_LTG3_d02 = LTG3_d02_adj < 0.01
-cond_PR92W_d01 = PR92W_d01_adj < 0.01
-cond_PR92W_d02 = PR92W_d02_adj < 0.01
-cond_CAPExP_CSI_d01 = CAPExP_CSI_d01_adj < 0.01
-cond_CAPExP_CSI_d02 = CAPExP_CSI_d01_adj < 0.01
-cond_CAPExP_R_d01 = CAPExP_R_d01_adj < 0.01
-cond_CAPExP_R_d02 = CAPExP_R_d02_adj < 0.01
+# Remove lightning predictions lower than cutoff value
+cond_LTG3_d01 = LTG3_d01_adj < LTG3_sorted_d01[c]
+cond_LTG3_d02 = LTG3_d02_adj < LTG3_sorted_d02[c]
+cond_PR92W_d01 = PR92W_d01_adj < PR92W_sorted_d01[c]
+cond_PR92W_d02 = PR92W_d02_adj < PR92W_sorted_d02[c]
+cond_CAPExP_CSI_d01 = CAPExP_CSI_d01_adj < CAPExP_CSI_sorted_d01[c]
+cond_CAPExP_CSI_d02 = CAPExP_CSI_d02_adj < CAPExP_CSI_sorted_d02[c]
+
+cond_CAPExP_R_d01 = CAPExP_R_d01_adj < CAPExP_R_sorted_d01[c]
+cond_CAPExP_R_d02 = CAPExP_R_d02_adj < CAPExP_R_sorted_d02[c]
+
 # for LPI everything smaller than 0.001
-cond_LPI_d01 = LPI_d01_adj<0.001
-cond_LPI_d02 = LPI_d02_adj<0.001
+cond_LPI_d01 = LPI_d01_adj< LPI_sorted_d01[c]
+cond_LPI_d02 = LPI_d02_adj< LPI_sorted_d02[c]
 # set to nan
 LPI_d01_adj[cond_LPI_d01] = np.nan
 LPI_d02_adj[cond_LPI_d02] = np.nan
@@ -159,7 +210,7 @@ LTG3_d02_adj[cond_LTG3_d02] = np.nan
 PR92W_d01_adj[cond_PR92W_d01] = np.nan
 PR92W_d02_adj[cond_PR92W_d02] = np.nan
 CAPExP_CSI_d01_adj[cond_CAPExP_CSI_d01] = np.nan
-CAPExP_CSI_d01_adj[cond_CAPExP_CSI_d02] = np.nan
+CAPExP_CSI_d02_adj[cond_CAPExP_CSI_d02] = np.nan
 CAPExP_R_d01_adj[cond_CAPExP_R_d01] = np.nan
 CAPExP_R_d02_adj[cond_CAPExP_R_d02] = np.nan
 
@@ -347,6 +398,11 @@ for i in range(len(n)):
     else:
         break
 
+bins_CAPExP_CSI_log10_centered = bins_CAPExP_CSI_log10[0:-1]+0.5*(bins_CAPExP_CSI_log10[1:]-bins_CAPExP_CSI_log10[0:-1])
+bins_CAPExP_CSI_centered = 10**bins_CAPExP_CSI_log10_centered
+print(n_CAPExP_CSI)
+print(np.nanmax(n_CAPExP_CSI))
+print(bins_CAPExP_CSI_centered[np.where(n_CAPExP_CSI ==np.nanmax(n_CAPExP_CSI))])
 # ---------------------------------------------------------------------------------------------
 # PLOTS
 # ---------------------------------------------------------------------------------------------
@@ -415,7 +471,7 @@ ax5.set_title('CAPExP_CSI')
 # ax5.set_ylim([common_ymin,common_ymax])
 ax5.grid(which='major', axis='both', color='lightgray')
 ax5.set_ylabel('Frequency')
-ax5.set_xlabel('Hourly flash density (-) \n * Hourly LPI (J/kg)')
+ax5.set_xlabel('Hourly flash density (# hr$^{-1}$ km$^{-2}$) \n * Hourly LPI (J/kg)')
 ax5.annotate('(f) \n ', xy=(x1,  ax5.get_ylim()[1]),annotation_clip=False)
 
 bins_PR92W_log10_centered_d02 = bins_PR92W_log10_d02[0:-1]+0.5*(bins_PR92W_log10_d02[1:]-bins_PR92W_log10_d02[0:-1])
