@@ -44,6 +44,7 @@ Obs = np.sort(L[L!=0])[::-1]
 
 # Sort model and take n highest values (with n = number of observations)
 c = Obs.shape[0]
+Tot_flashes = np.nansum(Obs)
 
 LPI_sorted_d02 = np.sort(LPI_d02.flatten())[::-1]
 LPI_c_d02 = LPI_sorted_d02[0:c]
@@ -51,6 +52,9 @@ LPI_d02_new = np.where(LPI_d02>=LPI_sorted_d02[c],LPI_d02, np.nan)
 print('cutoff value LPI_d02 = ', LPI_sorted_d02[c])
 
 LTG3_sorted_d02 = np.sort(LTG3_d02.flatten())[::-1]
+# exclude 0 values from calibration:
+# get first zero value
+c = np.where(LTG3_sorted_d02==0)[0][0]
 LTG3_c_d02 = LTG3_sorted_d02[0:c]
 LTG3_d02_new = np.where(LTG3_d02>=LTG3_sorted_d02[c],LTG3_d02, np.nan)
 print('cutoff value LTG3_d02 = ', LTG3_sorted_d02[c])
@@ -77,9 +81,16 @@ reg_LPI_d02 = lr().fit(LPI_c_d02.reshape((-1,1)), Obs)
 LPI_d02_adj =np.add(reg_LPI_d02.intercept_, np.multiply(reg_LPI_d02.coef_,LPI_d02_new))
 LPI_d02_adj[np.isnan(LPI_d02_adj)] = 0
 
-reg_LTG3_d02 = lr().fit(LTG3_c_d02.reshape((-1,1)), Obs)
+# cut obs if needed
+c=np.min(np.array([Obs.shape[0],LTG3_c_d02.shape[0]]))
+reg_LTG3_d02 = lr().fit(LTG3_c_d02.reshape((-1,1)), Obs[0:c])
 LTG3_d02_adj =np.add(reg_LTG3_d02.intercept_, np.multiply(reg_LTG3_d02.coef_,LTG3_d02_new))
+# zero should stay zero
+LTG3_d02_adj[LTG3_d02_new==0] = 0
 LTG3_d02_adj[np.isnan(LTG3_d02_adj)] = 0
+# scale adj lightning if insufficient number of lightning:
+if np.nansum(LTG3_d02_adj)<Tot_flashes:
+    LTG3_d02_adj = Tot_flashes/np.nansum(LTG3_d02_adj) * LTG3_d02_adj
 
 reg_PR92W_d02 = lr().fit(PR92W_c_d02.reshape((-1,1)), Obs)
 PR92W_d02_adj =np.add(reg_PR92W_d02.intercept_, np.multiply(reg_PR92W_d02.coef_,PR92W_d02_new))
@@ -95,7 +106,6 @@ CAPExP_R_d02_adj[np.isnan(CAPExP_R_d02_adj)] = 0
 
 
 # Cutoff lowest values to match number of flashes between obs and model
-Tot_flashes = np.nansum(Obs)
 
 LPI_adj_sorted_d02 = np.sort(LPI_d02_adj.flatten())[::-1]
 LTG3_adj_sorted_d02 = np.sort(LTG3_d02_adj.flatten())[::-1]
