@@ -60,6 +60,7 @@ Obs = np.sort(L[L!=0])[::-1]
 
 # Sort model and take n highest values (with n = number of observations)
 c = Obs.shape[0]
+Tot_flashes = np.nansum(Obs)
 
 LPI_sorted_d01 = np.sort(LPI_d01.flatten())[::-1]
 LPI_c_d01 = LPI_sorted_d01[0:c]
@@ -67,9 +68,12 @@ LPI_d01_new = np.where(LPI_d01>=LPI_sorted_d01[c],LPI_d01, np.nan)
 print('cutoff value LPI_d01 = ', LPI_sorted_d01[c])
 
 LTG3_sorted_d01 = np.sort(LTG3_d01.flatten())[::-1]
-LTG3_c_d01 = LTG3_sorted_d01[0:c]
-LTG3_d01_new = np.where(LTG3_d01>=LTG3_sorted_d01[c],LTG3_d01, np.nan)
-print('cutoff value LTG3_d01 = ', LTG3_sorted_d01[c])
+# exclude 0 values from calibration:
+# get first zero value
+c = np.where(LTG3_sorted_d01==0)[0][0]
+LTG3_c_d01 = LTG3_sorted_d01[0:c2]
+LTG3_d01_new = np.where(LTG3_d01>=LTG3_sorted_d01[c2],LTG3_d01, np.nan)
+print('cutoff value LTG3_d01 = ', LTG3_sorted_d01[c2])
 
 PR92W_sorted_d01 = np.sort(PR92W_d01.flatten())[::-1]
 PR92W_c_d01 = PR92W_sorted_d01[0:c]
@@ -92,9 +96,12 @@ LPI_d02_new = np.where(LPI_d02>=LPI_sorted_d02[c],LPI_d02, np.nan)
 print('cutoff value LPI_d02 = ', LPI_sorted_d02[c])
 
 LTG3_sorted_d02 = np.sort(LTG3_d02.flatten())[::-1]
-LTG3_c_d02 = LTG3_sorted_d02[0:c]
-LTG3_d02_new = np.where(LTG3_d02>=LTG3_sorted_d02[c],LTG3_d02, np.nan)
-print('cutoff value LTG3_d02 = ', LTG3_sorted_d02[c])
+# exclude 0 values from calibration:
+# get first zero value
+c = np.where(LTG3_sorted_d02==0)[0][0]
+LTG3_c_d02 = LTG3_sorted_d02[0:c2]
+LTG3_d02_new = np.where(LTG3_d02>=LTG3_sorted_d02[c2],LTG3_d02, np.nan)
+print('cutoff value LTG3_d02 = ', LTG3_sorted_d02[c2])
 
 PR92W_sorted_d02 = np.sort(PR92W_d02.flatten())[::-1]
 PR92W_c_d02 = PR92W_sorted_d02[0:c]
@@ -131,9 +138,17 @@ reg_LPI_d01 = lr().fit(LPI_c_d01.reshape((-1,1)), Obs)
 LPI_d01_adj =np.add(reg_LPI_d01.intercept_, np.multiply(reg_LPI_d01.coef_,LPI_d01_new))
 LPI_d01_adj[np.isnan(LPI_d01_adj)] = 0
 
-reg_LTG3_d01 = lr().fit(LTG3_c_d01.reshape((-1,1)), Obs)
+# reg_LTG3_d01 = lr().fit(LTG3_c_d01.reshape((-1,1)), Obs)
+# cut obs if needed
+c3=np.min(np.array([Obs.shape[0],LTG3_c_d01.shape[0]]))
+reg_LTG3_d01 = lr().fit(LTG3_c_d01.reshape((-1,1)), Obs[0:c3])
 LTG3_d01_adj =np.add(reg_LTG3_d01.intercept_, np.multiply(reg_LTG3_d01.coef_,LTG3_d01_new))
+# zero should stay zero
+LTG3_d01_adj[LTG3_d01_new==0] = 0
 LTG3_d01_adj[np.isnan(LTG3_d01_adj)] = 0
+# scale adj lightning if insufficient number of lightning:
+if np.nansum(LTG3_d01_adj)<Tot_flashes:
+    LTG3_d01_adj = Tot_flashes/np.nansum(LTG3_d01_adj) * LTG3_d01_adj
 
 reg_PR92W_d01 = lr().fit(PR92W_c_d01.reshape((-1,1)), Obs)
 PR92W_d01_adj =np.add(reg_PR92W_d01.intercept_, np.multiply(reg_PR92W_d01.coef_,PR92W_d01_new))
@@ -151,9 +166,17 @@ reg_LPI_d02 = lr().fit(LPI_c_d02.reshape((-1,1)), Obs)
 LPI_d02_adj =np.add(reg_LPI_d02.intercept_, np.multiply(reg_LPI_d02.coef_,LPI_d02_new))
 LPI_d02_adj[np.isnan(LPI_d02_adj)] = 0
 
-reg_LTG3_d02 = lr().fit(LTG3_c_d02.reshape((-1,1)), Obs)
+# reg_LTG3_d02 = lr().fit(LTG3_c_d02.reshape((-1,1)), Obs)
+# cut obs if needed
+c4=np.min(np.array([Obs.shape[0],LTG3_c_d02.shape[0]]))
+reg_LTG3_d02 = lr().fit(LTG3_c_d02.reshape((-1,1)), Obs[0:c4])
 LTG3_d02_adj =np.add(reg_LTG3_d02.intercept_, np.multiply(reg_LTG3_d02.coef_,LTG3_d02_new))
+# zero should stay zero
+LTG3_d02_adj[LTG3_d02_new==0] = 0
 LTG3_d02_adj[np.isnan(LTG3_d02_adj)] = 0
+# scale adj lightning if insufficient number of lightning:
+if np.nansum(LTG3_d02_adj)<Tot_flashes:
+    LTG3_d02_adj = Tot_flashes/np.nansum(LTG3_d02_adj) * LTG3_d02_adj
 
 reg_PR92W_d02 = lr().fit(PR92W_c_d02.reshape((-1,1)), Obs)
 PR92W_d02_adj =np.add(reg_PR92W_d02.intercept_, np.multiply(reg_PR92W_d02.coef_,PR92W_d02_new))
@@ -166,10 +189,6 @@ CAPExP_CSI_d02_adj[np.isnan(CAPExP_CSI_d02_adj)] = 0
 reg_CAPExP_R_d02 = lr().fit(CAPExP_R_c_d02.reshape((-1,1)), Obs)
 CAPExP_R_d02_adj =np.add(reg_CAPExP_R_d02.intercept_, np.multiply(reg_CAPExP_R_d02.coef_,CAPExP_R_d02_new))
 CAPExP_R_d02_adj[np.isnan(CAPExP_R_d02_adj)] = 0
-
-
-# Cutoff lowest values to match number of flashes between obs and model
-Tot_flashes = np.nansum(Obs)
 
 LPI_adj_sorted_d01 = np.sort(LPI_d01_adj.flatten())[::-1]
 LTG3_adj_sorted_d01 = np.sort(LTG3_d01_adj.flatten())[::-1]
