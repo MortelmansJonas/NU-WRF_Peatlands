@@ -26,7 +26,11 @@
  truelat1  =   60.25,
  truelat2  =   60.25,
  stand_lon =  -116.2495,
- geog_data_path = '/staging/leuven/stg_00024/OUTPUT/michelb/l_data/model_param/nu-wrf/geog'
+ geog_data_path = '/scratch/leuven/projects/lt1_2020_es_pilot/project_input/rsda/nuwrf_param/geog'
+  
+&ungrib
+ out_format = 'WPS',
+ prefix     = 'SSTRSS',
 /
 
 &metgrid

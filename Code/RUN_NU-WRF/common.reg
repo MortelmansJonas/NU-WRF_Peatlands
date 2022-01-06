@@ -15,18 +15,18 @@ unset LD_LIBRARY_PATH
 #export LD_LIBRARY_PATH=$LIBDIR_TAG/eccodes/lib:$LD_LIBRARY_PATH
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64
 #export PATH=$LIBDIR_TAG/netcdf4/bin:$PATH
-source /data/leuven/317/vsc31786/src_code/nu-wrf-dev/scripts/other/KUL_NU-WRF_modules
-module load NCL/6.5.0-intel-2018a
+source /scratch/leuven/317/vsc31786/src_code/nu-wrf-dev/scripts/other/KUL_NU-WRF_modules
+#module load NCL/6.5.0-intel-2018a
 module load ncview
 
 # *** Please make sure these settings are correct ***
 # NUWRFDIR specifies the location of the NU-WRF source code
-export NUWRFDIR=/data/leuven/317/vsc31786/src_code/nu-wrf-dev
+export NUWRFDIR=/scratch/leuven/317/vsc31786/src_code/nu-wrf-dev
 # RUNDIR specifies the location of the temporary run directory
-export RUNDIR=$VSC_SCRATCH/nu-wrf-dev/Great_Slave_Lake/2015
-export EXEDIR=/data/leuven/317/vsc31786/src_code/nu-wrf-dev
+export RUNDIR=/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc31786/Great_Slave_Lake/2015
+export EXEDIR=/scratch/leuven/317/vsc31786/src_code/nu-wrf-dev
 export MPIRUN=mpirun
-export LISDIR=/staging/leuven/stg_00024/OUTPUT/michelb/l_data/model_param/nu-wrf
+export LISDIR=/scratch/leuven/projects/lt1_2020_es_pilot/project_input/rsda/l_data/model_param/nuwrf_param
 
 # Set environment variables needed by RIP
 export RIP_ROOT=$NUWRFDIR/RIP4

@@ -1,11 +1,11 @@
  &time_control
- run_days                            = 109,
+ run_days                            = 81,
  run_hours                           = 0,
  run_minutes                         = 0,
  run_seconds                         = 0,
  start_year                          = 2015,  2015,  2016,
- start_month                         =   05,    05,    05, 
- start_day                           =   15,    15,    15,
+ start_month                         =   06,    06,    05, 
+ start_day                           =   13,    13,    15,
  start_hour                          =   00,    00,    00, 
  start_minute                        =   00,    00,    00, 
  start_second                        =   00,    00,    00, 
@@ -17,23 +17,23 @@
  end_second                          =   00,    00,    00, 
  interval_seconds                    = 21600
  input_from_file                     = .true., .true., .true.,
- history_interval                    =  60,   60,   60,   
- frames_per_outfile                  =    1,     1,     1, 
- restart                             = .false.,
+ history_interval                    =  60,    60,   60,   
+ frames_per_outfile                  =   1,     1,     1, 
+ restart                             = .true.,
  restart_interval                    =  1440,
  io_form_history                     = 2
  io_form_restart                     = 2
  io_form_input                       = 2
  io_form_boundary                    = 2
  debug_level                         = 0
- nwp_diagnostics = 1,
+ nwp_diagnostics                     = 1
  auxinput4_inname                    = 'wrflowinp_d<domain>'
  auxinput4_interval                  = 360,    360,   360,
  io_form_auxinput4                   =   2
  /
 
  &domains
- time_step                           = 54,
+ time_step                           = 36,
  time_step_fract_num                 = 0,
  time_step_fract_den                 = 1,
  max_dom                             = 2,
@@ -43,7 +43,7 @@
  e_sn                                =    141,   298,   112,
  s_vert                              =      1,     1,     1,
  e_vert                              =     61,    61,    61,
- num_metgrid_levels                  = 73,
+ num_metgrid_levels                  = 27,
  num_metgrid_soil_levels             = 6,
  eta_levels                          = 1.000, 0.995, 0.990, 0.985, 0.980,
                                        0.975, 0.970, 0.960, 0.950, 0.940,
@@ -88,7 +88,7 @@
  sf_sfclay_physics                   =  2,      2,      2,
  sf_surface_physics                  = 55,     55,     55,
  sf_urban_physics                    = 0,     0,     0,
- 
+ bl_pbl_physics                      = 2,     2,     2,
  bldt                                = 0,     0,     0,
  cu_physics                          = 3,     0,     0,
  cudt                                = 0,     0,     0,
@@ -105,7 +105,7 @@
  ishallow                            = 1,
  usemonalb                           = .true.
  cu_rad_feedback = .true.,
- num_land_cat = 21,
+ num_land_cat = 20,
  rdlai2d = .true.,
  sst_update                          = 1
  sst_skin                            = 1

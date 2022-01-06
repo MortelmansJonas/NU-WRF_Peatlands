@@ -25,14 +25,14 @@ Output methodology:                        "2d gridspace"
 Output model restart files:                1
 Output data format:                        netcdf
 Output naming style:                       "3 level hierarchy"
-Start mode:                                coldstart
-Starting year:                             1995
-Starting month:                            6
-Starting day:                              1
+Start mode:                                restart
+Starting year:                             2015 
+Starting month:                            5
+Starting day:                              15
 Starting hour:                             00
 Starting minute:                           0
 Starting second:                           0
-Ending year:                               2015
+Ending year:                               2016
 Ending month:                              5
 Ending day:                                15 
 Ending hour:                               00
@@ -54,8 +54,8 @@ Maximum number of slope bands per grid:            1
 Minimum cutoff percentage (slope bands):           0.10
 Maximum number of aspect bands per grid:           1
 Minimum cutoff percentage (aspect bands):          0.10
-Number of processors along x:   12
-Number of processors along y:   12
+Number of processors along x:    6
+Number of processors along y:    6
 Halo size along x: 0 
 Halo size along y: 0 
 Routing model:                   none
@@ -148,7 +148,7 @@ MERRA2 use corrected total precipitation: 1 1 1
 #------------------------------------------------------------------------------
 Noah-MP.3.6 model timestep:                  30mn 15mn 1mn
 Noah-MP.3.6 restart output interval:         1mo  1mo  1mo
-Noah-MP.3.6 restart file:                    none none none
+Noah-MP.3.6 restart file:                    LIS_RST_NOAHMP36_201505150000.d01.nc LIS_RST_NOAHMP36_201505150000.d02.nc LIS_RST_NOAHMP36_201505150000.d03.nc
 Noah-MP.3.6 restart file format:          netcdf netcdf netcdf
 Noah-MP.3.6 landuse parameter table:      ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL ./LS_PARAMETERS/noahmp_params/VEGPARM.TBL
 Noah-MP.3.6 soil parameter table:         ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL ./LS_PARAMETERS/noahmp_params/SOILPARM.TBL
@@ -161,7 +161,7 @@ Noah-MP.3.6 vegetation model option:                    1 1 1 # 1=prescribed; 2=
 Noah-MP.3.6 canopy stomatal resistance option:          2 2 2  # 1=Ball-Berry; 2=Jarvis
 Noah-MP.3.6 soil moisture factor for stomatal resistance option:  1 1 1 # 1=Noah; 2=CLM; 3=SSiB
 Noah-MP.3.6 runoff and groundwater option:              1 1 1  # 1=SIMGM; 2=SIMTOP; 3=Schaake96; 4=BATS
-Noah-MP.3.6 surface layer drag coefficient option:      1 1 1  # 1=M-O; 2=Chen97
+Noah-MP.3.6 surface layer drag coefficient option:      2 2 2  # 1=M-O; 2=Chen97
 Noah-MP.3.6 supercooled liquid water option:            1 1 1  # 1=NY06; 2=Koren99
 Noah-MP.3.6 frozen soil permeability option:            1 1 1  # 1=NY06; 2=Koren99
 Noah-MP.3.6 radiation transfer option:                  1 1 1  # 1=gap=F(3D;cosz); 2=gap=0; 3=gap=1-Fveg
@@ -224,7 +224,7 @@ Irrigation scheme: none none none
 # Model output configuration
 #------------------------------------------------------------------------------
 
-Output start year:     2015 2015 2015
+Output start year:     2016 2016 2016
 Output start month:    05 05 05
 Output start day:      15 15 15
 Output start hour:     00 00 00

@@ -54,8 +54,8 @@ Maximum number of slope bands per grid:            1
 Minimum cutoff percentage (slope bands):           0.10
 Maximum number of aspect bands per grid:           1
 Minimum cutoff percentage (aspect bands):          0.10
-Number of processors along x:    12
-Number of processors along y:    12
+Number of processors along x:   21
+Number of processors along y:   16
 Halo size along x: 0 
 Halo size along y: 0 
 Routing model:                   none

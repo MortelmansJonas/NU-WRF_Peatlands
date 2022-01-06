@@ -98,8 +98,8 @@ def main():
     print("nuwrf_dir:  "+nuwrf_dir)
 
     # Initialize directories
-    merra_server = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/'
-    merra_server_2 = '/staging/leuven/stg_00024/input/met_forcing/MERRA2_land_forcing/MERRA2_400'
+    merra_server = '/scratch/leuven/projects/lt1_2020_es_pilot/External/Reanalysis/MERRA2_land_forcing'
+    merra_server_2 = '/scratch/leuven/projects/lt1_2020_es_pilot/External/Reanalysis/MERRA2_land_forcing/MERRA2_400'
 
     work_dir = out_dir
 

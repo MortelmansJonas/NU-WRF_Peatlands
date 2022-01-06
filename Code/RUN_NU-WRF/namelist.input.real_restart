@@ -1,11 +1,11 @@
  &time_control
- run_days                            = 109,
+ run_days                            = 81,
  run_hours                           = 0,
  run_minutes                         = 0,
  run_seconds                         = 0,
- start_year                          = 2015,  2015,  2016,
- start_month                         =   05,    05,    05, 
- start_day                           =   15,    15,    15,
+ start_year                          = 2015,  2015,  2015,
+ start_month                         =   06,    06,    06, 
+ start_day                           =   13,    13,    13,
  start_hour                          =   00,    00,    00, 
  start_minute                        =   00,    00,    00, 
  start_second                        =   00,    00,    00, 
@@ -19,7 +19,7 @@
  input_from_file                     = .true., .true., .true.,
  history_interval                    =  60,   60,   60,   
  frames_per_outfile                  =    1,     1,     1, 
- restart                             = .false.,
+ restart                             = .true.,
  restart_interval                    =  1440,
  io_form_history                     = 2
  io_form_restart                     = 2
@@ -88,7 +88,7 @@
  sf_sfclay_physics                   =  2,      2,      2,
  sf_surface_physics                  = 55,     55,     55,
  sf_urban_physics                    = 0,     0,     0,
- 
+ bl_pbl_physics                      = 2,     2,     2,
  bldt                                = 0,     0,     0,
  cu_physics                          = 3,     0,     0,
  cudt                                = 0,     0,     0,
