@@ -34,7 +34,6 @@ LT3_d02_T = np.nanmean(ds_d01_T['LTG3_d02'][:],0)
 PR92W_d02_T = np.nanmean(ds_d01_T['PR92W_d02'][:],0)
 
 CAPExP_R_d01_G = np.nanmean(ds_d01_G['CAPExP_R_d01'][:],0)
-CAPExP_CSI_d01_G = np.nanmean(ds_d01_G['CAPExP_CSI_d01'][:],0)
 LPI_d01_G = np.nanmean(ds_d01_G['LPI_d01'][:],0)
 LT3_d01_G = np.nanmean(ds_d01_G['LTG3_d01'][:],0)
 PR92W_d01_G = np.nanmean(ds_d01_G['PR92W_d01'][:],0)
