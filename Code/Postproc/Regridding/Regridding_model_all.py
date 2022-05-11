@@ -6,7 +6,7 @@ infile_d01 = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc
 infile_d02 = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/d02_all.nc'
 outfile = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/domain2_at_domain1.nc'
 
-LIs = ['LTG3', 'LPI', 'PR92W', 'CAPExP_R', 'CAPExP_CSI', 'T2', 'RH2', 'LH', 'SH', 'RAINC', 'RAINNC']
+LIs = ['LTG3', 'LPI', 'PR92W', 'CAPExP_R', 'T2', 'RH2', 'LH', 'SH', 'RAINC', 'RAINNC']
 
 import numpy as np
 import pandas as pd
@@ -67,7 +67,6 @@ ds_out['LTG3'][:] = np.nan
 ds_out['LPI'][:] = np.nan
 ds_out['PR92W'][:] = np.nan
 ds_out['CAPExP_R'][:] = np.nan
-ds_out['CAPExP_CSI'][:] = np.nan
 ds_out['T2'][:] = np.nan
 ds_out['RH2'][:] = np.nan
 ds_out['LH'][:] = np.nan
@@ -82,7 +81,6 @@ for t in range(0,np.shape(ds02['LTG3'])[0]):
     result_LPI = ndimage.generic_filter(ds02['LPI'][t, :, :].data, np.nanmean, size=3, mode='constant', cval=np.NaN)
     result_PR92W = ndimage.generic_filter(ds02['PR92W'][t, :, :].data, np.nanmean, size=3, mode='constant', cval=np.NaN)
     result_CAPExP_R = ndimage.generic_filter(ds02['CAPExP_R'][t, :, :].data, np.nanmean, size=3, mode='constant', cval=np.NaN)
-    result_CAPExP_CSI = ndimage.generic_filter(ds02['CAPExP_CSI'][t, :, :].data, np.nanmean, size=3, mode='constant',cval=np.NaN)
     result_T2 = ndimage.generic_filter(ds02['T2'][t, :, :].data, np.nanmean, size=3, mode='constant', cval=np.NaN)
     result_RH2 = ndimage.generic_filter(ds02['RH2'][t, :, :].data, np.nanmean, size=3, mode='constant', cval=np.NaN)
     result_LH = ndimage.generic_filter(ds02['LH'][t, :, :].data, np.nanmean, size=3, mode='constant', cval=np.NaN)
@@ -95,7 +93,6 @@ for t in range(0,np.shape(ds02['LTG3'])[0]):
     ds_out['LPI'][t, :, :] = resample_nearest(def_b, result_LPI, def_a, radius_of_influence=70000, fill_value=np.nan)
     ds_out['PR92W'][t, :, :] = resample_nearest(def_b, result_PR92W, def_a, radius_of_influence=70000, fill_value=np.nan)
     ds_out['CAPExP_R'][t, :, :] = resample_nearest(def_b, result_CAPExP_R, def_a, radius_of_influence=70000, fill_value=np.nan)
-    ds_out['CAPExP_CSI'][t, :, :] = resample_nearest(def_b, result_CAPExP_CSI, def_a, radius_of_influence=70000, fill_value=np.nan)
     ds_out['T2'][t, :, :] = resample_nearest(def_b, result_T2, def_a, radius_of_influence=70000, fill_value=np.nan)
     ds_out['RH2'][t, :, :] = resample_nearest(def_b, result_RH2, def_a, radius_of_influence=70000, fill_value=np.nan)
     ds_out['LH'][t, :, :] = resample_nearest(def_b, result_LH, def_a, radius_of_influence=70000, fill_value=np.nan)
