@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 # ---------------------------------------------------------------------------------------------
 # MODULES
 # ---------------------------------------------------------------------------------------------
@@ -7,7 +5,11 @@ import numpy as np
 import pandas as pd
 import os
 from netCDF4 import Dataset
-from wrf import getvar, latlon_coords
+import xarray as xr
+from wrf import (getvar, interplevel, vertcross,
+                 CoordPair, ALL_TIMES, to_np,
+                 get_cartopy, latlon_coords,
+                 cartopy_xlim, cartopy_ylim)
 
 # ---------------------------------------------------------------------------------------------
 # LOAD DATA
@@ -16,13 +18,12 @@ date_from = '2015-06-01'
 date_to = '2015-09-01'
 
 path = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc31786/Great_Slave_Lake/2015'
+# path = '/scratch/leuven/336/vsc33651/nu-wrf-dev/Great_Slave_Lake/2015_lake'
 filename_root = 'wrfout_'
 domain = 'd01'
 output_filename = os.path.join('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files',filename_root+domain+'_2015.nc')
+# output_filename = os.path.join('/scratch/leuven/336/vsc33651/nu-wrf-dev/wrfout_nc_files',filename_root+domain+'_2015_lake.nc')
 
-# ---------------------------------------------------------------------------------------------
-# CREATE .nc FILE
-# ---------------------------------------------------------------------------------------------
 # determine length of time vector
 startdate = pd.to_datetime(date_from)
 enddate = pd.to_datetime(date_to)
@@ -84,9 +85,6 @@ ds.variables['RH2'].setncatts({'long_name': '2-meter relative humidity',  'units
 ds.variables['T2'].setncatts({'long_name': '2-meter temperature',  'units': 'Degrees Celsius'})
 ds.variables['DBZ'].setncatts({'long_name': 'Reflectivity',  'units': 'dBZ'})
 
-# ---------------------------------------------------------------------------------------------
-# FILL .nc FILE BY LOOPING OVER ALL wrfout* FILES OF THAT YEAR + MODEL SETUP
-# ---------------------------------------------------------------------------------------------
 hr = pd.to_timedelta(startdate - pd.to_datetime('2015-06-01')).days*24 + \
      pd.to_timedelta(startdate - pd.to_datetime('2015-06-01')).seconds//3600
 for h in range(hr,hr+nhours+1):
@@ -98,20 +96,22 @@ for h in range(hr,hr+nhours+1):
     print('processing '+filename)
     ds_in = Dataset(filename, mode='r')
 
-    ds.variables['LTG1_MAX'][h,:,:] = ds_in.variables['LTG1_MAX'][:] # McCaul Threat 1
-    ds.variables['LTG2_MAX'][h,:,:] = ds_in.variables['LTG2_MAX'][:] # McCaul Threat 2
-    ds.variables['LTG3_MAX'][h,:,:] = 0.95 * ds_in.variables['LTG1_MAX'][:] + 0.05 * ds_in.variables['LTG2_MAX'][:] # McCaul Threat 3
-    ds.variables['CTOP2D'][h, :, :] = ds_in.variables['CTOP2D_OUT'][:] # Cloud top pressure
-    ds.variables['COD2D'][h, :, :] = ds_in.variables['COD2D_OUT'][:] # Cloud optical depth
-    ds.variables['RAINC'][h, :, :] = ds_in.variables['RAINC'][:] # Convective precipitation
-    ds.variables['RAINNC'][h, :, :] = ds_in.variables['RAINNC'][:] # Nonconvective precipitation
-    ds.variables['W_UP_MAX'][h, :, :] = ds_in.variables['W_UP_MAX'][:] # Maximal vertical updraft velocity
-    ds.variables['HGT'][h, :, :] = ds_in.variables['HGT'][:] # Topography
-    ds.variables['CAPE'][h, :, :] = getvar(ds_in, 'cape_2d')[0,:,:] # Mean CAPE
-    ds.variables['DBZ'][h, :, :] = getvar(ds_in, 'dbz')[:, :] # Reflectivity
-    ds.variables['CSI'][h, :, :] = ds_in.variables['CSI'][:] # Convective-stratiform region index
-    ds.variables['LH'][h, :, :] = ds_in.variables['LH'][:] # Latent heat flux
-    ds.variables['SH'][h, :, :] = ds_in.variables['HFX'][:] # Sensible heat flux
-    ds.variables['RH2'][h, :, :] = getvar(ds_in, 'rh2')[:, :] # 2-m relative humidity
-    ds.variables['T2'][h, :, :] = getvar(ds_in, 'T2')[:, :] # 2-m temperature
+    ds.variables['LTG1_MAX'][h,:,:] = ds_in.variables['LTG1_MAX'][:]
+    ds.variables['LTG2_MAX'][h,:,:] = ds_in.variables['LTG2_MAX'][:]
+    ds.variables['LTG3_MAX'][h,:,:] = 0.95 * ds_in.variables['LTG1_MAX'][:] + 0.05 * ds_in.variables['LTG2_MAX'][:]
+    ds.variables['LTG3_MAX_new'][h, :, :] = 0.80 * ds_in.variables['LTG1_MAX'][:] + 0.20 * ds_in.variables['LTG2_MAX'][:]
+    ds.variables['CTOP2D'][h, :, :] = ds_in.variables['CTOP2D_OUT'][:]
+    ds.variables['COD2D'][h, :, :] = ds_in.variables['COD2D_OUT'][:]
+    ds.variables['RAINC'][h, :, :] = ds_in.variables['RAINC'][:]
+    ds.variables['RAINNC'][h, :, :] = ds_in.variables['RAINNC'][:]
+    ds.variables['W_UP_MAX'][h, :, :] = ds_in.variables['W_UP_MAX'][:]
+    ds.variables['HGT'][h, :, :] = ds_in.variables['HGT'][:]
+    ds.variables['CAPE'][h, :, :] = getvar(ds_in, 'cape_2d')[0,:,:]
+    ds.variables['DBZ'][h, :, :] = getvar(ds_in, 'dbz')[:, :]
+    ds.variables['CSI'][h, :, :] = ds_in.variables['CSI'][:]
+    ds.variables['LH'][h, :, :] = ds_in.variables['LH'][:]
+    ds.variables['SH'][h, :, :] = ds_in.variables['HFX'][:]
+    ds.variables['RH2'][h, :, :] = getvar(ds_in, 'rh2')[:, :]
+    ds.variables['T2'][h, :, :] = getvar(ds_in, 'T2')[:, :]
+
 ds.close()

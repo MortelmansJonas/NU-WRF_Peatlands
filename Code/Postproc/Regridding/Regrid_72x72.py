@@ -1,28 +1,24 @@
-# ---------------------------------------------------------------------------------------------
-# MODULES
-# ---------------------------------------------------------------------------------------------
+## Load Modules
+
+## This script regrids the data to a 72x72km resolution
+
+infile_d01 = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/data_calibrated_ax_d01.nc'
+outfile = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/regrid_72x72.nc'
+
+LIs = ['LTG3', 'LPI', 'PR92W', 'CAPExP_R', 'CAPExP_CSI']
+
 import numpy as np
 import pandas as pd
 from netCDF4 import Dataset
 
-# ---------------------------------------------------------------------------------------------
-# LOAD DATA
-# ---------------------------------------------------------------------------------------------
-## This script regrids d02 resolution data to d01 resolution data
-
-infile_d01 = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/data_calibrated_ax_d01.nc'
-outfile = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/regrid_72x72.nc'
-
-# ---------------------------------------------------------------------------------------------
-# CREATE .nc FILE
-# ---------------------------------------------------------------------------------------------
+## Create new nc file
 ds01 = Dataset(infile_d01, 'r')
 trg = Dataset(outfile, mode='w')
 time= ds01['time'][:]
 lat_d01 = ds01['lat'][:]
 lon_d01 = ds01['lon'][:]
-lats = np.linspace(np.nanmin(lat_d01), np.nanmax(lat_d01),8) # Make new latitudes at 72x72 resolution
-lons = np.linspace(np.nanmin(lon_d01), np.nanmax(lon_d01),14) # Make new longitudes at 72x72 resolution
+lats = np.linspace(np.nanmin(lat_d01), np.nanmax(lat_d01),8)
+lons = np.linspace(np.nanmin(lon_d01), np.nanmax(lon_d01),14)
 
 lat,lon = np.meshgrid(lons,lats)
 
@@ -47,9 +43,6 @@ trg.createVariable('CAPExP_R_d02', 'f4', dimensions=('time','lat','lon',), zlib=
 trg.createVariable('CAPExP_CSI_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
 trg.createVariable('Obs', 'f4', dimensions=('time','lat','lon',), zlib=True)
 
-# ---------------------------------------------------------------------------------------------
-# AND FILL .nc FILE
-# ---------------------------------------------------------------------------------------------
 for i in range(0,8):
     for j in range(0,14):
         k=i*8

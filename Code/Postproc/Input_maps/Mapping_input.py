@@ -7,7 +7,7 @@ from netCDF4 import Dataset
 from mpl_toolkits.basemap import Basemap
 from matplotlib.colors import LogNorm, from_levels_and_colors, ListedColormap, LinearSegmentedColormap
 
-ds_d02 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/d02_all.nc', 'r')
+ds_d02 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/d02_all.nc', 'r')
 lat = ds_d02['lat'][:]
 lon = ds_d02['lon'][:]
 
@@ -22,12 +22,12 @@ turbo = ListedColormap(turbo_colormap_data)
 # ---------------------------------------------------------------------------------------------
 met = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc31786/Great_Slave_Lake/2015/met_em.d02.2015-06-01_06:00:00.nc', 'r')
 
-LIS_2015 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/LIS_HIST_d02_2015_Goddard.nc', 'r')
-LIS_2016 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/LIS_HIST_d02_2016_Goddard.nc', 'r')
-LIS_2017 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/LIS_HIST_d02_2017_Goddard.nc', 'r')
-LIS_2018 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/LIS_HIST_d02_2018_Goddard.nc', 'r')
-LIS_2019 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/LIS_HIST_d02_2019_Goddard.nc', 'r')
-LIS_2020 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/LIS_HIST_d02_2020_Goddard.nc', 'r')
+LIS_2015 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/LIS_HIST_d02_2015_Goddard.nc', 'r')
+LIS_2016 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/LIS_HIST_d02_2016_Goddard.nc', 'r')
+LIS_2017 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/LIS_HIST_d02_2017_Goddard.nc', 'r')
+LIS_2018 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/LIS_HIST_d02_2018_Goddard.nc', 'r')
+LIS_2019 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/LIS_HIST_d02_2019_Goddard.nc', 'r')
+LIS_2020 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/LIS_HIST_d02_2020_Goddard.nc', 'r')
 
 PEATMAP = Dataset('/data/leuven/336/vsc33653/OUTPUT/Gridding/CWIM3_peat_005deg.nc','r')
 
@@ -76,13 +76,13 @@ print(np.nanmax(GF))
 switch_interactive = 0
 x1 = 0.0005
 # Specify fontsizes in advance
-font_title= 30 # Main title
-font_subtitle = 28 # Title of subplots
-font_axes = 24 # Axis labels or colorbar
-font_letter = 16 # Letters to indicate which plot (a, b, c,...)
-font_ticks = 16 # Ticklabels
+font_title= 20 # Main title
+font_subtitle = 14 # Title of subplots
+font_axes = 12 # Axis labels or colorbar
+font_letter = 12 # Letters to indicate which plot (a, b, c,...)
+font_ticks = 12 # Ticklabels
 
-fig, axes = plt.subplots(2,2)
+fig, axes = plt.subplots(2,2, figsize=(15.3,8.27), dpi=150)
 m1 = Basemap(projection= 'lcc', lat_0 = lat.mean(),
             lon_0 = lon.mean(),
             llcrnrlon=(-123), llcrnrlat=(58),
@@ -97,9 +97,10 @@ m1.drawparallels(np.arange(-50,70,5), linewidth=0.5,labels = [True,False,False,F
 m1.drawmeridians(np.arange(-130,-100,5), linewidth=0.5,labels = [False,False,False, True])
 map1= m1.pcolormesh(lon,lat,Topo,latlon=True,cmap='terrain')
 axes[0][0].set_title('Height above mean sea level', fontsize=font_subtitle)
-cbar = fig.colorbar(map1,ax=axes[0][0],extend = 'max', shrink = 0.8)
-cbar.set_label('m', fontsize=font_axes, rotation=0)
+# axes[0][0].annotate('(b)\n', xy=(x1,  axes[0][0].get_ylim()[1]),annotation_clip=False, fontsize=font_letter)
+cbar = fig.colorbar(map1,ax=axes[0][0],extend = 'max', shrink = 0.8, ticks=np.linspace(0,1000,5,endpoint=True))
 cbar.ax.tick_params(labelsize=font_ticks)
+map1.set_clim(0,1250)
 
 # Specify clear, discrete colorbar for LU (21 categories)
 # 1=Evergreen Needleleaf Forest, 2=Evergreen Broadleaf Forest, 3=Deciduous Needleleaf Forest
@@ -137,17 +138,19 @@ m2.drawcoastlines(linewidth=0.3)
 m2.drawcountries()
 m2.drawparallels(np.arange(-50,70,5))
 m2.drawmeridians(np.arange(-130,-100,5))
+# m2.drawmapscale(-121, 58.7, lon.mean(), lat.mean(), 100)
 m2.drawparallels(np.arange(-50,70,5), linewidth=0.5,labels = [True,False,False,False])
 m2.drawmeridians(np.arange(-130,-100,5), linewidth=0.5,labels = [False,False,False, True])
 map2= m2.pcolormesh(lon,lat,LU,latlon=True,cmap=LU_cmap)
 axes[0][1].set_title('Land use category', fontsize=font_subtitle)
+# axes[0][1].annotate('(c)\n', xy=(x1,  axes[0][1].get_ylim()[1]),annotation_clip=False, fontsize=font_letter)
 cbar = fig.colorbar(map2,ax=axes[0][1], shrink = 0.9, ticks=np.linspace(1,14,14, endpoint=True))
 map2.set_clim(0.5,14.5)
 cbar.ax.set_yticklabels(['Evergreen Needleleaf Forest', 'Deciduous Needleleaf Forest', 'Deciduous Broadleaf Forest',
                          'Mixed Forest', 'Closed Shrubland', 'Open Shrubland', 'Grassland', 'Permanents Wetland',
                          'Cropland', 'Urban and Built-up', 'Barren or Sparsely Vegetated', 'Wooded Tundra', 'Mixed Tundra',
                          'Lake'])
-cbar.ax.tick_params(labelsize=font_ticks)
+cbar.ax.tick_params(labelsize=11)
 
 m3 = Basemap(projection= 'lcc', lat_0 = lat.mean(),
             lon_0 = lon.mean(),
@@ -158,12 +161,15 @@ m3.drawcoastlines(linewidth=0.3)
 m3.drawcountries()
 m3.drawparallels(np.arange(-50,70,5))
 m3.drawmeridians(np.arange(-130,-100,5))
+# m3.drawmapscale(-121, 58.7, lon.mean(), lat.mean(), 100)
 m3.drawparallels(np.arange(-50,70,5), linewidth=0.5,labels = [True,False,False,False])
 m3.drawmeridians(np.arange(-130,-100,5), linewidth=0.5,labels = [False,False,False, True])
 map3= m3.pcolormesh(lon,lat,np.nanmean(Albedo, axis=0),latlon=True,cmap='YlGnBu_r')
 axes[1][0].set_title('Surface albedo', fontsize=font_subtitle)
-cbar = fig.colorbar(map3, shrink = 0.8,ax=axes[1][0])
+# axes[1][0].annotate('(d)\n', xy=(x1,  axes[1][0].get_ylim()[1]),annotation_clip=False, fontsize=font_letter)
+cbar = fig.colorbar(map3,extend = 'max', shrink = 0.8,ax=axes[1][0], ticks=np.linspace(0,0.2,5,endpoint=True))
 cbar.ax.tick_params(labelsize=font_ticks)
+map3.set_clim(0,0.2)
 
 m4 = Basemap(projection= 'lcc', lat_0 = lat.mean(),
             lon_0 = lon.mean(),
@@ -174,12 +180,15 @@ m4.drawcoastlines(linewidth=0.3)
 m4.drawcountries()
 m4.drawparallels(np.arange(-50,70,5))
 m4.drawmeridians(np.arange(-130,-100,5))
+# m4.drawmapscale(-121, 58.7, lon.mean(), lat.mean(), 100)
 m4.drawparallels(np.arange(-50,70,5), linewidth=0.5,labels = [True,False,False,False])
 m4.drawmeridians(np.arange(-130,-100,5), linewidth=0.5,labels = [False,False,False, True])
 map4= m4.pcolormesh(lon,lat,np.nanmean(GF, axis=0),latlon=True,cmap='YlGn')
 axes[1][1].set_title('Greenness fraction', fontsize=font_subtitle)
-cbar = fig.colorbar(map4, shrink = 0.8,ax=axes[1][1])
+# axes[1][1].annotate('(e)\n', xy=(x1,  axes[1][1].get_ylim()[1]),annotation_clip=False, fontsize=font_letter)
+cbar = fig.colorbar(map4,extend = 'max', shrink = 0.8,ax=axes[1][1], ticks=np.linspace(0,0.4,5,endpoint=True))
 cbar.ax.tick_params(labelsize=font_ticks)
+map4.set_clim(0,0.4)
 plt.show()
 
 m5 = Basemap(projection= 'lcc', lat_0 = lat.mean(),

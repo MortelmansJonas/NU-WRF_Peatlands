@@ -15,7 +15,6 @@ import os
 date_from = '2015-06-01 00'
 date_to = '2015-07-16'
 
-# Load data
 path = '/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc31786/Great_Slave_Lake/2015_thompson'
 filename_root = 'LIS_HIST_'
 domain = 'd02'
@@ -30,8 +29,6 @@ filename = os.path.join(path, filename_root+
                         str(startdate.year)+str(startdate.strftime('%m'))+
                         str(startdate.strftime('%d'))+str(startdate.strftime('%H'))+ '00'+ '.'+domain+'.nc')
 ds_st = Dataset(filename, 'r')
-
-# Create .nc file
 ds = Dataset(output_filename, mode='w', format='NETCDF4')
 print(ds_st)
 timeunit = 'hours since 01-06-2015 00:00:00'
@@ -53,8 +50,7 @@ ds.variables['lon'].setncatts({'long_name': 'longitude', 'units': 'degrees_east'
 ds.variables['Albedo'].setncatts({'long_name': 'Surface Albedo',  'units': '-'})
 ds.variables['GF'].setncatts({'long_name': 'Green Vegetation Fraction',  'units': '-'})
 
-# Fill .nc file
-for h in range(0,nhours,3): # in steps of 3 because 3-hourly output
+for h in range(0,nhours,3):
     hours_passed = pd.to_timedelta(h, unit='h')
     a = startdate + hours_passed
 

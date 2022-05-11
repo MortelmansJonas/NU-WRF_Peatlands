@@ -347,3 +347,6 @@ ax6.annotate('(d) \n ', xy=(x1, ax6.get_ylim()[1]),annotation_clip=False)
 
 plt.suptitle('Convection-permitting (3 km)')
 plt.show()
+
+
+

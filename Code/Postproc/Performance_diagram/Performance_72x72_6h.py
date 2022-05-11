@@ -1,33 +1,24 @@
-# ---------------------------------------------------------------------------------------------
-# MODULES
-# ---------------------------------------------------------------------------------------------
+## import modules
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from netCDF4 import Dataset
 
-# ---------------------------------------------------------------------------------------------
-# LOAD DATA
-# ---------------------------------------------------------------------------------------------
-ds_G = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/domain1_6h_72x72.nc', 'r')
-ds_T = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/domain1_6h_72x72_Thompson.nc', 'r')
-
+# load data
+ds_G = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/domain1_6h_72x72.nc', 'r')
+ds_T = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/domain1_6h_72x72_Thompson.nc', 'r')
 # DOMAIN 1 GODDARD
 # Create A, B, C, and D of contingency table
-# A = 'lightning' predicted and 'lightning' observed
-# B = 'lightning' predicted and ' no lightning' observed
-# C = 'nolightning' predicted and ' lightning' observed
-# D = 'no lightning' predicted and ' no lightning' observed
 A_LPI_d01_G = np.count_nonzero(np.where((ds_G['LPI_d01'][:]> 0) & (ds_G['Obs'][:]>0), 1,0))
 B_LPI_d01_G = np.count_nonzero(np.where((ds_G['LPI_d01'][:]> 0) & (ds_G['Obs'][:]==0), 1,0))
 C_LPI_d01_G = np.count_nonzero(np.where((ds_G['LPI_d01'][:]== 0) & (ds_G['Obs'][:]>0), 1,0))
 D_LPI_d01_G = np.count_nonzero(np.where((ds_G['LPI_d01'][:]== 0) & (ds_G['Obs'][:]==0), 1,0))
 
-POD_LPI_d01_G = A_LPI_d01_G/(A_LPI_d01_G + C_LPI_d01_G) # Probability of detection
-FAR_LPI_d01_G = B_LPI_d01_G/(A_LPI_d01_G + B_LPI_d01_G) # False alarm ratio
-Bias_LPI_d01_G = (A_LPI_d01_G + B_LPI_d01_G)/(A_LPI_d01_G + C_LPI_d01_G) # Bias
-CSI_LPI_d01_G = A_LPI_d01_G/(A_LPI_d01_G + B_LPI_d01_G + C_LPI_d01_G) # Critical success index
-SR_LPI_d01_G = 1-FAR_LPI_d01_G # Success ratio
+POD_LPI_d01_G = A_LPI_d01_G/(A_LPI_d01_G + C_LPI_d01_G)
+FAR_LPI_d01_G = B_LPI_d01_G/(A_LPI_d01_G + B_LPI_d01_G)
+Bias_LPI_d01_G = (A_LPI_d01_G + B_LPI_d01_G)/(A_LPI_d01_G + C_LPI_d01_G)
+CSI_LPI_d01_G = A_LPI_d01_G/(A_LPI_d01_G + B_LPI_d01_G + C_LPI_d01_G)
+SR_LPI_d01_G = 1-FAR_LPI_d01_G
 
 A_LTG3_d01_G = np.count_nonzero(np.where((ds_G['LTG3_d01'][:]> 0) & (ds_G['Obs'][:]>0), 1,0))
 B_LTG3_d01_G = np.count_nonzero(np.where((ds_G['LTG3_d01'][:]> 0) & (ds_G['Obs'][:]==0), 1,0))
@@ -245,6 +236,9 @@ CSI_CAPExP_CSI_d02_T = A_CAPExP_CSI_d02_T/(A_CAPExP_CSI_d02_T + B_CAPExP_CSI_d02
 SR_CAPExP_CSI_d02_T = 1-FAR_CAPExP_CSI_d02_T
 
 ## PLOT
+
+fig = plt.figure(figsize=(15.3, 8.27), dpi=150)
+
 grid_ticks = np.arange(0, 1.01, 0.01)
 sr_g, pod_g = np.meshgrid(grid_ticks, grid_ticks)
 bias = pod_g / sr_g
@@ -252,45 +246,43 @@ csi = 1.0 / (1.0 / sr_g + 1.0 / pod_g - 1.0)
 csi_contour = plt.contourf(sr_g, pod_g, csi, np.arange(0.1, 1.1, 0.1), cmap="Blues")
 b_contour = plt.contour(sr_g, pod_g, bias, [0.3, 0.5, 0.7, 1, 1.5, 2, 4], colors="k", linestyles="dashed")
 plt.clabel(b_contour, fmt="%1.1f", fontsize = 12)
-plt.scatter(SR_LPI_d01_G, POD_LPI_d01_G, color='tab:blue', marker='o')
-plt.scatter(SR_LTG3_d01_G, POD_LTG3_d01_G, color='tab:blue', marker='v')
-plt.scatter(SR_PR92W_d01_G, POD_PR92W_d01_G, color='tab:blue', marker='d')
-plt.scatter(SR_CAPExP_CSI_d01_G, POD_CAPExP_CSI_d01_G, color='tab:blue', marker='s')
-plt.scatter(SR_CAPExP_R_d01_G, POD_CAPExP_R_d01_G, color='tab:blue', marker='x')
-plt.scatter(SR_LPI_d02_G, POD_LPI_d02_G, color='tab:brown', marker='o')
-plt.scatter(SR_LTG3_d02_G, POD_LTG3_d02_G, color='tab:brown', marker='v')
-plt.scatter(SR_PR92W_d02_G, POD_PR92W_d02_G, color='tab:brown', marker='d')
-plt.scatter(SR_CAPExP_CSI_d02_G, POD_CAPExP_CSI_d02_G, color='tab:brown', marker='s')
-plt.scatter(SR_CAPExP_R_d02_G, POD_CAPExP_R_d02_G, color='tab:brown', marker='x')
-plt.scatter(SR_LPI_d01_T, POD_LPI_d01_T, color='tab:pink', marker='o')
-plt.scatter(SR_LTG3_d01_T, POD_LTG3_d01_T, color='tab:pink', marker='v')
-plt.scatter(SR_PR92W_d01_T, POD_PR92W_d01_T, color='tab:pink', marker='d')
-plt.scatter(SR_CAPExP_CSI_d01_T, POD_CAPExP_CSI_d01_T, color='tab:pink', marker='s')
-plt.scatter(SR_CAPExP_R_d01_T, POD_CAPExP_R_d01_T, color='tab:pink', marker='x')
-plt.scatter(SR_LPI_d02_T, POD_LPI_d02_T, color='tab:orange', marker='o')
-plt.scatter(SR_LTG3_d02_T, POD_LTG3_d02_T, color='tab:orange', marker='v')
-plt.scatter(SR_PR92W_d02_T, POD_PR92W_d02_T, color='tab:orange', marker='d')
-plt.scatter(SR_CAPExP_CSI_d02_T, POD_CAPExP_CSI_d02_T, color='tab:orange', marker='s')
-plt.scatter(SR_CAPExP_R_d02_T, POD_CAPExP_R_d02_T, color='tab:orange', marker='x')
+plt.scatter(SR_LPI_d01_G, POD_LPI_d01_G, color='tab:blue', marker='o', s=30)
+plt.scatter(SR_LTG3_d01_G, POD_LTG3_d01_G, color='tab:blue', marker='v', s=30)
+plt.scatter(SR_PR92W_d01_G, POD_PR92W_d01_G, color='tab:blue', marker='d', s=30)
+# plt.scatter(SR_CAPExP_CSI_d01_G, POD_CAPExP_CSI_d01_G, color='tab:blue', marker='s')
+plt.scatter(SR_CAPExP_R_d01_G, POD_CAPExP_R_d01_G, color='tab:blue', marker='x', s=30)
+plt.scatter(SR_LPI_d02_G, POD_LPI_d02_G, color='tab:brown', marker='o', s=30)
+plt.scatter(SR_LTG3_d02_G, POD_LTG3_d02_G, color='tab:brown', marker='v', s=30)
+plt.scatter(SR_PR92W_d02_G, POD_PR92W_d02_G, color='tab:brown', marker='d', s=30)
+# plt.scatter(SR_CAPExP_CSI_d02_G, POD_CAPExP_CSI_d02_G, color='tab:brown', marker='s')
+plt.scatter(SR_CAPExP_R_d02_G, POD_CAPExP_R_d02_G, color='tab:brown', marker='x', s=30)
+plt.scatter(SR_LPI_d01_T, POD_LPI_d01_T, color='tab:pink', marker='o', s=30)
+plt.scatter(SR_LTG3_d01_T, POD_LTG3_d01_T, color='tab:pink', marker='v', s=30)
+plt.scatter(SR_PR92W_d01_T, POD_PR92W_d01_T, color='tab:pink', marker='d', s=30)
+# plt.scatter(SR_CAPExP_CSI_d01_T, POD_CAPExP_CSI_d01_T, color='tab:pink', marker='s')
+plt.scatter(SR_CAPExP_R_d01_T, POD_CAPExP_R_d01_T, color='tab:pink', marker='x', s=30)
+plt.scatter(SR_LPI_d02_T, POD_LPI_d02_T, color='tab:orange', marker='o', s=30)
+plt.scatter(SR_LTG3_d02_T, POD_LTG3_d02_T, color='tab:orange', marker='v', s=30)
+plt.scatter(SR_PR92W_d02_T, POD_PR92W_d02_T, color='tab:orange', marker='d', s=30)
+# plt.scatter(SR_CAPExP_CSI_d02_T, POD_CAPExP_CSI_d02_T, color='tab:orange', marker='s')
+plt.scatter(SR_CAPExP_R_d02_T, POD_CAPExP_R_d02_T, color='tab:orange', marker='x', s=30)
 
 # Create legend
-plt.scatter([],[], color='tab:blue', marker='_', label='G4ICE - 9 km')
-plt.scatter([],[], color='tab:brown', marker='_', label='G4ICE - 3 km')
-plt.scatter([],[], color='tab:pink', marker='_', label='THOM - 9 km')
-plt.scatter([],[], color='tab:orange', marker='_', label='THOM - 3 km')
+plt.scatter([],[], color='tab:blue', marker='s', label='G4ICE - 9 km')
+plt.scatter([],[], color='tab:brown', marker='s', label='G4ICE - 3 km')
+plt.scatter([],[], color='tab:pink', marker='s', label='THOM - 9 km')
+plt.scatter([],[], color='tab:orange', marker='s', label='THOM - 3 km')
 plt.scatter([],[], color='k', marker='o', label='LPI')
-plt.scatter([],[], color='k', marker='v', label='LT3')
+plt.scatter([],[], color='k', marker='v', label='LT')
 plt.scatter([],[], color='k', marker='d', label='PR92W')
-plt.scatter([],[], color='k', marker='s', label='CAPExP_CSI')
-plt.scatter([],[], color='k', marker='x', label='CAPExP_R')
+plt.scatter([],[], color='k', marker='x', label='CAPExP')
 
 cbar = plt.colorbar(csi_contour)
-cbar.set_label("Critical Success Index", fontsize=16)
+cbar.set_label("Critical Success Index", fontsize=12)
 cbar.ax.tick_params(labelsize=12)
 plt.xticks(fontsize=12)
 plt.yticks(fontsize=12)
-plt.ylabel("Probability of Detection", fontsize=16)
-plt.xlabel("Success Ratio (1-FAR)", fontsize=16)
-plt.legend(fontsize=14, loc='lower right')
+plt.ylabel("Probability of Detection", fontsize=12)
+plt.xlabel("Success Ratio", fontsize=12)
+plt.legend(fontsize=12, loc='lower right')
 plt.show()
-

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # ---------------------------------------------------------------------------------------------
 # MODULES
 # ---------------------------------------------------------------------------------------------
@@ -8,12 +7,12 @@ from netCDF4 import Dataset
 # ---------------------------------------------------------------------------------------------
 # CREATE NC FILE
 # ---------------------------------------------------------------------------------------------
-ds_mccaul_2015_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/wrfout_d01_2015.nc','r')
+ds_mccaul_2015_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/wrfout_d01_2015.nc','r')
 inds_lat = np.unique(np.where((ds_mccaul_2015_d01['lat'][:] > 58) & (ds_mccaul_2015_d01['lat'][:] <62))[0])
 inds_lon = np.unique(np.where((ds_mccaul_2015_d01['lon'][:] > -123) & (ds_mccaul_2015_d01['lon'][:] <-108))[1])
 lat = ds_mccaul_2015_d01['lat'][inds_lat,inds_lon]
 lon = ds_mccaul_2015_d01['lon'][inds_lat,inds_lon]
-ds = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/d01_all.nc', mode='w', format='NETCDF4')
+ds = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/d01_all.nc', mode='w', format='NETCDF4')
 ds.createDimension('time', 13248)
 ds.createDimension('lat', 63)
 ds.createDimension('lon', 109)
@@ -40,7 +39,7 @@ ds.createVariable('RAINNC', 'f4', dimensions=('time','lat','lon',), zlib=True)
 # ---------------------------------------------------------------------------------------------
 ## 2015
 # LPI
-ds_lpi_2015_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/lpi_d01_2015.nc','r')
+ds_lpi_2015_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/lpi_d01_2015.nc','r')
 ds['LPI'][0:2208] = ds_lpi_2015_d01['LPI'][0:-1,inds_lat, inds_lon]
 ds['time'][0:2208] = ds_lpi_2015_d01['time'][0:-1]
 # McCaul
@@ -63,12 +62,12 @@ ds['RH2'][0:2208] = ds_mccaul_2015_d01.variables['RH2'][:-1, inds_lat, inds_lon]
 
 ## 2016
 # LPI
-ds_lpi_2016_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/lpi_d01_2016.nc','r')
+ds_lpi_2016_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/lpi_d01_2016.nc','r')
 ds['LPI'][2208:4416] = ds_lpi_2016_d01['LPI'][0:-1,inds_lat, inds_lon]
 ds['time'][2208:4416] = ds_lpi_2016_d01['time'][0:-1]
 
 # McCaul
-ds_mccaul_2016_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/wrfout_d01_2016.nc','r')
+ds_mccaul_2016_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/wrfout_d01_2016.nc','r')
 ds['LTG3'][2208:4416] = np.multiply(ds_mccaul_2016_d01.variables['LTG3_MAX'][0:-1,inds_lat, inds_lon],12)
 ds['W'][2208:4416] = ds_mccaul_2016_d01.variables['W_UP_MAX'][0:-1,inds_lat, inds_lon]
 # PR92
@@ -88,11 +87,11 @@ ds['RH2'][2208:4416] = ds_mccaul_2016_d01.variables['RH2'][:-1, inds_lat, inds_l
 
 # 2017
 # LPI
-ds_lpi_2017_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/lpi_d01_2017.nc','r')
+ds_lpi_2017_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/lpi_d01_2017.nc','r')
 ds['time'][4416:6624] = ds_lpi_2017_d01['time'][0:-1]
 ds['LPI'][4416:6624] = ds_lpi_2017_d01['LPI'][0:-1,inds_lat, inds_lon]
 # McCaul
-ds_mccaul_2017_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/wrfout_d01_2017.nc','r')
+ds_mccaul_2017_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/wrfout_d01_2017.nc','r')
 ds['LTG3'][4416:6624] = np.multiply(ds_mccaul_2017_d01.variables['LTG3_MAX'][0:-1,inds_lat, inds_lon],12)
 ds['W'][4416:6624] = ds_mccaul_2017_d01.variables['W_UP_MAX'][0:-1,inds_lat, inds_lon]
 # PR92
@@ -111,11 +110,11 @@ ds['RH2'][4416:6624] = ds_mccaul_2017_d01.variables['RH2'][:-1, inds_lat, inds_l
 
 # 2018
 # LPI
-ds_lpi_2018_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/lpi_d01_2018.nc','r')
+ds_lpi_2018_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/lpi_d01_2018.nc','r')
 ds['time'][6624:8832] = ds_lpi_2018_d01['time'][0:-1]
 ds['LPI'][6624:8832] = ds_lpi_2018_d01['LPI'][0:-1,inds_lat, inds_lon]
 # McCaul
-ds_mccaul_2018_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/wrfout_d01_2018.nc','r')
+ds_mccaul_2018_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/wrfout_d01_2018.nc','r')
 ds['LTG3'][6624:8832] = np.multiply(ds_mccaul_2018_d01.variables['LTG3_MAX'][0:-1,inds_lat, inds_lon],12)
 ds['W'][6624:8832] = ds_mccaul_2018_d01.variables['W_UP_MAX'][0:-1,inds_lat, inds_lon]
 # PR92
@@ -134,11 +133,11 @@ ds['RH2'][6624:8832] = ds_mccaul_2018_d01.variables['RH2'][:-1, inds_lat, inds_l
 
 # 2019
 # LPI
-ds_lpi_2019_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/lpi_d01_2019.nc','r')
+ds_lpi_2019_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/lpi_d01_2019.nc','r')
 ds['time'][8832:11040] = ds_lpi_2019_d01['time'][0:-1]
 ds['LPI'][8832:11040] = ds_lpi_2019_d01['LPI'][0:-1,inds_lat, inds_lon]
 # McCaul
-ds_mccaul_2019_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/wrfout_d01_2019.nc','r')
+ds_mccaul_2019_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/wrfout_d01_2019.nc','r')
 ds['LTG3'][8832:11040] = np.multiply(ds_mccaul_2019_d01.variables['LTG3_MAX'][0:-1,inds_lat, inds_lon],12)
 ds['W'][8832:11040] = ds_mccaul_2019_d01.variables['W_UP_MAX'][0:-1,inds_lat, inds_lon]
 # PR92
@@ -157,11 +156,11 @@ ds['RH2'][8832:11040] = ds_mccaul_2019_d01.variables['RH2'][:-1, inds_lat, inds_
 
 # 2020
 # LPI
-ds_lpi_2020_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/lpi_d01_2020.nc','r')
+ds_lpi_2020_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/lpi_d01_2020.nc','r')
 ds['time'][11040:13248] = ds_lpi_2020_d01['time'][0:-1]
 ds['LPI'][11040:13248] = ds_lpi_2020_d01['LPI'][0:-1,inds_lat, inds_lon]
 # McCaul
-ds_mccaul_2020_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/wrfout_d01_2020.nc','r')
+ds_mccaul_2020_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/wrfout_d01_2020.nc','r')
 ds['LTG3'][11040:13248] = np.multiply(ds_mccaul_2020_d01.variables['LTG3_MAX'][0:-1,inds_lat, inds_lon],12)
 ds['W'][11040:13248] = ds_mccaul_2020_d01.variables['W_UP_MAX'][0:-1,inds_lat, inds_lon]
 # PR92

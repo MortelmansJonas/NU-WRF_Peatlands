@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # ---------------------------------------------------------------------------------------------
 # MODULES
 # ---------------------------------------------------------------------------------------------
@@ -11,7 +10,7 @@ from netCDF4 import Dataset
 # ---------------------------------------------------------------------------------------------
 print('creating nc file')
 # D01
-ds_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/d01_diurnal.nc', 'w')
+ds_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/d01_diurnal_Thompson.nc', 'w')
 ds_d01.createDimension('time', 24)
 ds_d01.createVariable('time', 'int', dimensions=('time',),zlib=True)
 ds_d01.variables['time'][:] = np.linspace(0,24,num=24, endpoint=False)
@@ -22,7 +21,7 @@ ds_d01.createVariable('CAPExP_R', 'f4', dimensions=('time',), zlib=True)
 ds_d01.createVariable('CAPExP_CSI', 'f4', dimensions=('time',), zlib=True)
 ds_d01.createVariable('Obs', 'f4', dimensions=('time',), zlib=True)
 # D02
-ds_d02 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/d02_diurnal.nc', 'w')
+ds_d02 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/d02_diurnal_Thompson.nc', 'w')
 ds_d02.createDimension('time', 24)
 ds_d02.createVariable('time', 'int', dimensions=('time',),zlib=True)
 ds_d02.variables['time'][:] = np.linspace(0,24,num=24, endpoint=False)
@@ -37,7 +36,7 @@ ds_d02.createVariable('Obs', 'f4', dimensions=('time',), zlib=True)
 # LOAD DATA
 # ---------------------------------------------------------------------------------------------
 print('load data')
-ds_d01_in = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/data_calibrated_ax_d01.nc', 'r')
+ds_d01_in = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/data_calibrated_ax_d01_Thompson.nc', 'r')
 
 time = pd.to_datetime('2000010100', format='%Y%m%d%H') + pd.to_timedelta(ds_d01_in['time'][:], unit='h')
 

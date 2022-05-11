@@ -9,7 +9,7 @@ from netCDF4 import Dataset
 # LOAD DATA
 # ---------------------------------------------------------------------------------------------
 print('load data')
-ds_d01_in = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/regrid_72x72.nc', 'r')
+ds_d01_in = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/regrid_72x72_Thompson.nc', 'r')
 lat_d01 = ds_d01_in['lat'][:]
 lon_d01 = ds_d01_in['lon'][:]
 
@@ -18,7 +18,7 @@ lon_d01 = ds_d01_in['lon'][:]
 # ---------------------------------------------------------------------------------------------
 print('creating nc file')
 # D01
-ds_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/domain1_6h_72x72.nc', mode='w', format='NETCDF4')
+ds_d01 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/domain1_6h_72x72_Thompson.nc', mode='w', format='NETCDF4')
 ds_d01.createDimension('time', 2208)
 ds_d01.createDimension('lat', 8)
 ds_d01.createDimension('lon', 14)
