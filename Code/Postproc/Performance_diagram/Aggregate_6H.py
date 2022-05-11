@@ -31,13 +31,11 @@ ds_d01.createVariable('LPI_d01', 'f4', dimensions=('time','lat','lon',), zlib=Tr
 ds_d01.createVariable('LTG3_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds_d01.createVariable('PR92W_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds_d01.createVariable('CAPExP_R_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
-ds_d01.createVariable('CAPExP_CSI_d01', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds_d01.createVariable('Obs', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds_d01.createVariable('LPI_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds_d01.createVariable('LTG3_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds_d01.createVariable('PR92W_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds_d01.createVariable('CAPExP_R_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
-ds_d01.createVariable('CAPExP_CSI_d02', 'f4', dimensions=('time','lat','lon',), zlib=True)
 
 # ---------------------------------------------------------------------------------------------
 # FILL NC FILE
@@ -62,9 +60,7 @@ for i in range(0,days):
     ds_d01['PR92W_d02'][i, :, :] = np.nansum(ds_d01_in['PR92W_d02'][k:j,:,:], axis = 0)
     ds_d01['PR92W_d01'][i, :, :] = np.nansum(ds_d01_in['PR92W_d01'][k:j,:,:], axis = 0)
     ds_d01['CAPExP_R_d01'][i, :, :] = np.nansum(ds_d01_in['CAPExP_R_d01'][k:j, :, :], axis=0)
-    ds_d01['CAPExP_CSI_d01'][i, :, :] = np.nansum(ds_d01_in['CAPExP_CSI_d01'][k:j, :, :], axis=0)
     ds_d01['CAPExP_R_d02'][i, :, :] = np.nansum(ds_d01_in['CAPExP_R_d02'][k:j, :, :], axis=0)
-    ds_d01['CAPExP_CSI_d02'][i, :, :] = np.nansum(ds_d01_in['CAPExP_CSI_d02'][k:j, :, :], axis=0)
     ds_d01['Obs'][i, :, :] = np.nansum(ds_d01_in['Obs'][k:j, :, :], axis=0)
 
 ds_d01.close()
