@@ -18,7 +18,6 @@ ds_d01.createVariable('LPI', 'f4', dimensions=('time',), zlib=True)
 ds_d01.createVariable('LTG3', 'f4', dimensions=('time',), zlib=True)
 ds_d01.createVariable('PR92W', 'f4', dimensions=('time',), zlib=True)
 ds_d01.createVariable('CAPExP_R', 'f4', dimensions=('time',), zlib=True)
-ds_d01.createVariable('CAPExP_CSI', 'f4', dimensions=('time',), zlib=True)
 ds_d01.createVariable('Obs', 'f4', dimensions=('time',), zlib=True)
 # D02
 ds_d02 = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/wrfout_nc_files/d02_diurnal_Thompson.nc', 'w')
@@ -29,7 +28,6 @@ ds_d02.createVariable('LPI', 'f4', dimensions=('time',), zlib=True)
 ds_d02.createVariable('LTG3', 'f4', dimensions=('time',), zlib=True)
 ds_d02.createVariable('PR92W', 'f4', dimensions=('time',), zlib=True)
 ds_d02.createVariable('CAPExP_R', 'f4', dimensions=('time',), zlib=True)
-ds_d02.createVariable('CAPExP_CSI', 'f4', dimensions=('time',), zlib=True)
 ds_d02.createVariable('Obs', 'f4', dimensions=('time',), zlib=True)
 
 # ---------------------------------------------------------------------------------------------
@@ -75,12 +73,6 @@ capexp_r_summer_d01 = capexp_r_d01[summer[1]]
 print('capexp_R_d02')
 capexp_r_d02 = np.nanmean(ds_d01_in['CAPExP_R_d02'][:], axis=(1,2))
 capexp_r_summer_d02 = capexp_r_d02[summer[1]]
-print('capexp_CSI_d01')
-capexp_csi_d01 = np.nanmean(ds_d01_in['CAPExP_CSI_d01'][:], axis=(1,2))
-capexp_csi_summer_d01 = capexp_csi_d01[summer[1]]
-print('capexp_CSI_d02')
-capexp_csi_d02 = np.nanmean(ds_d01_in['CAPExP_CSI_d02'][:], axis=(1,2))
-capexp_csi_summer_d02 = capexp_csi_d02[summer[1]]
 print('obs_d01')
 obs_d01 = np.nanmean(ds_d01_in['Obs'][:], axis=(1,2))
 obs_summer_d01 = obs_d01[summer[1]]
@@ -102,8 +94,6 @@ for i in range(0,24):
     ds_d02['PR92W'][i] = np.nanmean(pr92w_summer_d02[time_select_vector[0]])
     ds_d01['CAPExP_R'][i] = np.nanmean(capexp_r_summer_d01[time_select_vector[0]])
     ds_d02['CAPExP_R'][i] = np.nanmean(capexp_r_summer_d02[time_select_vector[0]])
-    ds_d01['CAPExP_CSI'][i] = np.nanmean(capexp_csi_summer_d01[time_select_vector[0]])
-    ds_d02['CAPExP_CSI'][i] = np.nanmean(capexp_csi_summer_d02[time_select_vector[0]])
     ds_d01['Obs'][i] = np.nanmean(obs_summer_d01[time_select_vector[0]])
     ds_d02['Obs'][i] = np.nanmean(obs_summer_d02[time_select_vector[0]])
 
