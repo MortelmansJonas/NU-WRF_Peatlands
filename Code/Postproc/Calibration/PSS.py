@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # ---------------------------------------------------------------------------------------------
 # MODULES
 # ---------------------------------------------------------------------------------------------
@@ -10,17 +11,16 @@ import seaborn as sns
 # ---------------------------------------------------------------------------------------------
 # LOAD DATA
 # ---------------------------------------------------------------------------------------------
-ds_d01_T = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/d01_all_Thompson.nc','r')
-ds_d02_T = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/domain2_at_domain1_all_Thompson.nc','r')
-
-ds_d01_G = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/d01_all.nc','r')
-ds_d02_G = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/domain2_at_domain1_all.nc','r')
-
-ds_obs = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/wrfout_nc_files/CLDN_at_domain1_all_v4.nc')
-L = ds_obs['Flashdensity_CC'][:,:,:].data.flatten() + ds_obs['Flashdensity_CG'][:,:,:].data.flatten()
+ds_d01_T = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/NU-WRF/wrfout_nc_files/d01_all_Thompson.nc','r')
+ds_d02_T = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/NU-WRF/wrfout_nc_files/domain2_at_domain1_all_Thompson.nc','r')
+ds_obs = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/NU-WRF/wrfout_nc_files/CLDN_at_domain1_all_v4.nc')
+ds_d01_G = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/NU-WRF/wrfout_nc_files/d01_all.nc','r')
+ds_d02_G = Dataset('/scratch/leuven/projects/lt1_2020_es_pilot/project_output/rsda/vsc33651/NU-WRF/NU-WRF/wrfout_nc_files/domain2_at_domain1_all.nc','r')
 
 lat = ds_d01_T['lat'][:]
 lon = ds_d01_T['lon'][:]
+
+L = ds_obs['Flashdensity_CC'][:,:,:].data.flatten() + ds_obs['Flashdensity_CG'][:,:,:].data.flatten()
 
 # ---------------------------------------------------------------------------------------------
 # 'The lowest values of the parameterization's output are set to 0'
@@ -538,7 +538,7 @@ CAPExP_R_adj_sorted_d01_G[CAPExP_R_adj_sorted_d01_G == 0] = np.nan
 # ---------------------------------------------------------------------------------------------
 print('frequency')
 # specify bin edges
-my_bins = np.linspace(-1,2,20) # only start at -1 and go to 2 (log scale) to cut off the lowest values (because very bad prediction and therefore highly biased PSS)
+my_bins = np.linspace(-1,2,20)
 # DOMAIN 1
 n, bins_log10, patches = plt.hist(np.log10(L[L!=0]),bins = my_bins)
 plt.close()
