@@ -53,17 +53,6 @@ Bias_CAPExP_R_d01_G = (A_CAPExP_R_d01_G + B_CAPExP_R_d01_G)/(A_CAPExP_R_d01_G + 
 CSI_CAPExP_R_d01_G = A_CAPExP_R_d01_G/(A_CAPExP_R_d01_G + B_CAPExP_R_d01_G + C_CAPExP_R_d01_G)
 SR_CAPExP_R_d01_G = 1-FAR_CAPExP_R_d01_G
 
-A_CAPExP_CSI_d01_G = np.count_nonzero(np.where((ds_G['CAPExP_CSI_d01'][:]> 0) & (ds_G['Obs'][:]>0), 1,0))
-B_CAPExP_CSI_d01_G = np.count_nonzero(np.where((ds_G['CAPExP_CSI_d01'][:]> 0) & (ds_G['Obs'][:]==0), 1,0))
-C_CAPExP_CSI_d01_G = np.count_nonzero(np.where((ds_G['CAPExP_CSI_d01'][:]== 0) & (ds_G['Obs'][:]>0), 1,0))
-D_CAPExP_CSI_d01_G = np.count_nonzero(np.where((ds_G['CAPExP_CSI_d01'][:]== 0) & (ds_G['Obs'][:]==0), 1,0))
-
-POD_CAPExP_CSI_d01_G = A_CAPExP_CSI_d01_G/(A_CAPExP_CSI_d01_G + C_CAPExP_CSI_d01_G)
-FAR_CAPExP_CSI_d01_G = B_CAPExP_CSI_d01_G/(A_CAPExP_CSI_d01_G + B_CAPExP_CSI_d01_G)
-Bias_CAPExP_CSI_d01_G = (A_CAPExP_CSI_d01_G + B_CAPExP_CSI_d01_G)/(A_CAPExP_CSI_d01_G + C_CAPExP_CSI_d01_G)
-CSI_CAPExP_CSI_d01_G = A_CAPExP_CSI_d01_G/(A_CAPExP_CSI_d01_G + B_CAPExP_CSI_d01_G + C_CAPExP_CSI_d01_G)
-SR_CAPExP_CSI_d01_G = 1-FAR_CAPExP_CSI_d01_G
-
 # DOMAIN 2 GODDARD
 # Create A, B, C, and D of contingency table
 A_LPI_d02_G = np.count_nonzero(np.where((ds_G['LPI_d02'][:]> 0) & (ds_G['Obs'][:]>0), 1,0))
@@ -109,17 +98,6 @@ FAR_CAPExP_R_d02_G = B_CAPExP_R_d02_G/(A_CAPExP_R_d02_G + B_CAPExP_R_d02_G)
 Bias_CAPExP_R_d02_G = (A_CAPExP_R_d02_G + B_CAPExP_R_d02_G)/(A_CAPExP_R_d02_G + C_CAPExP_R_d02_G)
 CSI_CAPExP_R_d02_G = A_CAPExP_R_d02_G/(A_CAPExP_R_d02_G + B_CAPExP_R_d02_G + C_CAPExP_R_d02_G)
 SR_CAPExP_R_d02_G = 1-FAR_CAPExP_R_d02_G
-
-A_CAPExP_CSI_d02_G = np.count_nonzero(np.where((ds_G['CAPExP_CSI_d02'][:]> 0) & (ds_G['Obs'][:]>0), 1,0))
-B_CAPExP_CSI_d02_G = np.count_nonzero(np.where((ds_G['CAPExP_CSI_d02'][:]> 0) & (ds_G['Obs'][:]==0), 1,0))
-C_CAPExP_CSI_d02_G = np.count_nonzero(np.where((ds_G['CAPExP_CSI_d02'][:]== 0) & (ds_G['Obs'][:]>0), 1,0))
-D_CAPExP_CSI_d02_G = np.count_nonzero(np.where((ds_G['CAPExP_CSI_d02'][:]== 0) & (ds_G['Obs'][:]==0), 1,0))
-
-POD_CAPExP_CSI_d02_G = A_CAPExP_CSI_d02_G/(A_CAPExP_CSI_d02_G + C_CAPExP_CSI_d02_G)
-FAR_CAPExP_CSI_d02_G = B_CAPExP_CSI_d02_G/(A_CAPExP_CSI_d02_G + B_CAPExP_CSI_d02_G)
-Bias_CAPExP_CSI_d02_G = (A_CAPExP_CSI_d02_G + B_CAPExP_CSI_d02_G)/(A_CAPExP_CSI_d02_G + C_CAPExP_CSI_d02_G)
-CSI_CAPExP_CSI_d02_G = A_CAPExP_CSI_d02_G/(A_CAPExP_CSI_d02_G + B_CAPExP_CSI_d02_G + C_CAPExP_CSI_d02_G)
-SR_CAPExP_CSI_d02_G = 1-FAR_CAPExP_CSI_d02_G
 
 # DOMAIN 1 THOMPSON
 # Create A, B, C, and D of contingency table
@@ -167,17 +145,6 @@ Bias_CAPExP_R_d01_T = (A_CAPExP_R_d01_T + B_CAPExP_R_d01_T)/(A_CAPExP_R_d01_T + 
 CSI_CAPExP_R_d01_T = A_CAPExP_R_d01_T/(A_CAPExP_R_d01_T + B_CAPExP_R_d01_T + C_CAPExP_R_d01_T)
 SR_CAPExP_R_d01_T = 1-FAR_CAPExP_R_d01_T
 
-A_CAPExP_CSI_d01_T = np.count_nonzero(np.where((ds_T['CAPExP_CSI_d01'][:]> 0) & (ds_T['Obs'][:]>0), 1,0))
-B_CAPExP_CSI_d01_T = np.count_nonzero(np.where((ds_T['CAPExP_CSI_d01'][:]> 0) & (ds_T['Obs'][:]==0), 1,0))
-C_CAPExP_CSI_d01_T = np.count_nonzero(np.where((ds_T['CAPExP_CSI_d01'][:]== 0) & (ds_T['Obs'][:]>0), 1,0))
-D_CAPExP_CSI_d01_T = np.count_nonzero(np.where((ds_T['CAPExP_CSI_d01'][:]== 0) & (ds_T['Obs'][:]==0), 1,0))
-
-POD_CAPExP_CSI_d01_T = A_CAPExP_CSI_d01_T/(A_CAPExP_CSI_d01_T + C_CAPExP_CSI_d01_T)
-FAR_CAPExP_CSI_d01_T = B_CAPExP_CSI_d01_T/(A_CAPExP_CSI_d01_T + B_CAPExP_CSI_d01_T)
-Bias_CAPExP_CSI_d01_T = (A_CAPExP_CSI_d01_T + B_CAPExP_CSI_d01_T)/(A_CAPExP_CSI_d01_T + C_CAPExP_CSI_d01_T)
-CSI_CAPExP_CSI_d01_T = A_CAPExP_CSI_d01_T/(A_CAPExP_CSI_d01_T + B_CAPExP_CSI_d01_T + C_CAPExP_CSI_d01_T)
-SR_CAPExP_CSI_d01_T = 1-FAR_CAPExP_CSI_d01_T
-
 # DOMAIN 2 THOMPSON
 # Create A, B, C, and D of contingency table
 A_LPI_d02_T = np.count_nonzero(np.where((ds_T['LPI_d02'][:]> 0) & (ds_T['Obs'][:]>0), 1,0))
@@ -224,17 +191,6 @@ Bias_CAPExP_R_d02_T = (A_CAPExP_R_d02_T + B_CAPExP_R_d02_T)/(A_CAPExP_R_d02_T + 
 CSI_CAPExP_R_d02_T = A_CAPExP_R_d02_T/(A_CAPExP_R_d02_T + B_CAPExP_R_d02_T + C_CAPExP_R_d02_T)
 SR_CAPExP_R_d02_T = 1-FAR_CAPExP_R_d02_T
 
-A_CAPExP_CSI_d02_T = np.count_nonzero(np.where((ds_T['CAPExP_CSI_d02'][:]> 0) & (ds_T['Obs'][:]>0), 1,0))
-B_CAPExP_CSI_d02_T = np.count_nonzero(np.where((ds_T['CAPExP_CSI_d02'][:]> 0) & (ds_T['Obs'][:]==0), 1,0))
-C_CAPExP_CSI_d02_T = np.count_nonzero(np.where((ds_T['CAPExP_CSI_d02'][:]== 0) & (ds_T['Obs'][:]>0), 1,0))
-D_CAPExP_CSI_d02_T = np.count_nonzero(np.where((ds_T['CAPExP_CSI_d02'][:]== 0) & (ds_T['Obs'][:]==0), 1,0))
-
-POD_CAPExP_CSI_d02_T = A_CAPExP_CSI_d02_T/(A_CAPExP_CSI_d02_T + C_CAPExP_CSI_d02_T)
-FAR_CAPExP_CSI_d02_T = B_CAPExP_CSI_d02_T/(A_CAPExP_CSI_d02_T + B_CAPExP_CSI_d02_T)
-Bias_CAPExP_CSI_d02_T = (A_CAPExP_CSI_d02_T + B_CAPExP_CSI_d02_T)/(A_CAPExP_CSI_d02_T + C_CAPExP_CSI_d02_T)
-CSI_CAPExP_CSI_d02_T = A_CAPExP_CSI_d02_T/(A_CAPExP_CSI_d02_T + B_CAPExP_CSI_d02_T + C_CAPExP_CSI_d02_T)
-SR_CAPExP_CSI_d02_T = 1-FAR_CAPExP_CSI_d02_T
-
 ## PLOT
 
 fig = plt.figure(figsize=(15.3, 8.27), dpi=150)
@@ -249,22 +205,18 @@ plt.clabel(b_contour, fmt="%1.1f", fontsize = 12)
 plt.scatter(SR_LPI_d01_G, POD_LPI_d01_G, color='tab:blue', marker='o', s=30)
 plt.scatter(SR_LTG3_d01_G, POD_LTG3_d01_G, color='tab:blue', marker='v', s=30)
 plt.scatter(SR_PR92W_d01_G, POD_PR92W_d01_G, color='tab:blue', marker='d', s=30)
-# plt.scatter(SR_CAPExP_CSI_d01_G, POD_CAPExP_CSI_d01_G, color='tab:blue', marker='s')
 plt.scatter(SR_CAPExP_R_d01_G, POD_CAPExP_R_d01_G, color='tab:blue', marker='x', s=30)
 plt.scatter(SR_LPI_d02_G, POD_LPI_d02_G, color='tab:brown', marker='o', s=30)
 plt.scatter(SR_LTG3_d02_G, POD_LTG3_d02_G, color='tab:brown', marker='v', s=30)
 plt.scatter(SR_PR92W_d02_G, POD_PR92W_d02_G, color='tab:brown', marker='d', s=30)
-# plt.scatter(SR_CAPExP_CSI_d02_G, POD_CAPExP_CSI_d02_G, color='tab:brown', marker='s')
 plt.scatter(SR_CAPExP_R_d02_G, POD_CAPExP_R_d02_G, color='tab:brown', marker='x', s=30)
 plt.scatter(SR_LPI_d01_T, POD_LPI_d01_T, color='tab:pink', marker='o', s=30)
 plt.scatter(SR_LTG3_d01_T, POD_LTG3_d01_T, color='tab:pink', marker='v', s=30)
 plt.scatter(SR_PR92W_d01_T, POD_PR92W_d01_T, color='tab:pink', marker='d', s=30)
-# plt.scatter(SR_CAPExP_CSI_d01_T, POD_CAPExP_CSI_d01_T, color='tab:pink', marker='s')
 plt.scatter(SR_CAPExP_R_d01_T, POD_CAPExP_R_d01_T, color='tab:pink', marker='x', s=30)
 plt.scatter(SR_LPI_d02_T, POD_LPI_d02_T, color='tab:orange', marker='o', s=30)
 plt.scatter(SR_LTG3_d02_T, POD_LTG3_d02_T, color='tab:orange', marker='v', s=30)
 plt.scatter(SR_PR92W_d02_T, POD_PR92W_d02_T, color='tab:orange', marker='d', s=30)
-# plt.scatter(SR_CAPExP_CSI_d02_T, POD_CAPExP_CSI_d02_T, color='tab:orange', marker='s')
 plt.scatter(SR_CAPExP_R_d02_T, POD_CAPExP_R_d02_T, color='tab:orange', marker='x', s=30)
 
 # Create legend
