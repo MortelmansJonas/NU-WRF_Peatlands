@@ -34,9 +34,6 @@ PR92W_d02[PR92W_d02 == np.nanmin(PR92W_d02)] = 0
 CAPExP_R_d02 = ds_d02['CAPExP_R'][:]
 CAPExP_R_d02[CAPExP_R_d02 == np.nanmin(CAPExP_R_d02)] = 0
 
-CAPExP_CSI_d02 = ds_d02['CAPExP_CSI'][:]
-CAPExP_CSI_d02[CAPExP_CSI_d02 == np.nanmin(CAPExP_CSI_d02)] = 0
-
 # -------------------------------------------------------------------------------------------------------------
 # 'Second, a simple linear model is built that relates the observed flash rates to the parameterization output'
 # -------------------------------------------------------------------------------------------------------------
@@ -64,11 +61,6 @@ PR92W_sorted_d02 = np.sort(PR92W_d02.flatten())[::-1]
 PR92W_c_d02 = PR92W_sorted_d02[0:c]
 PR92W_d02_new = np.where(PR92W_d02>=PR92W_sorted_d02[c],PR92W_d02, np.nan)
 print('cutoff value PR92W_d02 = ', PR92W_sorted_d02[c])
-
-CAPExP_CSI_sorted_d02 = np.sort(CAPExP_CSI_d02.flatten())[::-1]
-CAPExP_CSI_c_d02 = CAPExP_CSI_sorted_d02[0:c]
-CAPExP_CSI_d02_new = np.where(CAPExP_CSI_d02>=CAPExP_CSI_sorted_d02[c],CAPExP_CSI_d02, np.nan)
-print('cutoff value CAPExP_CSI_d02 = ', CAPExP_CSI_sorted_d02[c])
 
 CAPExP_R_sorted_d02 = np.sort(CAPExP_R_d02.flatten())[::-1]
 CAPExP_R_c_d02 = CAPExP_R_sorted_d02[0:c]
@@ -98,10 +90,6 @@ reg_PR92W_d02 = lr().fit(PR92W_c_d02.reshape((-1,1)), Obs)
 PR92W_d02_adj =np.add(reg_PR92W_d02.intercept_, np.multiply(reg_PR92W_d02.coef_,PR92W_d02_new))
 PR92W_d02_adj[np.isnan(PR92W_d02_adj)] = 0
 
-reg_CAPExP_CSI_d02 = lr().fit(CAPExP_CSI_c_d02.reshape((-1,1)), Obs)
-CAPExP_CSI_d02_adj =np.add(reg_CAPExP_CSI_d02.intercept_, np.multiply(reg_CAPExP_CSI_d02.coef_,CAPExP_CSI_d02_new))
-CAPExP_CSI_d02_adj[np.isnan(CAPExP_CSI_d02_adj)] = 0
-
 reg_CAPExP_R_d02 = lr().fit(CAPExP_R_c_d02.reshape((-1,1)), Obs)
 CAPExP_R_d02_adj =np.add(reg_CAPExP_R_d02.intercept_, np.multiply(reg_CAPExP_R_d02.coef_,CAPExP_R_d02_new))
 CAPExP_R_d02_adj[np.isnan(CAPExP_R_d02_adj)] = 0
@@ -113,7 +101,6 @@ CAPExP_R_d02_adj[np.isnan(CAPExP_R_d02_adj)] = 0
 LPI_adj_sorted_d02 = np.sort(LPI_d02_adj.flatten())[::-1]
 LTG3_adj_sorted_d02 = np.sort(LTG3_d02_adj.flatten())[::-1]
 PR92W_adj_sorted_d02 = np.sort(PR92W_d02_adj.flatten())[::-1]
-CAPExP_CSI_adj_sorted_d02 = np.sort(CAPExP_CSI_d02_adj.flatten())[::-1]
 CAPExP_R_adj_sorted_d02 = np.sort(CAPExP_R_d02_adj.flatten())[::-1]
 
 sum_lpi_d02 = 0
@@ -150,14 +137,6 @@ else:
     PR92W_cutoff_d02 = PR92W_adj_sorted_d02[i]
     PR92W_adj_sorted_d02.reshape((13248, 170, 309))
 i=0
-while sum_capexp_csi_d02 < Tot_flashes:
-    sum_capexp_csi_d02 = sum_capexp_csi_d02 + CAPExP_CSI_adj_sorted_d02[i]
-    i += 1
-else:
-    CAPExP_CSI_adj_sorted_d02[i:] = 0
-    CAPExP_CSI_cutoff_d02 = CAPExP_CSI_adj_sorted_d02[i]
-    CAPExP_CSI_adj_sorted_d02.reshape((13248, 170, 309))
-i=0
 while sum_capexp_r_d02 < Tot_flashes:
     sum_capexp_r_d02 = sum_capexp_r_d02 + CAPExP_R_adj_sorted_d02[i]
     i += 1
@@ -170,7 +149,6 @@ LPI_d02_adj[LPI_d02_adj<=LPI_cutoff_d02] == 0
 LTG3_d02_adj[LTG3_d02_adj<=LTG3_cutoff_d02] == 0
 PR92W_d02_adj[PR92W_d02_adj<=PR92W_cutoff_d02] == 0
 CAPExP_R_d02_adj[CAPExP_R_d02_adj<=CAPExP_R_cutoff_d02] == 0
-CAPExP_CSI_d02_adj[CAPExP_CSI_d02_adj<=CAPExP_CSI_cutoff_d02] == 0
 
 # ---------------------------------------------------------------------------------------------
 # PUT CALIBRATED DATA IN NEW NETCDF FILE
@@ -190,14 +168,12 @@ ds.createVariable('LPI', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('LTG3', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('PR92W', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('CAPExP_R', 'f4', dimensions=('time','lat','lon',), zlib=True)
-ds.createVariable('CAPExP_CSI', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('Obs', 'f4', dimensions=('time','lat','lon',), zlib=True)
 
 # Fill it
 ds['LPI'][:] = LPI_d02_adj[:]
 ds['PR92W'][:] = PR92W_d02_adj[:]
 ds['LTG3'][:] = LTG3_d02_adj[:]
-ds['CAPExP_CSI'][:] = CAPExP_CSI_d02_adj[:]
 ds['CAPExP_R'][:] = CAPExP_R_d02_adj[:]
 ds['Obs'][:] = ds_obs['Flashdensity_CC'][:].data + ds_obs['Flashdensity_CG'][:].data
 ds.close()
@@ -209,7 +185,6 @@ print('plots')
 LPI_adj_sorted_d02[LPI_adj_sorted_d02 == 0] = np.nan
 LTG3_adj_sorted_d02[LTG3_adj_sorted_d02 == 0] = np.nan
 PR92W_adj_sorted_d02[PR92W_adj_sorted_d02 == 0] = np.nan
-CAPExP_CSI_adj_sorted_d02[CAPExP_CSI_adj_sorted_d02 == 0] = np.nan
 CAPExP_R_adj_sorted_d02[CAPExP_R_adj_sorted_d02 == 0] = np.nan
 
 # ---------------------------------------------------------------------------------------------
@@ -223,8 +198,6 @@ my_bins = np.linspace(-3,2,20)
 n, bins_log10, patches = plt.hist(np.log10(L[L!=0]),bins = my_bins)
 plt.close()
 n_CAPExP_R_d02, bins_CAPExP_R_log10_d02, patches_CAPExP_R_d02 = plt.hist(np.log10(CAPExP_R_adj_sorted_d02[CAPExP_R_adj_sorted_d02!=0]),bins=my_bins)
-plt.close()
-n_CAPExP_CSI_d02, bins_CAPExP_CSI_log10_d02, patches_CAPExP_CSI_d02 = plt.hist(np.log10(CAPExP_CSI_adj_sorted_d02[CAPExP_CSI_adj_sorted_d02!=0]),bins=my_bins)
 plt.close()
 n_lpi_d02, bins_lpi_log10_d02, patches_lpi_d02 = plt.hist(np.log10(LPI_adj_sorted_d02[LPI_adj_sorted_d02!=0]),bins=my_bins)
 plt.close()
@@ -243,11 +216,6 @@ for i in range(len(n)):
 for i in range(len(n)):
     if n_CAPExP_R_d02[i] == 0:
         n_CAPExP_R_d02[i] = np.nan
-    else:
-        break
-for i in range(len(n)):
-    if n_CAPExP_CSI_d02[i] == 0:
-        n_CAPExP_CSI_d02[i] = np.nan
     else:
         break
 for i in range(len(n)):
@@ -280,7 +248,6 @@ n_lpi_d02[n_lpi_d02==0] = np.nan
 n_LTG3_d02[n_LTG3_d02==0] = np.nan
 n_PR92W_d02[n_PR92W_d02==0] = np.nan
 n_CAPExP_R_d02[n_CAPExP_R_d02 == 0] = np.nan
-n_CAPExP_CSI_d02[n_CAPExP_CSI_d02==0] = np.nan
 
 fig = plt.figure()
 ax1 = plt.subplot2grid((3,2),(0,0))
@@ -326,16 +293,6 @@ ax4.grid(which='major', axis='both', color='lightgray')
 ax4.set_ylabel('Frequency')
 ax4.annotate('(c) \n ', xy=(x1, ax4.get_ylim()[1]),annotation_clip=False)
 
-bins_CAPExP_CSI_log10_centered_d02 = bins_CAPExP_CSI_log10_d02[0:-1]+0.5*(bins_CAPExP_CSI_log10_d02[1:]-bins_CAPExP_CSI_log10_d02[0:-1])
-bins_CAPExP_CSI_centered_d02 = 10**bins_CAPExP_CSI_log10_centered_d02
-ax5.loglog(bins_centered,n,'grey')
-ax5.loglog(bins_CAPExP_CSI_centered_d02,n_CAPExP_CSI_d02,'k')
-ax5.set_title('CAPExP_CSI')
-ax5.grid(which='major', axis='both', color='lightgray')
-ax5.set_ylabel('Frequency')
-ax5.set_xlabel('Hourly flash density (# hr$^{-1}$ km$^{-2}$)')
-ax5.annotate('(f) \n ', xy=(x1,  ax5.get_ylim()[1]),annotation_clip=False)
-
 bins_PR92W_log10_centered_d02 = bins_PR92W_log10_d02[0:-1]+0.5*(bins_PR92W_log10_d02[1:]-bins_PR92W_log10_d02[0:-1])
 bins_PR92W_centered_d02 = 10**bins_PR92W_log10_centered_d02
 ax6.loglog(bins_centered,n,'grey')
@@ -347,6 +304,3 @@ ax6.annotate('(d) \n ', xy=(x1, ax6.get_ylim()[1]),annotation_clip=False)
 
 plt.suptitle('Convection-permitting (3 km)')
 plt.show()
-
-
-
