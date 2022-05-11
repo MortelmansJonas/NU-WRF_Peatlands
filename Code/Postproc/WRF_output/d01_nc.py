@@ -25,7 +25,6 @@ ds.createVariable('LPI', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('LTG3', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('PR92W', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('CAPExP_R', 'f4', dimensions=('time','lat','lon',), zlib=True)
-ds.createVariable('CAPExP_CSI', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('W', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('T2', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('RH2', 'f4', dimensions=('time','lat','lon',), zlib=True)
@@ -265,12 +264,4 @@ PREC = np.multiply(RAIN, K)
 ds['CAPExP_R'][:] = np.multiply(CAPE[:], PREC[:])
 ds['CAPExP_R'][:] = np.multiply(ds['CAPExP_R'][:], 0.000000000013) # constant, see Romps et al. 2014 (eta/E)
 ds['CAPExP_R'][:] = np.multiply(ds['CAPExP_R'][:], 3600000000) # To convert from (m2s)-1 to (km2hour)-1
-
-# CAPExP WITH CSI
-K = np.zeros((13248,63,109))
-K = np.where(CSI == 3, 1, 0)
-PREC = np.multiply(RAIN, K)
-ds['CAPExP_CSI'][:] = np.multiply(np.multiply(np.multiply(PREC[:], CAPE[:]),0.000000000013),3600000000)
-
-
 ds.close()
