@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # ---------------------------------------------------------------------------------------------
 # MODULES
 # ---------------------------------------------------------------------------------------------
@@ -25,6 +26,7 @@ ds.createVariable('LPI', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('LTG3', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('PR92W', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('CAPExP_R', 'f4', dimensions=('time','lat','lon',), zlib=True)
+ds.createVariable('CAPExP_CSI', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('W', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('T2', 'f4', dimensions=('time','lat','lon',), zlib=True)
 ds.createVariable('RH2', 'f4', dimensions=('time','lat','lon',), zlib=True)
@@ -261,7 +263,26 @@ for i in range(0,13248):
                 K[i,j-1:j+2,k-1:k+2] = 1
 
 PREC = np.multiply(RAIN, K)
-ds['CAPExP_R'][:] = np.multiply(CAPE[:], PREC[:])
+ds['CAPExP_R'][0,:,:] = 0
+ds['CAPExP_R'][2208,:,:] = 0
+ds['CAPExP_R'][4416,:,:] = 0
+ds['CAPExP_R'][6624,:,:] = 0
+ds['CAPExP_R'][8832,:,:] = 0
+ds['CAPExP_R'][11040,:,:] = 0
+for i in range(1,2208): # Review Erwan
+    j = i + 2208
+    k = i + 4416
+    l = i + 6624
+    m = i + 8832
+    n = i + 11040
+    ds['CAPExP_R'][i,:,:] = np.multiply(CAPE[i-1,:,:], PREC[i,:,:])
+    ds['CAPExP_R'][j,:,:] = np.multiply(CAPE[j-1,:,:], PREC[j,:,:])
+    ds['CAPExP_R'][k,:,:] = np.multiply(CAPE[k-1,:,:], PREC[k,:,:])
+    ds['CAPExP_R'][l,:,:] = np.multiply(CAPE[l-1,:,:], PREC[l,:,:])
+    ds['CAPExP_R'][m,:,:] = np.multiply(CAPE[m-1,:,:], PREC[m,:,:])
+    ds['CAPExP_R'][n,:,:] = np.multiply(CAPE[n-1,:,:], PREC[n,:,:])
+    
 ds['CAPExP_R'][:] = np.multiply(ds['CAPExP_R'][:], 0.000000000013) # constant, see Romps et al. 2014 (eta/E)
 ds['CAPExP_R'][:] = np.multiply(ds['CAPExP_R'][:], 3600000000) # To convert from (m2s)-1 to (km2hour)-1
+
 ds.close()
